@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { BOOK_PRICE } from '../config';
 import logo from '../assets/images/logo.jpg';
 import { useWindowSize } from '../hooks/useWindowSize';
 
-const Navbar = () => {
+const Navbar = ({ openCheckout }) => {
   const { width } = useWindowSize();
   const isMobile = width < 768;
   const [scrolled, setScrolled] = useState(false);
@@ -29,8 +30,8 @@ const Navbar = () => {
           <a href="#faq" className="nav-link">FAQ</a>
         </div>
 
-        <button className="btn btn-primary pulse" style={styles.ctaButton} onClick={() => window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})}>
-          Get for ₹99
+        <button className="btn btn-primary pulse" style={styles.ctaButton} onClick={openCheckout}>
+          Get for ₹{BOOK_PRICE}
         </button>
       </div>
     </nav>

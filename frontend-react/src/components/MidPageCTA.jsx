@@ -1,4 +1,5 @@
 import React from 'react';
+import { BOOK_PRICE } from '../config';
 import { useWindowSize } from '../hooks/useWindowSize';
 
 const MidPageCTA = ({ openCheckout }) => {
@@ -18,7 +19,7 @@ const MidPageCTA = ({ openCheckout }) => {
           </div>
           <div style={isMobile ? { ...styles.actionSection, width: '100%' } : styles.actionSection}>
             <button className="btn btn-primary pulse" style={styles.button} onClick={openCheckout}>
-              GET IT NOW — ₹99
+              GET IT NOW — ₹{BOOK_PRICE}
             </button>
             <p style={styles.microText}>Instant PDF • Read tonight</p>
           </div>

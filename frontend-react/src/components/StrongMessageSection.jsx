@@ -2,7 +2,7 @@ import React from 'react';
 import confidentChat from '../assets/images/confident_chat.jpg';
 import { useWindowSize } from '../hooks/useWindowSize';
 
-const StrongMessageSection = () => {
+const StrongMessageSection = ({ openCheckout }) => {
   const { width } = useWindowSize();
   const isTablet = width <= 992;
   const isMobile = width <= 768;
@@ -64,8 +64,8 @@ const StrongMessageSection = () => {
                 </div>
               </div>
               
-              <button className="btn btn-primary pulse" style={isMobile ? { ...styles.ctaButton, width: '100%' } : styles.ctaButton} onClick={() => window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})}>
-                Ready to stop overthinking? &rarr;
+              <button className="btn btn-primary pulse" style={isMobile ? { ...styles.ctaButton, width: '100%' } : styles.ctaButton} onClick={openCheckout}>
+                START READING NOW &rarr;
               </button>
             </div>
           </div>

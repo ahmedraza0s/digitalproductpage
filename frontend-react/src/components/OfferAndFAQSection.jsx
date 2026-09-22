@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { BOOK_PRICE } from '../config';
 
 const faqs = [
   {
@@ -86,7 +87,7 @@ const OfferAndFAQSection = ({ openCheckout }) => {
             
             {/* Value Stack */}
             <div style={styles.valueStack}>
-              <h4 style={styles.valueStackTitle}>What you get for ₹99:</h4>
+              <h4 style={styles.valueStackTitle}>What you get for ₹{BOOK_PRICE}:</h4>
               <div style={styles.valueStackList}>
                 <div style={styles.valueStackItem}>
                   <div style={styles.valueCheck}>✅</div>
@@ -116,12 +117,12 @@ const OfferAndFAQSection = ({ openCheckout }) => {
               </div>
               <div style={styles.valueStackTodayRow}>
                 <span style={styles.todayPriceLabel}>Today's Price:</span>
-                <span style={styles.todayPrice}>₹99</span>
+                <span style={styles.todayPrice}>₹{BOOK_PRICE}</span>
               </div>
             </div>
             
             <button className="btn btn-primary pulse" style={styles.ctaButton} onClick={openCheckout}>
-              GET EVERYTHING FOR ₹99 &rarr;
+              GET EVERYTHING FOR ₹{BOOK_PRICE} &rarr;
             </button>
             
             <div style={styles.secureBox}>
@@ -167,12 +168,12 @@ const OfferAndFAQSection = ({ openCheckout }) => {
         <div className="slide-up" style={styles.finalCtaBlock}>
           <h3 style={styles.finalCtaTitle}>Still on the fence?</h3>
           <p style={styles.finalCtaText}>
-            For less than a cup of coffee (₹99), you could stop dreading every new social interaction.
+            For less than a cup of coffee (₹{BOOK_PRICE}), you could stop dreading every new social interaction.
           </p>
-          <button className="btn btn-primary pulse" style={styles.finalCtaButton} onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
+          <button className="btn btn-primary pulse" style={styles.finalCtaButton} onClick={openCheckout}>
             YES, I WANT TO STOP BEING AWKWARD &rarr;
           </button>
-          <p style={styles.microText}>Instant PDF • ₹99 one-time • No subscription</p>
+          <p style={styles.microText}>Instant PDF • ₹{BOOK_PRICE} one-time • No subscription</p>
         </div>
 
       </div>

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import CheckoutModal from './CheckoutModal';
+import { BOOK_PRICE } from '../config';
 
 const StickyBuyBar = ({ openCheckout }) => {
   const [show, setShow] = useState(false);
@@ -50,14 +52,14 @@ const StickyBuyBar = ({ openCheckout }) => {
           
           <div style={styles.priceGroup}>
             <span style={styles.oldPrice}>₹1,000</span>
-            <span style={styles.newPrice}>₹99</span>
+            <span style={styles.newPrice}>₹{BOOK_PRICE}</span>
           </div>
         </div>
         
         <button 
           className="btn btn-primary pulse" 
           style={{...styles.button, ...(isMobile ? styles.mobileButton : {})}} 
-          onClick={() => window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})}
+          onClick={openCheckout}
         >
           Buy Now &rarr;
         </button>

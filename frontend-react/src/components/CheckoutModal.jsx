@@ -27,7 +27,7 @@ const CheckoutModal = ({ isOpen, onClose }) => {
 
       // 2. Initialize Razorpay
       const options = {
-        key: import.meta.env.VITE_RAZORPAY_KEY_ID || orderData.keyId,
+        key: import.meta.env.RAZORPAY_KEY_ID || orderData.keyId,
         amount: orderData.amount,
         currency: orderData.currency,
         name: 'Stop Being Awkward Ebook',

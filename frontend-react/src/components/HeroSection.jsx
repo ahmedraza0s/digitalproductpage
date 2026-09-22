@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { BOOK_PRICE } from '../config';
 import heroBookMockup from '../assets/images/hero_book_mockup.jpg';
 import { useWindowSize } from '../hooks/useWindowSize';
 
@@ -41,12 +42,12 @@ const HeroSection = ({ openCheckout }) => {
           <div style={isMobile ? { ...styles.offerBox, margin: '2rem auto 0 auto' } : styles.offerBox}>
             <div style={isMobile ? { ...styles.priceContainer, justifyContent: 'center' } : styles.priceContainer}>
               <span style={styles.oldPrice}>₹1,000</span>
-              <span style={styles.newPrice}>₹99</span>
+              <span style={styles.newPrice}>₹{BOOK_PRICE}</span>
               <span style={styles.discountBadge}>90% OFF</span>
             </div>
             
             <button className="btn btn-primary pulse" style={styles.ctaButton} onClick={openCheckout}>
-              GET THE BOOK FOR ₹99 &rarr;
+              GET THE BOOK FOR ₹{BOOK_PRICE} &rarr;
             </button>
             
             <div style={{ marginTop: '1rem' }}>

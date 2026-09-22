@@ -1,4 +1,5 @@
 import React from 'react';
+import { BOOK_PRICE } from '../config';
 
 const tocData = [
   { topic: "Starting Conversations", desc: "How to approach and open naturally without rehearsing lines." },
@@ -11,7 +12,7 @@ const tocData = [
   { topic: "Natural Confidence", desc: "How to become socially comfortable without faking an extrovert persona." }
 ];
 
-const TableOfContents = () => {
+const TableOfContents = ({ openCheckout }) => {
   return (
     <section style={styles.section} className="section-padding">
       <div className="container">
@@ -33,8 +34,8 @@ const TableOfContents = () => {
         </div>
 
         <div style={styles.bottomCta} className="slide-up">
-          <button className="btn btn-primary pulse" style={{ padding: '1rem 2rem' }} onClick={() => window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})}>
-            Get all 8 chapters for ₹99 &rarr;
+          <button className="btn btn-primary pulse" style={{ padding: '1rem 2rem' }} onClick={openCheckout}>
+            Get all 8 chapters for ₹{BOOK_PRICE} &rarr;
           </button>
         </div>
       </div>

@@ -19,13 +19,13 @@ const LandingPage = () => {
 
   return (
     <div style={styles.page}>
-      <Navbar />
+      <Navbar openCheckout={openCheckout} />
       <main>
         <HeroSection openCheckout={openCheckout} />
         <ProblemSection />
         <SolutionSection />
-        <StrongMessageSection />
-        <TableOfContents />
+        <StrongMessageSection openCheckout={openCheckout} />
+        <TableOfContents openCheckout={openCheckout} />
         <MidPageCTA openCheckout={openCheckout} />
         <TargetAudienceSection />
         <TestimonialsSection />
