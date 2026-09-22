@@ -1,39 +1,41 @@
 import React from 'react';
 
 const tocData = [
-  { topic: "Starting Conversations", desc: "How to approach and open naturally" },
-  { topic: "After “Hi”", desc: "What to say when the basic introduction is over" },
-  { topic: "Conversation Flow", desc: "How to move naturally between topics" },
-  { topic: "Better Questions", desc: "How to ask questions that create real conversation" },
-  { topic: "Dead Ends", desc: "How to avoid conversations that go nowhere" },
-  { topic: "New People", desc: "How to engage with someone you've just met" },
-  { topic: "Overthinking", desc: "How to stop mentally analyzing every sentence" },
-  { topic: "Natural Confidence", desc: "How to become socially comfortable without faking it" }
+  { topic: "Starting Conversations", desc: "How to approach and open naturally without rehearsing lines." },
+  { topic: "After “Hi”", desc: "Exactly what to say when the basic introduction is over." },
+  { topic: "Conversation Flow", desc: "How to move smoothly from one topic to another." },
+  { topic: "Better Questions", desc: "How to ask questions that create engaging, real conversation." },
+  { topic: "Dead Ends", desc: "How to avoid short, dry responses that kill the conversation." },
+  { topic: "New People", desc: "How to engage with someone you've just met for the first time." },
+  { topic: "Overthinking", desc: "Practical techniques to stop mentally analyzing every sentence." },
+  { topic: "Natural Confidence", desc: "How to become socially comfortable without faking an extrovert persona." }
 ];
 
 const TableOfContents = () => {
   return (
     <section style={styles.section} className="section-padding">
-      <div className="container" style={styles.container}>
-        <h2 style={styles.title} className="text-center">Inside the 45 Pages</h2>
+      <div className="container">
+        <div style={styles.header}>
+          <div className="tag-badge" style={{ marginBottom: '1rem' }}>Chapter Preview</div>
+          <h2 style={styles.title}>Inside the <span className="gradient-text">45 Pages</span></h2>
+        </div>
         
-        <div style={styles.tableContainer}>
-          <table style={styles.table}>
-            <thead>
-              <tr>
-                <th style={styles.th}>Topic</th>
-                <th style={styles.th}>What you'll learn</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tocData.map((item, idx) => (
-                <tr key={idx} style={styles.tr}>
-                  <td style={styles.tdTopic}><strong>{item.topic}</strong></td>
-                  <td style={styles.tdDesc}>{item.desc}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div style={styles.grid}>
+          {tocData.map((item, idx) => (
+            <div key={idx} className="slide-up" style={{...styles.card, animationDelay: `${idx * 0.1}s`}}>
+              <div style={styles.cardHeader}>
+                <div style={styles.chapterNum}>Chapter {idx + 1}</div>
+              </div>
+              <h4 style={styles.topicTitle}>{item.topic}</h4>
+              <p style={styles.topicDesc}>{item.desc}</p>
+            </div>
+          ))}
+        </div>
+
+        <div style={styles.bottomCta} className="slide-up">
+          <button className="btn btn-secondary" onClick={() => window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})}>
+            Get all 8 chapters for ₹99 &rarr;
+          </button>
         </div>
       </div>
     </section>
@@ -44,46 +46,78 @@ const styles = {
   section: {
     backgroundColor: 'var(--bg-color)',
     borderBottom: '1px solid var(--border-color)',
+    position: 'relative',
   },
-  container: {
-    maxWidth: '800px',
+  header: {
+    textAlign: 'center',
+    marginBottom: '4rem',
   },
   title: {
-    fontSize: '2.5rem',
-    marginBottom: '3rem',
+    fontSize: 'clamp(2.5rem, 4vw, 3.5rem)',
   },
-  tableContainer: {
-    overflowX: 'auto',
+  grid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+    gap: '1.5rem',
+  },
+  card: {
     backgroundColor: 'var(--surface-color)',
-    borderRadius: '1rem',
     border: '1px solid var(--border-color)',
+    borderRadius: '1rem',
+    padding: '2rem',
+    transition: 'var(--transition-smooth)',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1rem',
   },
-  table: {
-    width: '100%',
-    borderCollapse: 'collapse',
-    textAlign: 'left',
+  cardHeader: {
+    marginBottom: '0.5rem',
   },
-  th: {
-    padding: '1.5rem',
-    borderBottom: '1px solid var(--border-color)',
-    color: 'var(--text-secondary)',
+  chapterNum: {
+    display: 'inline-block',
+    background: 'linear-gradient(135deg, var(--accent-primary), #06b6d4)',
+    color: 'white',
+    padding: '0.25rem 0.75rem',
+    borderRadius: '9999px',
+    fontSize: '0.75rem',
+    fontWeight: '700',
     textTransform: 'uppercase',
     letterSpacing: '0.05em',
-    fontSize: '0.875rem',
   },
-  tr: {
-    borderBottom: '1px solid var(--border-color)',
-    transition: 'background-color 0.2s',
-  },
-  tdTopic: {
-    padding: '1.5rem',
+  topicTitle: {
+    fontSize: '1.25rem',
     color: 'white',
-    whiteSpace: 'nowrap',
+    margin: 0,
   },
-  tdDesc: {
-    padding: '1.5rem',
+  topicDesc: {
+    fontSize: '0.9375rem',
     color: 'var(--text-secondary)',
+    lineHeight: 1.6,
+    margin: 0,
+    flexGrow: 1,
+  },
+  bottomCta: {
+    marginTop: '4rem',
+    display: 'flex',
+    justifyContent: 'center',
   }
 };
 
-export default TableOfContents;
+// Add hover styles using style tag
+const hoverStyles = `
+  .slide-up:hover {
+    border-color: rgba(139, 92, 246, 0.4);
+    box-shadow: 0 10px 30px -10px rgba(139, 92, 246, 0.2);
+    transform: translateY(-2px);
+  }
+`;
+
+export default function WithHoverStyles() {
+  return (
+    <>
+      <style>{hoverStyles}</style>
+      <TableOfContents />
+    </>
+  );
+}
+

@@ -3,32 +3,32 @@ import React, { useState } from 'react';
 const faqs = [
   {
     q: "Is this book for introverts only?",
-    a: "No. The book is for anyone who struggles with starting or continuing conversations with people they don't know well."
+    a: "No. The book is for anyone who struggles with starting or continuing conversations with people they don't know well, regardless of personality type."
   },
   {
     q: "Do I need to become an extrovert?",
-    a: "No. The focus is on becoming more comfortable and natural in conversations—not changing your personality."
+    a: "No. The focus is on becoming more comfortable and natural in conversations—not changing who you fundamentally are."
   },
   {
     q: "How long is the book?",
-    a: "The book is 45 pages."
+    a: "The book is 45 pages long, designed to be read in a single evening so you can start using the techniques tomorrow."
   },
   {
     q: "Is this a physical book?",
-    a: "No. It's a digital book that you can read on your phone, tablet, or computer."
+    a: "No. It's a digital PDF book that you can read immediately on your phone, tablet, or computer after purchase."
   },
   {
-    q: "What will I learn?",
+    q: "What exactly will I learn?",
     a: "You'll learn practical approaches for starting conversations, knowing what to say next, asking better questions, keeping conversations going, and reducing overthinking."
   },
   {
-    q: "How much does it cost?",
-    a: "The current offer price is ₹99, reduced from ₹1,000."
+    q: "Is the payment safe?",
+    a: "Yes, we use secure, encrypted payment gateways. Your payment information is never stored on our servers."
   }
 ];
 
 const OfferAndFAQSection = () => {
-  const [openIndex, setOpenIndex] = useState(null);
+  const [openIndex, setOpenIndex] = useState(0); // First item open by default
 
   const toggleFaq = (index) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -38,34 +38,50 @@ const OfferAndFAQSection = () => {
     <section style={styles.section} className="section-padding">
       <div className="container" style={styles.container}>
         
-        {/* Offer Box */}
-        <div style={styles.offerCard}>
-          <h2 style={styles.offerTitle}>Stop Overthinking Every Conversation.</h2>
-          <p style={styles.offerSubtitle}>Get the complete <strong>Stop Being Awkward</strong> digital book today.</p>
-          
-          <div style={styles.priceInfo}>
-            <div style={styles.priceRow}>
-              <span style={styles.priceLabel}>Regular Price:</span>
-              <span style={styles.oldPrice}>₹1,000</span>
+        {/* Premium Offer Card */}
+        <div className="slide-up" style={styles.offerWrapper}>
+          <div style={styles.offerCardGlow}></div>
+          <div style={styles.offerCard}>
+            
+            <div style={styles.urgencyBadge}>🔥 Limited-time offer price</div>
+            
+            <h2 style={styles.offerTitle}>Stop Overthinking Every Conversation.</h2>
+            <p style={styles.offerSubtitle}>Get the complete <strong>Stop Being Awkward</strong> guide today.</p>
+            
+            <div style={styles.priceBox}>
+              <div style={styles.priceRow}>
+                <span style={styles.priceLabel}>Regular Price:</span>
+                <span style={styles.oldPrice}>₹1,000</span>
+              </div>
+              <div style={styles.priceRowMain}>
+                <span style={styles.newPrice}>₹99</span>
+                <span style={styles.discountPill}>Save ₹901 (90% OFF)</span>
+              </div>
             </div>
-            <div style={styles.priceRow}>
-              <span style={styles.priceLabel}>Today:</span>
-              <span style={styles.newPrice}>₹99</span>
+
+            <div style={styles.guaranteeList}>
+              <div style={styles.guaranteeItem}>
+                <span style={styles.check}>✓</span> Instant digital access
+              </div>
+              <div style={styles.guaranteeItem}>
+                <span style={styles.check}>✓</span> Works on all devices (PDF)
+              </div>
+              <div style={styles.guaranteeItem}>
+                <span style={styles.check}>✓</span> Read in 1 evening
+              </div>
+            </div>
+            
+            <button className="btn btn-primary pulse" style={styles.ctaButton} onClick={() => alert("Payment gateway integration goes here")}>
+              GET THE BOOK — ₹99
+            </button>
+            
+            <div style={styles.secureBox}>
+              <span>🔒</span>
+              <p style={styles.secureText}>
+                100% Secure Checkout. Instant access after successful payment.
+              </p>
             </div>
           </div>
-          
-          <div style={styles.savingsBox}>
-            <p style={styles.savingsText}>You Save ₹901</p>
-            <span style={styles.badge}>90% OFF</span>
-          </div>
-          
-          <button className="btn btn-primary" style={styles.ctaButton}>
-            GET THE BOOK — ₹99
-          </button>
-          
-          <p style={styles.guaranteeText}>
-            Instant digital access after successful payment.
-          </p>
         </div>
 
         {/* FAQ Section */}
@@ -75,20 +91,27 @@ const OfferAndFAQSection = () => {
             {faqs.map((faq, idx) => (
               <div 
                 key={idx} 
-                style={styles.faqItem}
+                style={{
+                  ...styles.faqItem, 
+                  borderColor: openIndex === idx ? 'var(--accent-primary)' : 'var(--border-color)',
+                  backgroundColor: openIndex === idx ? 'var(--surface-color)' : 'var(--bg-color)'
+                }}
+                className="slide-up"
+                style={{...styles.faqItem, animationDelay: `${idx * 0.1}s`,
+                  borderColor: openIndex === idx ? 'var(--accent-primary)' : 'var(--border-color)',
+                  backgroundColor: openIndex === idx ? 'var(--surface-color)' : 'var(--bg-color)'
+                }}
                 onClick={() => toggleFaq(idx)}
               >
                 <div style={styles.faqHeader}>
-                  <h4 style={styles.faqQuestion}>{faq.q}</h4>
-                  <span style={styles.faqIcon}>
+                  <h4 style={{...styles.faqQuestion, color: openIndex === idx ? 'white' : 'var(--text-primary)'}}>{faq.q}</h4>
+                  <div style={{...styles.faqIconBox, backgroundColor: openIndex === idx ? 'var(--accent-primary)' : 'transparent', color: openIndex === idx ? 'white' : 'var(--accent-primary)'}}>
                     {openIndex === idx ? '−' : '+'}
-                  </span>
-                </div>
-                {openIndex === idx && (
-                  <div style={styles.faqAnswer}>
-                    <p>{faq.a}</p>
                   </div>
-                )}
+                </div>
+                <div style={{...styles.faqAnswer, maxHeight: openIndex === idx ? '500px' : '0', opacity: openIndex === idx ? 1 : 0}}>
+                  <p style={styles.faqAnswerText}>{faq.a}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -102,91 +125,145 @@ const OfferAndFAQSection = () => {
 const styles = {
   section: {
     backgroundColor: 'var(--surface-hover)',
+    borderBottom: '1px solid var(--border-color)',
   },
   container: {
     maxWidth: '800px',
   },
+  offerWrapper: {
+    position: 'relative',
+    marginBottom: '6rem',
+    marginTop: '2rem',
+  },
+  offerCardGlow: {
+    position: 'absolute',
+    inset: '-2px',
+    background: 'linear-gradient(135deg, var(--accent-primary), var(--accent-secondary))',
+    borderRadius: '1.6rem',
+    filter: 'blur(10px)',
+    opacity: 0.5,
+    zIndex: 0,
+  },
   offerCard: {
-    backgroundColor: 'var(--bg-color)',
-    padding: '4rem 2rem',
+    position: 'relative',
+    backgroundColor: 'var(--surface-color)',
+    padding: '4rem 2.5rem',
     borderRadius: '1.5rem',
     textAlign: 'center',
-    border: '1px solid var(--accent-color)',
-    boxShadow: '0 20px 40px rgba(0,0,0,0.2)',
-    marginBottom: '5rem',
+    border: '1px solid rgba(255,255,255,0.1)',
+    zIndex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  urgencyBadge: {
+    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+    color: '#EF4444',
+    border: '1px solid rgba(239, 68, 68, 0.3)',
+    padding: '0.5rem 1rem',
+    borderRadius: '9999px',
+    fontWeight: '600',
+    fontSize: '0.875rem',
+    marginBottom: '2rem',
+    display: 'inline-block',
   },
   offerTitle: {
     fontSize: 'clamp(2rem, 4vw, 3rem)',
     marginBottom: '1rem',
+    lineHeight: 1.1,
   },
   offerSubtitle: {
     fontSize: '1.25rem',
     color: 'var(--text-secondary)',
-    marginBottom: '3rem',
+    marginBottom: '2.5rem',
   },
-  priceInfo: {
-    display: 'inline-flex',
-    flexDirection: 'column',
-    gap: '0.5rem',
-    alignItems: 'center',
+  priceBox: {
+    backgroundColor: 'var(--bg-color)',
+    padding: '1.5rem 2rem',
+    borderRadius: '1rem',
+    width: '100%',
+    maxWidth: '450px',
+    border: '1px solid var(--border-color)',
     marginBottom: '2rem',
   },
   priceRow: {
     display: 'flex',
-    alignItems: 'baseline',
-    gap: '1rem',
+    justifyContent: 'center',
+    gap: '0.5rem',
+    marginBottom: '0.5rem',
   },
   priceLabel: {
-    fontSize: '1.25rem',
     color: 'var(--text-secondary)',
   },
   oldPrice: {
-    fontSize: '1.25rem',
     textDecoration: 'line-through',
     color: 'var(--text-secondary)',
   },
+  priceRowMain: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '0.5rem',
+  },
   newPrice: {
-    fontSize: '3rem',
+    fontSize: '4rem',
     fontWeight: '800',
     color: 'white',
     lineHeight: 1,
+    background: 'linear-gradient(135deg, #fff, var(--text-secondary))',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
   },
-  savingsBox: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '1rem',
-    marginBottom: '3rem',
-  },
-  savingsText: {
-    fontSize: '1.5rem',
-    fontWeight: '700',
-    color: 'var(--success-color)',
-    margin: 0,
-  },
-  badge: {
+  discountPill: {
     backgroundColor: 'var(--success-color)',
     color: 'white',
-    padding: '0.25rem 0.5rem',
-    borderRadius: '0.25rem',
+    padding: '0.25rem 0.75rem',
+    borderRadius: '9999px',
+    fontWeight: '700',
+    fontSize: '0.875rem',
+  },
+  guaranteeList: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '0.75rem',
+    marginBottom: '2.5rem',
+    alignItems: 'flex-start',
+    textAlign: 'left',
+  },
+  guaranteeItem: {
+    fontSize: '1.0625rem',
+    color: 'var(--text-primary)',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.75rem',
+  },
+  check: {
+    color: 'var(--success-color)',
     fontWeight: 'bold',
   },
   ctaButton: {
     width: '100%',
-    maxWidth: '400px',
+    maxWidth: '450px',
     fontSize: '1.25rem',
-    padding: '1.25rem',
-    marginBottom: '1rem',
+    padding: '1.5rem',
+    marginBottom: '1.5rem',
   },
-  guaranteeText: {
-    fontSize: '0.875rem',
+  secureBox: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '0.5rem',
     color: 'var(--text-secondary)',
+    fontSize: '0.875rem',
+  },
+  secureText: {
+    margin: 0,
   },
   faqSection: {
-    marginTop: '4rem',
+    marginTop: '2rem',
   },
   faqTitle: {
-    fontSize: '2rem',
+    fontSize: '2.5rem',
     textAlign: 'center',
     marginBottom: '3rem',
   },
@@ -196,34 +273,49 @@ const styles = {
     gap: '1rem',
   },
   faqItem: {
-    backgroundColor: 'var(--bg-color)',
     border: '1px solid var(--border-color)',
-    borderRadius: '0.5rem',
+    borderRadius: '0.75rem',
     overflow: 'hidden',
     cursor: 'pointer',
-    transition: 'border-color 0.2s',
+    transition: 'var(--transition-smooth)',
   },
   faqHeader: {
     padding: '1.5rem',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    gap: '1rem',
   },
   faqQuestion: {
     margin: 0,
     fontSize: '1.125rem',
     fontWeight: '600',
+    transition: 'color 0.2s',
   },
-  faqIcon: {
+  faqIconBox: {
+    width: '32px',
+    height: '32px',
+    borderRadius: '50%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     fontSize: '1.5rem',
-    color: 'var(--accent-color)',
     fontWeight: '300',
+    border: '1px solid var(--border-color)',
+    transition: 'var(--transition-smooth)',
+    flexShrink: 0,
   },
   faqAnswer: {
+    overflow: 'hidden',
+    transition: 'max-height 0.3s ease, opacity 0.3s ease',
+  },
+  faqAnswerText: {
     padding: '0 1.5rem 1.5rem 1.5rem',
     color: 'var(--text-secondary)',
     lineHeight: 1.6,
+    margin: 0,
   }
 };
 
 export default OfferAndFAQSection;
+

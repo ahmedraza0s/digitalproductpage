@@ -1,10 +1,12 @@
 import React from 'react';
+import Navbar from '../components/Navbar';
 import HeroSection from '../components/HeroSection';
 import ProblemSection from '../components/ProblemSection';
 import SolutionSection from '../components/SolutionSection';
 import StrongMessageSection from '../components/StrongMessageSection';
 import TableOfContents from '../components/TableOfContents';
 import TargetAudienceSection from '../components/TargetAudienceSection';
+import TestimonialsSection from '../components/TestimonialsSection';
 import OfferAndFAQSection from '../components/OfferAndFAQSection';
 
 import logo from '../assets/images/logo.jpg';
@@ -12,28 +14,42 @@ import logo from '../assets/images/logo.jpg';
 const LandingPage = () => {
   return (
     <div className="landing-page">
-      {/* Simple Header */}
-      <header style={styles.header}>
-        <div className="container" style={styles.headerContainer}>
-          <img src={logo} alt="Stop Being Awkward Logo" style={styles.logo} />
-        </div>
-      </header>
+      <Navbar />
 
       <main>
         <HeroSection />
         <ProblemSection />
         <SolutionSection />
         <StrongMessageSection />
-        <TableOfContents />
-        <TargetAudienceSection />
-        <OfferAndFAQSection />
+        <div id="what-inside">
+          <TableOfContents />
+        </div>
+        <div id="who-for">
+          <TargetAudienceSection />
+        </div>
+        <TestimonialsSection />
+        <div id="faq">
+          <OfferAndFAQSection />
+        </div>
       </main>
 
-      {/* Simple Footer */}
       <footer style={styles.footer}>
-        <div className="container text-center">
-          <p className="text-secondary" style={{ fontSize: '0.875rem' }}>
-            &copy; {new Date().getFullYear()} Stop Being Awkward. All rights reserved.
+        <div className="container text-center" style={styles.footerContainer}>
+          <div style={styles.footerBrand}>
+            <img src={logo} alt="Stop Being Awkward Logo" style={styles.footerLogo} />
+            <span style={styles.footerBrandText}>Stop Being Awkward</span>
+          </div>
+          
+          <div style={styles.footerLinks}>
+            <a href="/privacy" style={styles.footerLink}>Privacy Policy</a>
+            <a href="/terms" style={styles.footerLink}>Terms & Conditions</a>
+            <a href="/refund" style={styles.footerLink}>Refund Policy</a>
+            <a href="/access" style={styles.footerLink}>Access Issue?</a>
+          </div>
+
+          <p className="text-secondary" style={styles.copyright}>
+            &copy; {new Date().getFullYear()} Stop Being Awkward. All rights reserved.<br/>
+            Made with ❤️ in India
           </p>
         </div>
       </footer>
@@ -42,28 +58,45 @@ const LandingPage = () => {
 };
 
 const styles = {
-  header: {
-    padding: '1rem 0',
-    backgroundColor: 'rgba(15, 23, 42, 0.9)',
-    backdropFilter: 'blur(10px)',
-    position: 'sticky',
-    top: 0,
-    zIndex: 100,
-    borderBottom: '1px solid var(--border-color)',
+  footer: {
+    padding: '4rem 0 2rem 0',
+    borderTop: '1px solid var(--border-color)',
+    backgroundColor: 'var(--bg-color)',
+    position: 'relative',
   },
-  headerContainer: {
+  footerContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '2rem',
+  },
+  footerBrand: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    gap: '0.75rem',
   },
-  logo: {
-    height: '40px',
+  footerLogo: {
+    height: '32px',
     borderRadius: '4px',
   },
-  footer: {
-    padding: '2rem 0',
-    borderTop: '1px solid var(--border-color)',
-    marginTop: '4rem',
+  footerBrandText: {
+    fontWeight: '700',
+    fontSize: '1.25rem',
+    color: 'white',
+  },
+  footerLinks: {
+    display: 'flex',
+    gap: '1.5rem',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  footerLink: {
+    color: 'var(--text-secondary)',
+    fontSize: '0.9375rem',
+  },
+  copyright: {
+    fontSize: '0.875rem',
+    lineHeight: '1.8',
   }
 };
 

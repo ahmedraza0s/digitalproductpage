@@ -1,18 +1,15 @@
 import React from 'react';
-import heroPc from '../assets/images/hero_pc.jpg';
-import heroMobile from '../assets/images/hero_mobile.jpg';
+import heroBookMockup from '../assets/images/hero_book_mockup.jpg';
 
 const HeroSection = () => {
   return (
     <section style={styles.heroSection} className="section-padding">
-      {/* Background Image Setup */}
-      <picture style={styles.pictureBg}>
-        <source media="(max-width: 768px)" srcSet={heroMobile} />
-        <img src={heroPc} alt="Hero Background" style={styles.imgBg} />
-      </picture>
-      <div style={styles.overlay}></div>
+      {/* Background with mesh gradient feel */}
+      <div style={styles.backgroundGlow}></div>
 
-      <div className="container" style={styles.content}>
+      <div className="container" style={styles.grid}>
+        
+        {/* Left Content */}
         <div className="fade-in" style={styles.textContent}>
           <div style={styles.badge}>
             <span style={styles.badgeIcon}>📖</span>
@@ -21,7 +18,7 @@ const HeroSection = () => {
 
           <h1 style={styles.headline}>
             You Know How to Say “Hi.”<br />
-            <span className="text-accent">But What Do You Say Next?</span>
+            <span className="gradient-text">But What Do You Say Next?</span>
           </h1>
 
           <p style={styles.subheadline}>
@@ -29,20 +26,41 @@ const HeroSection = () => {
             Learn how to start conversations, keep them going, and talk naturally with people you just met.
           </p>
 
+          <div style={styles.socialProof}>
+            <span style={styles.proofItem}>📚 1,200+ readers</span>
+            <span style={styles.proofDot}>•</span>
+            <span style={styles.proofItem}>⭐ 4.8 stars</span>
+            <span style={styles.proofDot}>•</span>
+            <span style={styles.proofItem}>🇮🇳 Trusted across India</span>
+          </div>
+
           <div style={styles.offerBox}>
             <div style={styles.priceContainer}>
               <span style={styles.oldPrice}>₹1,000</span>
               <span style={styles.newPrice}>₹99</span>
               <span style={styles.discountBadge}>90% OFF</span>
             </div>
-            <button className="btn btn-primary" style={styles.ctaButton}>
+            
+            <button className="btn btn-primary pulse" style={styles.ctaButton} onClick={() => window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})}>
               GET THE BOOK FOR ₹99 &rarr;
             </button>
-            <p style={styles.supportingLine}>
-              Instant digital access &bull; Read on your phone, tablet or laptop
-            </p>
+            
+            <div style={{ marginTop: '1rem' }}>
+              <a href="#what-inside" style={styles.secondaryLink}>
+                See what's inside &darr;
+              </a>
+            </div>
           </div>
         </div>
+
+        {/* Right Content - 3D Book */}
+        <div className="fade-in" style={styles.imageColumn}>
+          <div style={styles.imageWrapper}>
+            <img src={heroBookMockup} alt="Stop Being Awkward Book" style={styles.bookImage} />
+            <div style={styles.imageGlow}></div>
+          </div>
+        </div>
+
       </div>
     </section>
   );
@@ -51,97 +69,99 @@ const HeroSection = () => {
 const styles = {
   heroSection: {
     position: 'relative',
-    minHeight: '85vh',
+    minHeight: '100vh',
     display: 'flex',
     alignItems: 'center',
     overflow: 'hidden',
+    paddingTop: '8rem', // extra padding for fixed navbar
+    paddingBottom: '4rem',
   },
-  pictureBg: {
+  backgroundGlow: {
     position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
+    top: '20%',
+    right: '-10%',
+    width: '600px',
+    height: '600px',
+    background: 'radial-gradient(circle, var(--accent-glow) 0%, rgba(10,10,20,0) 70%)',
     zIndex: 0,
+    pointerEvents: 'none',
   },
-  imgBg: {
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover',
-    objectPosition: 'center right',
-  },
-  overlay: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'rgba(15, 23, 42, 0.85)', /* Slate 900 with opacity */
-    zIndex: 1,
-  },
-  content: {
+  grid: {
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+    gap: '4rem',
+    alignItems: 'center',
     position: 'relative',
     zIndex: 2,
-    maxWidth: '800px',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    textAlign: 'center',
+    '@media (maxWidth: 992px)': {
+      gridTemplateColumns: '1fr',
+      textAlign: 'center',
+    }
   },
   textContent: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     gap: '1.5rem',
   },
   badge: {
     display: 'inline-flex',
     alignItems: 'center',
     gap: '0.5rem',
-    backgroundColor: 'rgba(56, 189, 248, 0.1)',
-    border: '1px solid var(--accent-color)',
+    backgroundColor: 'rgba(139, 92, 246, 0.1)',
+    border: '1px solid rgba(139, 92, 246, 0.3)',
     padding: '0.5rem 1rem',
     borderRadius: '9999px',
   },
   badgeIcon: {
-    fontSize: '1.25rem',
+    fontSize: '1.125rem',
   },
   badgeText: {
-    color: 'var(--accent-color)',
+    color: 'var(--accent-primary)',
     fontWeight: '600',
     fontSize: '0.875rem',
   },
   headline: {
-    fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+    fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
     letterSpacing: '-0.02em',
     lineHeight: 1.1,
+    color: 'var(--text-primary)',
   },
   subheadline: {
     fontSize: 'clamp(1.125rem, 2vw, 1.25rem)',
     color: 'var(--text-secondary)',
-    maxWidth: '600px',
-    margin: '0 auto',
+    maxWidth: '540px',
+  },
+  socialProof: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.75rem',
+    flexWrap: 'wrap',
+    marginTop: '0.5rem',
+  },
+  proofItem: {
+    fontSize: '0.9375rem',
+    color: 'var(--text-secondary)',
+    fontWeight: '500',
+  },
+  proofDot: {
+    color: 'var(--border-color)',
   },
   offerBox: {
     marginTop: '2rem',
-    padding: '2rem',
-    backgroundColor: 'rgba(30, 41, 59, 0.8)', /* Slate 800 */
-    backdropFilter: 'blur(12px)',
-    borderRadius: '1rem',
-    border: '1px solid var(--border-color)',
     width: '100%',
-    maxWidth: '500px',
+    maxWidth: '400px',
   },
   priceContainer: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
     gap: '1rem',
-    marginBottom: '1.5rem',
+    marginBottom: '1.25rem',
   },
   oldPrice: {
     color: 'var(--text-secondary)',
     textDecoration: 'line-through',
-    fontSize: '1.25rem',
+    fontSize: '1.125rem',
   },
   newPrice: {
     fontSize: '3rem',
@@ -159,14 +179,59 @@ const styles = {
   },
   ctaButton: {
     width: '100%',
-    fontSize: '1.25rem',
+    fontSize: '1.125rem',
     padding: '1.25rem',
   },
-  supportingLine: {
-    marginTop: '1rem',
-    fontSize: '0.875rem',
+  secondaryLink: {
+    fontSize: '0.9375rem',
     color: 'var(--text-secondary)',
+    textDecoration: 'underline',
+    textUnderlineOffset: '4px',
+    display: 'inline-block',
+  },
+  imageColumn: {
+    position: 'relative',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  imageWrapper: {
+    position: 'relative',
+    width: '100%',
+    maxWidth: '500px',
+    animation: 'float 6s ease-in-out infinite',
+  },
+  bookImage: {
+    width: '100%',
+    height: 'auto',
+    position: 'relative',
+    zIndex: 2,
+    borderRadius: '16px',
+    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+  },
+  imageGlow: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '80%',
+    height: '80%',
+    background: 'var(--accent-glow)',
+    filter: 'blur(80px)',
+    zIndex: 1,
+    borderRadius: '50%',
   }
 };
 
+// Handle responsive styles for flex items
+if (typeof window !== 'undefined' && window.innerWidth <= 992) {
+  styles.grid.gridTemplateColumns = '1fr';
+  styles.textContent.alignItems = 'center';
+  styles.textContent.textAlign = 'center';
+  styles.subheadline.margin = '0 auto';
+  styles.socialProof.justifyContent = 'center';
+  styles.offerBox.margin = '2rem auto 0 auto';
+}
+
 export default HeroSection;
+

@@ -3,35 +3,48 @@ import React from 'react';
 const ProblemSection = () => {
   return (
     <section style={styles.section} className="section-padding">
-      <div className="container text-center" style={styles.container}>
-        <h2 style={styles.kicker} className="text-accent">Ever had this happen?</h2>
+      <div className="container" style={styles.container}>
+        <div style={styles.header}>
+          <div className="tag-badge" style={{ marginBottom: '1.5rem' }}>Ever had this happen?</div>
+        </div>
         
         <div style={styles.storyContainer}>
-          <p style={styles.storyText}>You meet someone new.</p>
           
-          <div style={styles.dialogueBox}>
+          <div className="slide-up" style={{...styles.storyCard, animationDelay: '0s'}}>
+            <div style={styles.stepNum}>1</div>
+            <p style={styles.storyText}>You meet someone new.</p>
+          </div>
+          
+          <div className="slide-up" style={{...styles.storyCard, ...styles.highlightCard, animationDelay: '0.2s'}}>
+            <div style={styles.stepNum}>2</div>
             <strong>“Hi, how are you?”</strong>
           </div>
           
-          <p style={styles.storyText}>They answer.</p>
-          <p style={styles.storyText}>And suddenly...</p>
-          
-          <h3 style={styles.dramaticText}>Your mind goes blank.</h3>
-          
-          <div style={styles.thoughtsContainer}>
-            <p style={styles.thoughtItem}>&ldquo;What should I ask now?&rdquo;</p>
-            <p style={styles.thoughtItem}>&ldquo;Am I being boring?&rdquo;</p>
-            <p style={styles.thoughtItem}>&ldquo;What if this gets awkward?&rdquo;</p>
-            <p style={styles.thoughtItem}>&ldquo;Should I say something?&rdquo;</p>
-            <p style={styles.thoughtItem}>&ldquo;What do I even talk about?&rdquo;</p>
+          <div className="slide-up" style={{...styles.storyCard, animationDelay: '0.4s'}}>
+            <div style={styles.stepNum}>3</div>
+            <p style={styles.storyText}>They answer.</p>
+            <p style={styles.storyText}>And suddenly...</p>
           </div>
           
-          <p style={styles.storyText}>Then the conversation slowly dies.</p>
+          <div className="slide-up" style={{...styles.storyCard, ...styles.dramaticCard, animationDelay: '0.6s'}}>
+            <h3 style={styles.dramaticText}>Your mind goes blank.</h3>
+            
+            <div style={styles.thoughtsContainer}>
+              <p style={styles.thoughtItem}>&ldquo;What should I ask now?&rdquo;</p>
+              <p style={styles.thoughtItem}>&ldquo;Am I being boring?&rdquo;</p>
+              <p style={styles.thoughtItem}>&ldquo;What if this gets awkward?&rdquo;</p>
+            </div>
+            
+            <p style={styles.storyText}>Then the conversation slowly dies.</p>
+          </div>
         </div>
 
-        <div style={styles.bottomHighlight}>
-          <p style={styles.highlightText}>The problem isn't that you can't talk.</p>
-          <h3 style={styles.solutionHint}>You just don't know how to keep the conversation moving.</h3>
+        <div className="slide-up" style={{...styles.bottomHighlight, animationDelay: '0.8s'}}>
+          <div style={styles.highlightIcon}>💡</div>
+          <div>
+            <p style={styles.highlightText}>The problem isn't that you can't talk.</p>
+            <h3 style={styles.solutionHint}>You just don't know how to keep the conversation moving.</h3>
+          </div>
         </div>
       </div>
     </section>
@@ -42,40 +55,69 @@ const styles = {
   section: {
     backgroundColor: 'var(--surface-color)',
     borderBottom: '1px solid var(--border-color)',
+    position: 'relative',
   },
   container: {
-    maxWidth: '800px',
+    maxWidth: '700px',
   },
-  kicker: {
-    fontSize: '1rem',
-    textTransform: 'uppercase',
-    letterSpacing: '0.1em',
-    marginBottom: '3rem',
+  header: {
+    textAlign: 'center',
   },
   storyContainer: {
     display: 'flex',
     flexDirection: 'column',
     gap: '1.5rem',
-    alignItems: 'center',
     marginBottom: '4rem',
   },
-  storyText: {
-    fontSize: '1.25rem',
-    color: 'var(--text-secondary)',
-  },
-  dialogueBox: {
-    backgroundColor: 'var(--bg-color)',
-    padding: '1rem 2rem',
+  storyCard: {
+    backgroundColor: 'var(--surface-hover)',
+    padding: '1.5rem 2rem',
     borderRadius: '1rem',
     border: '1px solid var(--border-color)',
-    fontSize: '1.5rem',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '1.5rem',
+    position: 'relative',
+    overflow: 'hidden',
+  },
+  highlightCard: {
+    backgroundColor: 'rgba(139, 92, 246, 0.1)',
+    borderColor: 'rgba(139, 92, 246, 0.3)',
     color: 'white',
-    margin: '1rem 0',
+    fontSize: '1.25rem',
+  },
+  dramaticCard: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    backgroundColor: 'var(--bg-color)',
+    border: '1px solid var(--accent-primary)',
+    padding: '2.5rem 2rem',
+  },
+  stepNum: {
+    width: '32px',
+    height: '32px',
+    borderRadius: '50%',
+    backgroundColor: 'rgba(255,255,255,0.05)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'var(--text-secondary)',
+    fontWeight: '700',
+    fontSize: '0.875rem',
+    flexShrink: 0,
+  },
+  storyText: {
+    fontSize: '1.125rem',
+    color: 'var(--text-primary)',
+    margin: 0,
   },
   dramaticText: {
-    fontSize: 'clamp(2rem, 4vw, 3rem)',
+    fontSize: 'clamp(1.75rem, 4vw, 2.5rem)',
     color: 'white',
-    margin: '2rem 0',
+    margin: '0 0 1.5rem 0',
+    background: 'linear-gradient(135deg, #fff, var(--text-secondary))',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
   },
   thoughtsContainer: {
     display: 'flex',
@@ -83,28 +125,38 @@ const styles = {
     gap: '0.75rem',
     fontStyle: 'italic',
     color: 'var(--text-secondary)',
-    marginBottom: '2rem',
+    marginBottom: '1.5rem',
+    paddingLeft: '1rem',
+    borderLeft: '2px solid rgba(139, 92, 246, 0.3)',
   },
   thoughtItem: {
-    fontSize: '1.125rem',
+    fontSize: '1rem',
+    margin: 0,
   },
   bottomHighlight: {
-    backgroundColor: 'rgba(56, 189, 248, 0.05)',
-    border: '1px solid rgba(56, 189, 248, 0.2)',
-    padding: '3rem 2rem',
-    borderRadius: '1rem',
+    backgroundColor: 'rgba(139, 92, 246, 0.05)',
+    borderLeft: '4px solid var(--accent-primary)',
+    padding: '2.5rem 2rem',
+    borderRadius: '0.5rem',
+    display: 'flex',
+    gap: '1.5rem',
+    alignItems: 'flex-start',
+  },
+  highlightIcon: {
+    fontSize: '2rem',
   },
   highlightText: {
-    fontSize: '1.5rem',
+    fontSize: '1.25rem',
     color: 'var(--text-secondary)',
     marginBottom: '0.5rem',
   },
   solutionHint: {
-    fontSize: 'clamp(1.5rem, 3vw, 2.25rem)',
-    color: 'var(--accent-color)',
-    lineHeight: 1.2,
+    fontSize: 'clamp(1.25rem, 3vw, 1.75rem)',
+    color: 'white',
+    lineHeight: 1.3,
     margin: 0,
   }
 };
 
 export default ProblemSection;
+
