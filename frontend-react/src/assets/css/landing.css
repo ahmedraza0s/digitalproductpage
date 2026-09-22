@@ -1,0 +1,261 @@
+/* Header */
+.site-header {
+  padding: 24px 0;
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+}
+
+.site-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+/* Recovery Banner */
+.recovery-banner {
+  background-color: var(--color-accent-glow);
+  border-bottom: 1px solid var(--color-border);
+  padding: 12px 0;
+  text-align: center;
+}
+
+.recovery-banner a {
+  font-weight: 600;
+  margin-left: 8px;
+}
+
+/* Hero Section */
+.hero {
+  padding: 120px 0 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 400px; height: 400px;
+  background: var(--color-accent);
+  filter: blur(150px);
+  opacity: 0.3;
+  z-index: -1;
+}
+
+.hero .container {
+  display: flex;
+  align-items: center;
+  gap: 64px;
+}
+
+.hero-content {
+  flex: 1;
+}
+
+.hero-tag {
+  display: inline-block;
+  padding: 6px 12px;
+  background: var(--color-surface-2);
+  border-radius: 100px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-accent-light);
+  margin-bottom: 24px;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  margin-bottom: 24px;
+}
+
+.hero-desc {
+  font-size: 1.25rem;
+  color: var(--color-text-muted);
+  margin-bottom: 32px;
+}
+
+.price-block {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.price {
+  font-size: 3rem;
+  font-weight: 800;
+  font-family: var(--font-heading);
+}
+
+.hero-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-glow);
+}
+
+/* Benefits Section */
+.benefits {
+  padding: 80px 0;
+  background: var(--color-surface);
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 64px;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+}
+
+.benefit-card {
+  text-align: center;
+}
+
+.benefit-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 24px;
+  background: var(--color-surface-2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--color-accent-light);
+}
+
+/* Chapters Section */
+.chapters {
+  padding: 80px 0;
+}
+
+.chapter-list {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.chapter-item {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  padding: 24px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.chapter-num {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  width: 60px;
+}
+
+/* FAQ Section */
+.faq {
+  padding: 80px 0;
+  background: var(--color-surface);
+}
+
+.faq-list {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--color-border);
+  padding: 24px 0;
+}
+
+.faq-q {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.faq-a {
+  color: var(--color-text-muted);
+}
+
+/* Final CTA */
+.final-cta {
+  padding: 100px 0;
+  text-align: center;
+}
+
+.final-cta h2 {
+  font-size: 3rem;
+  margin-bottom: 40px;
+}
+
+/* Footer */
+.site-footer {
+  padding: 40px 0;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface);
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+/* Sticky Mobile CTA */
+.sticky-cta {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: rgba(19,19,26,0.9);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--color-border);
+  padding: 16px 20px;
+  z-index: 90;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero .container {
+    flex-direction: column-reverse;
+    text-align: center;
+    gap: 40px;
+  }
+  
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .price-block {
+    justify-content: center;
+  }
+  
+  .sticky-cta {
+    display: flex; /* Display on mobile */
+  }
+}

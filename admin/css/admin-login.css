@@ -1,0 +1,48 @@
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius);
+  padding: 40px 32px;
+  box-shadow: var(--admin-shadow);
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.login-header h1 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.login-header p {
+  color: var(--admin-text-muted);
+}
+
+.btn-block {
+  width: 100%;
+  margin-top: 24px;
+}
+
+#login-error {
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 6px;
+  background: var(--admin-error-bg);
+  color: var(--admin-error);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  text-align: center;
+  font-size: 13px;
+}
