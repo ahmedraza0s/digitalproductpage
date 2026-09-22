@@ -41,10 +41,25 @@ app.use('/api/admin', require('./src/routes/admin.routes'));
 // Health Check
 app.get('/api/health', (req, res) => res.status(200).json({ status: 'ok' }));
 
-// 404 Handler
-app.use((req, res) => {
-  res.status(404).json({ error: 'Endpoint not found' });
+// 404 Handler for API Routes
+app.use('/api', (req, res) => {
+  res.status(404).json({ error: 'API endpoint not found' });
 });
+
+// Serve frontend in production
+if (env.NODE_ENV === 'production' || process.env.SERVE_FRONTEND === 'true') {
+  const frontendPath = path.join(__dirname, '../frontend-react/dist');
+  app.use(express.static(frontendPath));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(frontendPath, 'index.html'));
+  });
+} else {
+  // 404 Handler for anything else in development
+  app.use((req, res) => {
+    res.status(404).json({ error: 'Endpoint not found' });
+  });
+}
 
 // Global Error Handler
 app.use(errorHandler);
