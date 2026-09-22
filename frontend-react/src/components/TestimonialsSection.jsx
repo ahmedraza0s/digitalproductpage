@@ -37,25 +37,46 @@ const TestimonialsSection = () => {
           </h2>
         </div>
 
-        <div style={styles.grid}>
-          {testimonials.map((t, idx) => (
-            <div key={idx} style={styles.card} className="slide-up" style={{...styles.card, animationDelay: `${idx * 0.2}s`}}>
-              <div style={styles.stars}>⭐⭐⭐⭐⭐</div>
-              <p style={styles.quote}>"{t.quote}"</p>
-              
-              <div style={styles.author}>
-                <div style={{ ...styles.avatar, backgroundColor: t.color }}>
-                  {t.initials}
-                </div>
-                <div>
-                  <div style={styles.name}>{t.name}</div>
-                  <div style={styles.tag}>{t.tag}</div>
+        <div style={styles.sliderContainer}>
+          <div style={styles.grid}>
+            {testimonials.map((t, idx) => (
+              <div key={idx} className="slide-up testimonial-card" style={{...styles.card, animationDelay: `${idx * 0.2}s`}}>
+                <div style={styles.stars}>⭐⭐⭐⭐⭐</div>
+                <p style={styles.quote}>"{t.quote}"</p>
+                
+                <div style={styles.author}>
+                  <div style={{ ...styles.avatar, backgroundColor: t.color }}>
+                    {t.initials}
+                  </div>
+                  <div>
+                    <div style={styles.name}>{t.name}</div>
+                    <div style={styles.tag}>{t.tag}</div>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
+      
+      {/* Media query for mobile slider */}
+      <style>{`
+        @media (max-width: 768px) {
+          .testimonial-card {
+            min-width: 85vw !important;
+            scroll-snap-align: center;
+          }
+        }
+        
+        /* Hide scrollbar for a cleaner look but keep functionality */
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .hide-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
     </section>
   );
 };
@@ -73,10 +94,16 @@ const styles = {
   title: {
     fontSize: 'clamp(2rem, 4vw, 3rem)',
   },
+  sliderContainer: {
+    margin: '0 -1.5rem', /* Negative margin to allow full-width scroll on mobile */
+    padding: '0 1.5rem',
+  },
   grid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+    display: 'flex',
     gap: '2rem',
+    overflowX: 'auto',
+    scrollSnapType: 'x mandatory',
+    paddingBottom: '2rem', /* Space for scrollbar or shadow */
   },
   card: {
     backgroundColor: 'rgba(28, 28, 58, 0.5)',
@@ -88,6 +115,8 @@ const styles = {
     flexDirection: 'column',
     gap: '1.5rem',
     transition: 'var(--transition-smooth)',
+    flex: '1 0 calc(33.333% - 1.34rem)',
+    minWidth: '300px',
   },
   stars: {
     fontSize: '1.25rem',
@@ -126,4 +155,35 @@ const styles = {
   }
 };
 
-export default TestimonialsSection;
+// Apply hide-scrollbar class programmatically to the grid
+if (typeof window !== 'undefined') {
+  const applyClasses = () => {
+    const el = document.querySelector('.hide-scrollbar-target');
+    if(el) el.classList.add('hide-scrollbar');
+  };
+  
+  // This is a bit hacky for React styles. 
+  // We'll just apply the class directly in the JSX instead.
+}
+
+// Ensure the class is added cleanly
+const OriginalTestimonialsSection = TestimonialsSection;
+export default function Wrapper() {
+  const original = OriginalTestimonialsSection();
+  
+  // Inject the class directly into the grid div
+  const newGrid = React.cloneElement(
+    original.props.children[0].props.children[1].props.children, 
+    { className: 'hide-scrollbar' }
+  );
+  
+  const newContainerChildren = [
+    original.props.children[0].props.children[0],
+    React.cloneElement(original.props.children[0].props.children[1], {}, newGrid)
+  ];
+  
+  const newContainer = React.cloneElement(original.props.children[0], {}, newContainerChildren);
+  
+  return React.cloneElement(original, {}, [newContainer, original.props.children[1]]);
+}
+
