@@ -2,7 +2,7 @@ import React from 'react';
 import heroBookMockup from '../assets/images/hero_book_mockup.jpg';
 import { useWindowSize } from '../hooks/useWindowSize';
 
-const HeroSection = () => {
+const HeroSection = ({ openCheckout }) => {
   const { width } = useWindowSize();
   const isMobile = width <= 992;
   return (
@@ -45,7 +45,7 @@ const HeroSection = () => {
               <span style={styles.discountBadge}>90% OFF</span>
             </div>
             
-            <button className="btn btn-primary pulse" style={styles.ctaButton} onClick={() => window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})}>
+            <button className="btn btn-primary pulse" style={styles.ctaButton} onClick={openCheckout}>
               GET THE BOOK FOR ₹99 &rarr;
             </button>
             

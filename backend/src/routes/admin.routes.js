@@ -40,4 +40,6 @@ router.patch(
   adminController.updateNotes
 );
 
+router.post('/purchases/:id/generate-link', adminController.generateLink);
+
 module.exports = router;

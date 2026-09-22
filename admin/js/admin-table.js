@@ -153,6 +153,13 @@ async function viewPurchaseDetails(id) {
       </div>
       
       <div class="detail-section" style="margin-bottom:0;">
+        <h4>Manual Access</h4>
+        <div class="detail-row" style="flex-direction:column; align-items:flex-start; margin-bottom: 12px;">
+          <div style="display:flex; width:100%; gap:8px;">
+            <input type="text" id="manual-link-input" class="form-input" style="padding:6px; font-size:12px; flex-grow:1;" readonly placeholder="Click Generate to create a new secure link">
+            <button class="btn btn-outline" style="padding: 6px 12px; font-size: 12px; white-space: nowrap;" onclick="generateManualLink('${p._id}')" id="generate-link-btn">Generate</button>
+          </div>
+        </div>
         <h4>Admin Notes</h4>
         <textarea id="admin-notes-text" class="form-input" rows="3" style="resize:vertical; margin-bottom:8px;">${p.notes || ''}</textarea>
         <button class="btn btn-primary" onclick="saveNotes('${p._id}')" id="save-notes-btn">Save Note</button>
@@ -164,6 +171,30 @@ async function viewPurchaseDetails(id) {
     contentArea.innerHTML = '<p style="color:var(--admin-error);">Error loading details.</p>';
   }
 }
+
+window.generateManualLink = async function(id) {
+  const btn = document.getElementById('generate-link-btn');
+  const input = document.getElementById('manual-link-input');
+  
+  btn.disabled = true;
+  btn.textContent = 'Generating...';
+  
+  try {
+    const response = await adminApi.request(`/admin/purchases/${id}/generate-link`, { method: 'POST' });
+    input.value = response.link;
+    input.select();
+    document.execCommand('copy');
+    btn.textContent = 'Copied!';
+    setTimeout(() => { 
+      btn.textContent = 'Generate New'; 
+      btn.disabled = false; 
+    }, 2000);
+  } catch (error) {
+    alert(error.message || 'Failed to generate link');
+    btn.textContent = 'Generate';
+    btn.disabled = false;
+  }
+};
 
 async function saveNotes(id) {
   const notes = document.getElementById('admin-notes-text').value;

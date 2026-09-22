@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const StickyBuyBar = () => {
+const StickyBuyBar = ({ openCheckout }) => {
   const [show, setShow] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 

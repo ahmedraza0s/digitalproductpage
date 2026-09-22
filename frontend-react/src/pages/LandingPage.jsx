@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import HeroSection from '../components/HeroSection';
 import ProblemSection from '../components/ProblemSection';
@@ -10,21 +10,26 @@ import TargetAudienceSection from '../components/TargetAudienceSection';
 import TestimonialsSection from '../components/TestimonialsSection';
 import OfferAndFAQSection from '../components/OfferAndFAQSection';
 import StickyBuyBar from '../components/StickyBuyBar';
+import CheckoutModal from '../components/CheckoutModal';
 
 const LandingPage = () => {
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  const openCheckout = () => setIsCheckoutOpen(true);
+  const closeCheckout = () => setIsCheckoutOpen(false);
+
   return (
     <div style={styles.page}>
       <Navbar />
       <main>
-        <HeroSection />
+        <HeroSection openCheckout={openCheckout} />
         <ProblemSection />
         <SolutionSection />
         <StrongMessageSection />
         <TableOfContents />
-        <MidPageCTA />
+        <MidPageCTA openCheckout={openCheckout} />
         <TargetAudienceSection />
         <TestimonialsSection />
-        <OfferAndFAQSection />
+        <OfferAndFAQSection openCheckout={openCheckout} />
       </main>
       
       <footer style={styles.footer}>
@@ -45,7 +50,8 @@ const LandingPage = () => {
         </div>
       </footer>
 
-      <StickyBuyBar />
+      <StickyBuyBar openCheckout={openCheckout} />
+      <CheckoutModal isOpen={isCheckoutOpen} onClose={closeCheckout} />
     </div>
   );
 };

@@ -27,7 +27,7 @@ const faqs = [
   }
 ];
 
-const OfferAndFAQSection = () => {
+const OfferAndFAQSection = ({ openCheckout }) => {
   const [openIndex, setOpenIndex] = useState(0); // First item open by default
   const [timeLeft, setTimeLeft] = useState({ hours: 2, minutes: 47, seconds: 13 });
 
@@ -120,7 +120,7 @@ const OfferAndFAQSection = () => {
               </div>
             </div>
             
-            <button className="btn btn-primary pulse" style={styles.ctaButton} onClick={() => alert("Payment gateway integration goes here")}>
+            <button className="btn btn-primary pulse" style={styles.ctaButton} onClick={openCheckout}>
               GET EVERYTHING FOR ₹99 &rarr;
             </button>
             

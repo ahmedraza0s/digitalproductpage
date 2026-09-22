@@ -1,7 +1,7 @@
 import React from 'react';
 import { useWindowSize } from '../hooks/useWindowSize';
 
-const MidPageCTA = () => {
+const MidPageCTA = ({ openCheckout }) => {
   const { width } = useWindowSize();
   const isMobile = width <= 768;
 
@@ -17,7 +17,7 @@ const MidPageCTA = () => {
             </div>
           </div>
           <div style={isMobile ? { ...styles.actionSection, width: '100%' } : styles.actionSection}>
-            <button className="btn btn-primary pulse" style={styles.button} onClick={() => window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})}>
+            <button className="btn btn-primary pulse" style={styles.button} onClick={openCheckout}>
               GET IT NOW — ₹99
             </button>
             <p style={styles.microText}>Instant PDF • Read tonight</p>

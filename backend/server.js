@@ -11,8 +11,13 @@ const errorHandler = require('./src/middleware/errorHandler');
 // Initialize Express App
 const app = express();
 
+const purchaseService = require('./src/services/purchase.service');
+
 // Connect Database
-connectDB();
+connectDB().then(() => {
+  // Seed initial product if empty
+  purchaseService.seedInitialProduct();
+});
 
 // Security Middleware
 app.use(helmet());

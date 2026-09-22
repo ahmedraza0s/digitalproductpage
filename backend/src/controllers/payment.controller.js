@@ -79,7 +79,8 @@ const verifyPayment = async (req, res, next) => {
       logger.error('Failed to send purchase email during verification:', emailError);
     }
 
-    res.status(200).json({ success: true, referenceId: purchase.razorpayOrderId });
+    const downloadLink = `${env.BASE_URL}/api/download/${rawToken}`;
+    res.status(200).json({ success: true, referenceId: purchase.razorpayOrderId, downloadLink });
   } catch (error) {
     next(error);
   }

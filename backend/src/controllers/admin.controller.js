@@ -6,6 +6,7 @@ const env = require('../config/env');
 const AdminSession = require('../models/AdminSession');
 const Purchase = require('../models/Purchase');
 const adminService = require('../services/admin.service');
+const downloadService = require('../services/download.service');
 const logger = require('../utils/logger');
 
 const login = async (req, res, next) => {
@@ -198,6 +199,31 @@ const exportPurchases = async (req, res, next) => {
   }
 };
 
+const generateLink = async (req, res, next) => {
+  try {
+    const purchase = await Purchase.findById(req.params.id);
+    if (!purchase) {
+      return res.status(404).json({ error: 'Purchase not found' });
+    }
+    if (purchase.paymentStatus !== 'paid') {
+      return res.status(400).json({ error: 'Purchase not paid' });
+    }
+
+    const { rawToken, hashedToken } = downloadService.createSecureToken();
+    const expiry = new Date();
+    expiry.setHours(expiry.getHours() + env.TOKEN_EXPIRY_HOURS);
+
+    purchase.accessTokenHash = hashedToken;
+    purchase.tokenExpiry = expiry;
+    await purchase.save();
+
+    const downloadLink = `${env.BASE_URL}/api/download/${rawToken}`;
+    res.status(200).json({ link: downloadLink });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   login,
   logout,
@@ -206,5 +232,6 @@ module.exports = {
   getPurchases,
   getPurchaseById,
   updateNotes,
-  exportPurchases
+  exportPurchases,
+  generateLink
 };

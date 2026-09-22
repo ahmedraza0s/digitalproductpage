@@ -42,7 +42,7 @@ const seedInitialProduct = async () => {
       productId: 'ebook-001',
       title: 'Digital Ebook Premium',
       description: 'The complete guide to digital success.',
-      price: 49900, // ₹499
+      price: 9900, // ₹99
       filePath: 'ebook.pdf'
     });
   }
