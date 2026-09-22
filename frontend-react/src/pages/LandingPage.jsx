@@ -5,98 +5,93 @@ import ProblemSection from '../components/ProblemSection';
 import SolutionSection from '../components/SolutionSection';
 import StrongMessageSection from '../components/StrongMessageSection';
 import TableOfContents from '../components/TableOfContents';
+import MidPageCTA from '../components/MidPageCTA';
 import TargetAudienceSection from '../components/TargetAudienceSection';
 import TestimonialsSection from '../components/TestimonialsSection';
 import OfferAndFAQSection from '../components/OfferAndFAQSection';
-
-import logo from '../assets/images/logo.jpg';
+import StickyBuyBar from '../components/StickyBuyBar';
 
 const LandingPage = () => {
   return (
-    <div className="landing-page">
+    <div style={styles.page}>
       <Navbar />
-
       <main>
         <HeroSection />
         <ProblemSection />
         <SolutionSection />
         <StrongMessageSection />
-        <div id="what-inside">
-          <TableOfContents />
-        </div>
-        <div id="who-for">
-          <TargetAudienceSection />
-        </div>
+        <TableOfContents />
+        <MidPageCTA />
+        <TargetAudienceSection />
         <TestimonialsSection />
-        <div id="faq">
-          <OfferAndFAQSection />
-        </div>
+        <OfferAndFAQSection />
       </main>
-
+      
       <footer style={styles.footer}>
-        <div className="container text-center" style={styles.footerContainer}>
-          <div style={styles.footerBrand}>
-            <img src={logo} alt="Stop Being Awkward Logo" style={styles.footerLogo} />
-            <span style={styles.footerBrandText}>Stop Being Awkward</span>
+        <div className="container">
+          <div style={styles.footerContent}>
+            <div style={styles.brand}>Stop Being Awkward</div>
+            <p style={styles.footerText}>
+              &copy; {new Date().getFullYear()} All rights reserved. <br/>
+              Results may vary based on individual effort and application of the material.
+            </p>
+            <div style={styles.footerLinks}>
+              <a href="/terms" style={styles.link}>Terms</a>
+              <a href="/privacy" style={styles.link}>Privacy</a>
+              <a href="/refund" style={styles.link}>Refunds</a>
+              <a href="/access" style={styles.link}>Access Policy</a>
+            </div>
           </div>
-          
-          <div style={styles.footerLinks}>
-            <a href="/privacy" style={styles.footerLink}>Privacy Policy</a>
-            <a href="/terms" style={styles.footerLink}>Terms & Conditions</a>
-            <a href="/refund" style={styles.footerLink}>Refund Policy</a>
-            <a href="/access" style={styles.footerLink}>Access Issue?</a>
-          </div>
-
-          <p className="text-secondary" style={styles.copyright}>
-            &copy; {new Date().getFullYear()} Stop Being Awkward. All rights reserved.<br/>
-            Made with ❤️ in India
-          </p>
         </div>
       </footer>
+
+      <StickyBuyBar />
     </div>
   );
 };
 
 const styles = {
-  footer: {
-    padding: '4rem 0 2rem 0',
-    borderTop: '1px solid var(--border-color)',
+  page: {
     backgroundColor: 'var(--bg-color)',
-    position: 'relative',
+    color: 'var(--text-primary)',
+    minHeight: '100vh',
   },
-  footerContainer: {
+  footer: {
+    padding: '4rem 0',
+    backgroundColor: '#05050A',
+    borderTop: '1px solid var(--border-color)',
+    textAlign: 'center',
+  },
+  footerContent: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    gap: '2rem',
+    gap: '1.5rem',
   },
-  footerBrand: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '0.75rem',
-  },
-  footerLogo: {
-    height: '32px',
-    borderRadius: '4px',
-  },
-  footerBrandText: {
+  brand: {
+    fontSize: '1.5rem',
     fontWeight: '700',
-    fontSize: '1.25rem',
     color: 'white',
+    letterSpacing: '-0.5px',
+  },
+  footerText: {
+    color: 'var(--text-secondary)',
+    fontSize: '0.875rem',
+    lineHeight: 1.6,
+    maxWidth: '500px',
   },
   footerLinks: {
     display: 'flex',
     gap: '1.5rem',
     flexWrap: 'wrap',
     justifyContent: 'center',
+    marginTop: '1rem',
   },
-  footerLink: {
+  link: {
     color: 'var(--text-secondary)',
-    fontSize: '0.9375rem',
-  },
-  copyright: {
+    textDecoration: 'none',
     fontSize: '0.875rem',
-    lineHeight: '1.8',
+    transition: 'color 0.2s',
   }
 };
 
