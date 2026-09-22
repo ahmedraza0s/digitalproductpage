@@ -46,6 +46,10 @@ app.use('/api', (req, res) => {
   res.status(404).json({ error: 'API endpoint not found' });
 });
 
+// Serve Admin Panel statically
+const adminPath = path.join(__dirname, '../admin');
+app.use('/admin', express.static(adminPath));
+
 // Serve frontend in production
 if (env.NODE_ENV === 'production' || process.env.SERVE_FRONTEND === 'true') {
   const frontendPath = path.join(__dirname, '../frontend-react/dist');
