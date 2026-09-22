@@ -1,5 +1,6 @@
 import React from 'react';
 import socialCollege from '../assets/images/social_college.jpg';
+import { useWindowSize } from '../hooks/useWindowSize';
 
 const isFor = [
   "You feel awkward meeting new people",
@@ -16,6 +17,9 @@ const notFor = [
 ];
 
 const TargetAudienceSection = () => {
+  const { width } = useWindowSize();
+  const isMobile = width <= 992;
+  
   return (
     <section style={styles.section} className="section-padding">
       {/* Background glow */}
@@ -23,7 +27,7 @@ const TargetAudienceSection = () => {
 
       <div className="container">
         
-        <div style={styles.mainGrid}>
+        <div style={isMobile ? { ...styles.mainGrid, gridTemplateColumns: '1fr' } : styles.mainGrid}>
           {/* Text Content */}
           <div style={styles.contentColumn}>
             <div className="slide-up">
@@ -53,7 +57,7 @@ const TargetAudienceSection = () => {
 
           {/* Image */}
           <div className="slide-up" style={styles.imageColumn}>
-            <div style={styles.imageWrapper}>
+            <div style={isMobile ? { ...styles.imageWrapper, minHeight: '400px' } : styles.imageWrapper}>
               <img src={socialCollege} alt="Social setting" style={styles.image} />
               <div style={styles.imageOverlay}></div>
             </div>
@@ -206,12 +210,6 @@ const styles = {
     background: 'linear-gradient(to top, rgba(19, 19, 42, 0.9), rgba(19, 19, 42, 0.1))',
   }
 };
-
-// Handle responsive grid
-if (typeof window !== 'undefined' && window.innerWidth <= 992) {
-  styles.mainGrid.gridTemplateColumns = '1fr';
-  styles.imageWrapper.minHeight = '400px';
-}
 
 export default TargetAudienceSection;
 

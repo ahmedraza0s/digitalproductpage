@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import logo from '../assets/images/logo.jpg';
+import { useWindowSize } from '../hooks/useWindowSize';
 
 const Navbar = () => {
+  const { width } = useWindowSize();
+  const isMobile = width < 768;
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -20,7 +23,7 @@ const Navbar = () => {
           <span style={styles.logoText}>Stop Being Awkward</span>
         </div>
         
-        <div style={styles.links}>
+        <div style={isMobile ? { ...styles.links, display: 'none' } : styles.links}>
           <a href="#what-inside" className="nav-link">What's Inside</a>
           <a href="#who-for" className="nav-link">Who It's For</a>
           <a href="#faq" className="nav-link">FAQ</a>
@@ -89,10 +92,5 @@ const styles = {
     fontSize: '0.9375rem',
   }
 };
-
-// Simple media query handling for inline styles (for the links hiding)
-if (typeof window !== 'undefined' && window.innerWidth < 768) {
-    styles.links.display = 'none';
-}
 
 export default Navbar;

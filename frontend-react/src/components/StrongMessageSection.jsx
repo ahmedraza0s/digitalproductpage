@@ -1,15 +1,19 @@
 import React from 'react';
 import confidentChat from '../assets/images/confident_chat.jpg';
+import { useWindowSize } from '../hooks/useWindowSize';
 
 const StrongMessageSection = () => {
+  const { width } = useWindowSize();
+  const isTablet = width <= 992;
+  const isMobile = width <= 768;
   return (
     <section style={styles.section} className="section-padding">
       <div className="container">
         
-        <div style={styles.grid}>
+        <div style={isTablet ? { ...styles.grid, gridTemplateColumns: '1fr' } : styles.grid}>
           <div className="slide-up" style={styles.imageColumn}>
             <img src={confidentChat} alt="Confident Conversation" style={styles.image} />
-            <div style={styles.imageOverlay}></div>
+            <div style={isTablet ? { ...styles.imageOverlay, background: 'linear-gradient(to top, rgba(28, 28, 58, 0.8), rgba(28, 28, 58, 0.2))' } : styles.imageOverlay}></div>
           </div>
 
           <div className="slide-up" style={{...styles.contentColumn, animationDelay: '0.2s'}}>
@@ -60,7 +64,7 @@ const StrongMessageSection = () => {
                 </div>
               </div>
               
-              <button className="btn btn-primary pulse" style={styles.ctaButton} onClick={() => window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})}>
+              <button className="btn btn-primary pulse" style={isMobile ? { ...styles.ctaButton, width: '100%' } : styles.ctaButton} onClick={() => window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})}>
                 Ready to stop overthinking? &rarr;
               </button>
             </div>
@@ -197,15 +201,6 @@ const styles = {
     padding: '1rem 2.5rem',
   }
 };
-
-// Handle responsive grid
-if (typeof window !== 'undefined' && window.innerWidth <= 992) {
-  styles.grid.gridTemplateColumns = '1fr';
-  styles.imageOverlay.background = 'linear-gradient(to top, rgba(28, 28, 58, 0.8), rgba(28, 28, 58, 0.2))';
-}
-if (typeof window !== 'undefined' && window.innerWidth <= 768) {
-  styles.ctaButton.width = '100%';
-}
 
 export default StrongMessageSection;
 

@@ -1,18 +1,22 @@
 import React from 'react';
+import { useWindowSize } from '../hooks/useWindowSize';
 
 const MidPageCTA = () => {
+  const { width } = useWindowSize();
+  const isMobile = width <= 768;
+
   return (
     <section style={styles.section} className="section-padding">
       <div className="container" style={styles.container}>
-        <div style={styles.contentWrapper}>
-          <div style={styles.textSection}>
+        <div style={isMobile ? { ...styles.contentWrapper, flexDirection: 'column', textAlign: 'center' } : styles.contentWrapper}>
+          <div style={isMobile ? { ...styles.textSection, flexDirection: 'column', gap: '1rem' } : styles.textSection}>
             <span style={styles.icon}>📖</span>
             <div>
               <h3 style={styles.heading}>You've seen what's inside.</h3>
               <p style={styles.subtext}>Why wait? Start reading in less than 2 minutes.</p>
             </div>
           </div>
-          <div style={styles.actionSection}>
+          <div style={isMobile ? { ...styles.actionSection, width: '100%' } : styles.actionSection}>
             <button className="btn btn-primary pulse" style={styles.button} onClick={() => window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})}>
               GET IT NOW — ₹99
             </button>
@@ -81,14 +85,5 @@ const styles = {
     margin: 0,
   }
 };
-
-// Responsive handling
-if (typeof window !== 'undefined' && window.innerWidth <= 768) {
-  styles.contentWrapper.flexDirection = 'column';
-  styles.contentWrapper.textAlign = 'center';
-  styles.textSection.flexDirection = 'column';
-  styles.textSection.gap = '1rem';
-  styles.actionSection.width = '100%';
-}
 
 export default MidPageCTA;

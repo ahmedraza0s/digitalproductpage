@@ -1,17 +1,20 @@
 import React from 'react';
 import heroBookMockup from '../assets/images/hero_book_mockup.jpg';
+import { useWindowSize } from '../hooks/useWindowSize';
 
 const HeroSection = () => {
+  const { width } = useWindowSize();
+  const isMobile = width <= 992;
   return (
     <section style={styles.heroSection} className="section-padding">
       {/* Background with mesh gradient feel */}
       <div style={styles.backgroundGlow}></div>
       <div style={styles.backgroundGlowAmber}></div>
 
-      <div className="container" style={styles.grid}>
+      <div className="container" style={isMobile ? { ...styles.grid, gridTemplateColumns: '1fr', textAlign: 'center' } : styles.grid}>
         
         {/* Left Content */}
-        <div className="fade-in" style={styles.textContent}>
+        <div className="fade-in" style={isMobile ? { ...styles.textContent, alignItems: 'center', textAlign: 'center' } : styles.textContent}>
           <div style={styles.badge}>
             <span style={styles.badgeIcon}>📖</span>
             <span style={styles.badgeText}>45-Page Practical Digital Book</span>
@@ -22,12 +25,12 @@ const HeroSection = () => {
             <span className="gradient-text">But What Do You Say Next?</span>
           </h1>
 
-          <p style={styles.subheadline}>
+          <p style={isMobile ? { ...styles.subheadline, margin: '0 auto' } : styles.subheadline}>
             Stop awkward silences, overthinking, and conversations that die after the first few lines.
             Learn how to start conversations, keep them going, and talk naturally with people you just met.
           </p>
 
-          <div style={styles.socialProof}>
+          <div style={isMobile ? { ...styles.socialProof, justifyContent: 'center' } : styles.socialProof}>
             <span style={styles.proofItem}>📚 1,200+ readers</span>
             <span style={styles.proofDot}>•</span>
             <span style={styles.proofItem}>⭐ 4.8 stars</span>
@@ -35,8 +38,8 @@ const HeroSection = () => {
             <span style={styles.proofItem}>🇮🇳 Trusted across India</span>
           </div>
 
-          <div style={styles.offerBox}>
-            <div style={styles.priceContainer}>
+          <div style={isMobile ? { ...styles.offerBox, margin: '2rem auto 0 auto' } : styles.offerBox}>
+            <div style={isMobile ? { ...styles.priceContainer, justifyContent: 'center' } : styles.priceContainer}>
               <span style={styles.oldPrice}>₹1,000</span>
               <span style={styles.newPrice}>₹99</span>
               <span style={styles.discountBadge}>90% OFF</span>
@@ -235,15 +238,4 @@ const styles = {
   }
 };
 
-// Handle responsive styles for flex items
-if (typeof window !== 'undefined' && window.innerWidth <= 992) {
-  styles.grid.gridTemplateColumns = '1fr';
-  styles.textContent.alignItems = 'center';
-  styles.textContent.textAlign = 'center';
-  styles.subheadline.margin = '0 auto';
-  styles.socialProof.justifyContent = 'center';
-  styles.offerBox.margin = '2rem auto 0 auto';
-}
-
 export default HeroSection;
-
