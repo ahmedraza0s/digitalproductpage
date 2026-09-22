@@ -151,7 +151,7 @@ const OfferAndFAQSection = () => {
               >
                 <div style={styles.faqHeader}>
                   <h4 style={{...styles.faqQuestion, color: openIndex === idx ? 'white' : 'var(--text-primary)'}}>{faq.q}</h4>
-                  <div style={{...styles.faqIconBox, backgroundColor: openIndex === idx ? 'var(--accent-primary)' : 'transparent', color: openIndex === idx ? 'white' : 'var(--accent-primary)'}}>
+                  <div style={{...styles.faqIconBox, backgroundColor: openIndex === idx ? 'var(--accent-primary)' : 'rgba(139,92,246,0.08)', color: openIndex === idx ? 'white' : 'var(--accent-primary)'}}>
                     {openIndex === idx ? '−' : '+'}
                   </div>
                 </div>
@@ -199,7 +199,7 @@ const styles = {
     background: 'linear-gradient(135deg, var(--accent-primary), var(--accent-secondary))',
     borderRadius: '1.6rem',
     filter: 'blur(10px)',
-    opacity: 0.5,
+    opacity: 0.65,
     zIndex: 0,
   },
   offerCard: {
@@ -306,9 +306,9 @@ const styles = {
     fontSize: '1.125rem',
   },
   totalValuePrice: {
-    color: 'var(--text-secondary)',
+    color: '#7B7BAA',
     textDecoration: 'line-through',
-    fontSize: '1.125rem',
+    fontSize: '1.25rem',
   },
   valueStackTodayRow: {
     display: 'flex',
@@ -321,12 +321,9 @@ const styles = {
     fontWeight: '600',
   },
   todayPrice: {
-    color: 'white',
+    color: '#F59E0B',
     fontSize: '2.5rem',
     fontWeight: '800',
-    background: 'linear-gradient(135deg, #fff, var(--text-secondary))',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
   },
   ctaButton: {
     width: '100%',
@@ -342,6 +339,9 @@ const styles = {
     gap: '0.5rem',
     color: 'var(--text-secondary)',
     fontSize: '0.875rem',
+    backgroundColor: 'rgba(16,185,129,0.06)',
+    borderRadius: '8px',
+    padding: '0.75rem',
   },
   secureText: {
     margin: 0,
@@ -409,6 +409,7 @@ const styles = {
     borderRadius: '1.5rem',
     padding: '3rem',
     textAlign: 'center',
+    boxShadow: '0 0 60px rgba(245,158,11,0.08)',
   },
   finalCtaTitle: {
     fontSize: '2rem',
@@ -428,7 +429,7 @@ const styles = {
   },
   microText: {
     fontSize: '0.875rem',
-    color: 'var(--text-secondary)',
+    color: 'var(--text-trust)',
     margin: 0,
   }
 };

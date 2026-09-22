@@ -60,7 +60,7 @@ const StrongMessageSection = () => {
                 </div>
               </div>
               
-              <button className="btn btn-primary pulse" style={{ marginTop: '2rem' }} onClick={() => window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})}>
+              <button className="btn btn-primary pulse" style={styles.ctaButton} onClick={() => window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})}>
                 Ready to stop overthinking? &rarr;
               </button>
             </div>
@@ -118,7 +118,7 @@ const styles = {
     gap: '1rem',
   },
   listItem: {
-    backgroundColor: 'rgba(239, 68, 68, 0.05)',
+    backgroundColor: 'var(--danger-bg)',
     border: '1px solid rgba(239, 68, 68, 0.2)',
     padding: '1rem 1.5rem',
     borderRadius: '0.75rem',
@@ -170,7 +170,7 @@ const styles = {
     width: '36px',
     height: '36px',
     borderRadius: '50%',
-    backgroundColor: 'var(--surface-color)',
+    backgroundColor: 'rgba(139, 92, 246, 0.15)',
     border: '2px solid var(--accent-primary)',
     display: 'flex',
     alignItems: 'center',
@@ -186,11 +186,15 @@ const styles = {
   stepLine: {
     flexGrow: 1,
     height: '2px',
-    backgroundColor: 'var(--border-color)',
+    background: 'linear-gradient(90deg, var(--accent-primary), rgba(139,92,246,0.1))',
     position: 'relative',
     top: '-12px',
     margin: '0 0.5rem',
     zIndex: 1,
+  },
+  ctaButton: {
+    marginTop: '2rem',
+    padding: '1rem 2.5rem',
   }
 };
 
@@ -198,6 +202,9 @@ const styles = {
 if (typeof window !== 'undefined' && window.innerWidth <= 992) {
   styles.grid.gridTemplateColumns = '1fr';
   styles.imageOverlay.background = 'linear-gradient(to top, rgba(28, 28, 58, 0.8), rgba(28, 28, 58, 0.2))';
+}
+if (typeof window !== 'undefined' && window.innerWidth <= 768) {
+  styles.ctaButton.width = '100%';
 }
 
 export default StrongMessageSection;

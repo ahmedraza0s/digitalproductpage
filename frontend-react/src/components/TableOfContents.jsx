@@ -33,7 +33,7 @@ const TableOfContents = () => {
         </div>
 
         <div style={styles.bottomCta} className="slide-up">
-          <button className="btn btn-secondary" onClick={() => window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})}>
+          <button className="btn btn-primary pulse" style={{ padding: '1rem 2rem' }} onClick={() => window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})}>
             Get all 8 chapters for ₹99 &rarr;
           </button>
         </div>
@@ -75,8 +75,8 @@ const styles = {
   },
   chapterNum: {
     display: 'inline-block',
-    background: 'linear-gradient(135deg, var(--accent-primary), #06b6d4)',
-    color: 'white',
+    backgroundColor: 'rgba(139, 92, 246, 0.15)',
+    color: 'var(--accent-primary)',
     padding: '0.25rem 0.75rem',
     borderRadius: '9999px',
     fontSize: '0.75rem',

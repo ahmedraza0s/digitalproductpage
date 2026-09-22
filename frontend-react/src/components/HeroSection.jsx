@@ -6,6 +6,7 @@ const HeroSection = () => {
     <section style={styles.heroSection} className="section-padding">
       {/* Background with mesh gradient feel */}
       <div style={styles.backgroundGlow}></div>
+      <div style={styles.backgroundGlowAmber}></div>
 
       <div className="container" style={styles.grid}>
         
@@ -86,6 +87,16 @@ const styles = {
     zIndex: 0,
     pointerEvents: 'none',
   },
+  backgroundGlowAmber: {
+    position: 'absolute',
+    bottom: '10%',
+    left: '-10%',
+    width: '500px',
+    height: '500px',
+    background: 'radial-gradient(circle, rgba(245,158,11,0.08) 0%, rgba(10,10,20,0) 70%)',
+    zIndex: 0,
+    pointerEvents: 'none',
+  },
   grid: {
     display: 'grid',
     gridTemplateColumns: '1fr 1fr',
@@ -141,11 +152,11 @@ const styles = {
   },
   proofItem: {
     fontSize: '0.9375rem',
-    color: 'var(--text-secondary)',
+    color: 'var(--text-trust)',
     fontWeight: '500',
   },
   proofDot: {
-    color: 'var(--border-color)',
+    color: 'rgba(139,92,246,0.5)',
   },
   offerBox: {
     marginTop: '2rem',
@@ -159,14 +170,14 @@ const styles = {
     marginBottom: '1.25rem',
   },
   oldPrice: {
-    color: 'var(--text-secondary)',
+    color: '#7B7BAA',
     textDecoration: 'line-through',
     fontSize: '1.125rem',
   },
   newPrice: {
     fontSize: '3rem',
     fontWeight: '800',
-    color: 'white',
+    color: '#F59E0B',
     lineHeight: 1,
   },
   discountBadge: {
@@ -175,7 +186,8 @@ const styles = {
     padding: '0.25rem 0.5rem',
     borderRadius: '4px',
     fontWeight: '700',
-    fontSize: '0.875rem',
+    fontSize: '0.95rem',
+    letterSpacing: '0.04em',
   },
   ctaButton: {
     width: '100%',
@@ -184,7 +196,7 @@ const styles = {
   },
   secondaryLink: {
     fontSize: '0.9375rem',
-    color: 'var(--text-secondary)',
+    color: 'var(--accent-primary)',
     textDecoration: 'underline',
     textUnderlineOffset: '4px',
     display: 'inline-block',

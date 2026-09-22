@@ -77,7 +77,7 @@ const SolutionSection = () => {
           
           <div style={styles.grid}>
             {features.map((feature, idx) => (
-              <div key={idx} className="slide-up" style={{...styles.card, animationDelay: `${idx * 0.1}s`}}>
+              <div key={idx} className="slide-up hover-card-border" style={{...styles.card, animationDelay: `${idx * 0.1}s`}}>
                 <div style={styles.cardHeader}>
                   <span style={styles.icon}>{feature.icon}</span>
                   <span style={styles.featureNum}>{feature.num}</span>
@@ -97,6 +97,10 @@ const SolutionSection = () => {
         }
         .hover-tilt:hover {
           transform: perspective(1000px) rotateY(-5deg) rotateX(5deg) scale(1.02);
+        }
+        .hover-card-border:hover {
+          border-color: rgba(139, 92, 246, 0.4) !important;
+          transform: translateY(-2px);
         }
       `}</style>
     </section>
@@ -184,8 +188,8 @@ const styles = {
   featureNum: {
     fontSize: '0.875rem',
     fontWeight: '700',
-    color: 'var(--text-secondary)',
-    backgroundColor: 'var(--surface-hover)',
+    color: 'var(--text-trust)',
+    backgroundColor: 'rgba(139, 92, 246, 0.15)',
     padding: '0.25rem 0.75rem',
     borderRadius: '9999px',
   },

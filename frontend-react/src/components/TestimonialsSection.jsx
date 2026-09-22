@@ -29,7 +29,7 @@ const TestimonialsSection = () => {
     <section style={styles.section} className="section-padding">
       <div className="container">
         <div style={styles.header}>
-          <div className="tag-badge" style={{ marginBottom: '1rem' }}>
+          <div className="tag-badge" style={{ marginBottom: '1rem', boxShadow: '0 0 20px rgba(139,92,246,0.2)' }}>
             <span>⭐</span> Over 1,200+ Happy Readers
           </div>
           <h2 style={styles.title}>
@@ -40,7 +40,7 @@ const TestimonialsSection = () => {
         <div style={styles.sliderContainer}>
           <div style={styles.grid}>
             {testimonials.map((t, idx) => (
-              <div key={idx} className="slide-up testimonial-card" style={{...styles.card, animationDelay: `${idx * 0.2}s`}}>
+              <div key={idx} className="slide-up testimonial-card hover-testimonial-card" style={{...styles.card, animationDelay: `${idx * 0.2}s`}}>
                 <div style={styles.stars}>⭐⭐⭐⭐⭐</div>
                 <p style={styles.quote}>"{t.quote}"</p>
                 
@@ -75,6 +75,14 @@ const TestimonialsSection = () => {
         .hide-scrollbar {
           -ms-overflow-style: none;
           scrollbar-width: none;
+        }
+        .hover-testimonial-card {
+          transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-testimonial-card:hover {
+          border-color: rgba(139, 92, 246, 0.4) !important;
+          transform: translateY(-2px);
+          box-shadow: 0 10px 30px -10px rgba(139, 92, 246, 0.2);
         }
       `}</style>
     </section>
@@ -120,10 +128,11 @@ const styles = {
   },
   stars: {
     fontSize: '1.25rem',
+    letterSpacing: '2px',
   },
   quote: {
     fontSize: '1.125rem',
-    color: 'var(--text-primary)',
+    color: '#E8E4FF',
     fontStyle: 'italic',
     lineHeight: 1.6,
     flexGrow: 1,

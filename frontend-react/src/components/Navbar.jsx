@@ -21,12 +21,12 @@ const Navbar = () => {
         </div>
         
         <div style={styles.links}>
-          <a href="#what-inside" style={styles.link}>What's Inside</a>
-          <a href="#who-for" style={styles.link}>Who It's For</a>
-          <a href="#faq" style={styles.link}>FAQ</a>
+          <a href="#what-inside" className="nav-link">What's Inside</a>
+          <a href="#who-for" className="nav-link">Who It's For</a>
+          <a href="#faq" className="nav-link">FAQ</a>
         </div>
 
-        <button className="btn btn-primary" style={styles.ctaButton} onClick={() => window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})}>
+        <button className="btn btn-primary pulse" style={styles.ctaButton} onClick={() => window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})}>
           Get for ₹99
         </button>
       </div>
@@ -68,7 +68,7 @@ const styles = {
   logoText: {
     fontWeight: '700',
     fontSize: '1.125rem',
-    display: 'none', // Hide on very small screens if needed, but flex will handle it mostly
+    display: 'inline',
   },
   links: {
     display: 'flex',
@@ -78,14 +78,14 @@ const styles = {
     }
   },
   link: {
-    color: 'var(--text-primary)',
+    color: 'var(--text-trust)',
     fontWeight: '500',
     fontSize: '0.9375rem',
     position: 'relative',
     textDecoration: 'none',
   },
   ctaButton: {
-    padding: '0.5rem 1.25rem',
+    padding: '0.6rem 1.25rem',
     fontSize: '0.9375rem',
   }
 };

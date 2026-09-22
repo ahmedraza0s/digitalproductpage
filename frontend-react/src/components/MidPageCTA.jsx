@@ -26,7 +26,7 @@ const MidPageCTA = () => {
 
 const styles = {
   section: {
-    background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%)',
+    background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(6, 182, 212, 0.1) 50%, rgba(245, 158, 11, 0.05) 100%)',
     borderTop: '1px solid var(--border-color)',
     borderBottom: '1px solid var(--border-color)',
     padding: '4rem 0',
@@ -42,8 +42,8 @@ const styles = {
     backgroundColor: 'var(--surface-color)',
     padding: '2.5rem',
     borderRadius: '1.5rem',
-    border: '1px solid rgba(139, 92, 246, 0.3)',
-    boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
+    border: '1px solid rgba(139, 92, 246, 0.4)',
+    boxShadow: '0 20px 40px rgba(0,0,0,0.3), inset 0 0 40px rgba(139,92,246,0.1)',
   },
   textSection: {
     display: 'flex',
@@ -77,7 +77,7 @@ const styles = {
   },
   microText: {
     fontSize: '0.875rem',
-    color: 'var(--text-secondary)',
+    color: 'var(--text-trust)',
     margin: 0,
   }
 };

@@ -2,11 +2,21 @@ import React, { useState, useEffect } from 'react';
 
 const StickyBuyBar = () => {
   const [show, setShow] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    // Initial check
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
     const handleScroll = () => {
-      // Show the bar after scrolling down a bit (e.g., past the hero)
-      if (window.scrollY > 500) {
+      // Show the bar earlier on mobile, as the hero takes up more viewport
+      const threshold = window.innerWidth <= 768 ? 200 : 500;
+      if (window.scrollY > threshold) {
         setShow(true);
       } else {
         setShow(false);
@@ -14,7 +24,11 @@ const StickyBuyBar = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   if (!show) return null;
@@ -23,22 +37,35 @@ const StickyBuyBar = () => {
     <div style={styles.barContainer} className="fade-in">
       <div className="container" style={styles.content}>
         <div style={styles.info}>
-          <div style={styles.titleGroup}>
-            <span style={styles.title}>Stop Being Awkward</span>
-            <span style={styles.subtitle}>45-Page Guide</span>
-          </div>
+          {!isMobile ? (
+            <div style={styles.titleGroup}>
+              <span style={styles.title}>Stop Being Awkward</span>
+              <span style={styles.subtitle}>45-Page Guide</span>
+            </div>
+          ) : (
+            <div style={styles.titleGroup}>
+              <span style={{...styles.title, fontSize: '0.85rem'}}>Stop Being Awkward</span>
+            </div>
+          )}
+          
           <div style={styles.priceGroup}>
             <span style={styles.oldPrice}>₹1,000</span>
             <span style={styles.newPrice}>₹99</span>
           </div>
         </div>
-        <button className="btn btn-primary pulse" style={styles.button} onClick={() => alert("Payment gateway integration goes here")}>
+        
+        <button 
+          className="btn btn-primary pulse" 
+          style={{...styles.button, ...(isMobile ? styles.mobileButton : {})}} 
+          onClick={() => window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})}
+        >
           Buy Now &rarr;
         </button>
       </div>
     </div>
   );
 };
+
 
 const styles = {
   barContainer: {
@@ -48,10 +75,10 @@ const styles = {
     right: 0,
     backgroundColor: 'rgba(10, 10, 20, 0.95)',
     backdropFilter: 'blur(12px)',
-    borderTop: '1px solid var(--border-color)',
+    borderTop: '1px solid rgba(245,158,11,0.2)',
     zIndex: 9999,
     padding: '0.75rem 0',
-    boxShadow: '0 -10px 30px rgba(0,0,0,0.5)',
+    boxShadow: '0 -10px 30px rgba(0,0,0,0.6), 0 -1px 0 rgba(245,158,11,0.15)',
   },
   content: {
     display: 'flex',
@@ -84,12 +111,12 @@ const styles = {
     gap: '0.5rem',
   },
   oldPrice: {
-    color: 'var(--text-secondary)',
+    color: '#6B6B9A',
     textDecoration: 'line-through',
     fontSize: '0.875rem',
   },
   newPrice: {
-    color: 'white',
+    color: '#F59E0B',
     fontWeight: '800',
     fontSize: '1.25rem',
   },
@@ -98,21 +125,12 @@ const styles = {
     fontSize: '1rem',
     whiteSpace: 'nowrap',
     flexShrink: 0,
+  },
+  mobileButton: {
+    padding: '0.75rem 1rem',
+    fontSize: '0.9rem',
+    width: 'auto',
   }
 };
-
-// Responsive adjustments
-if (typeof window !== 'undefined' && window.innerWidth <= 768) {
-  styles.info.display = 'none'; // Hide text on small screens to prioritize button and price if needed, or re-layout
-  styles.content.flexDirection = 'column';
-  styles.content.gap = '0.5rem';
-  styles.button.width = '100%';
-  styles.info = {
-    display: 'flex',
-    width: '100%',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  };
-}
 
 export default StickyBuyBar;

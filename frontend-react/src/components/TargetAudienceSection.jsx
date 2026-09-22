@@ -30,7 +30,7 @@ const TargetAudienceSection = () => {
               <h2 style={styles.title}>This book is <span className="gradient-text">for you</span> if...</h2>
               <div style={styles.list}>
                 {isFor.map((check, idx) => (
-                  <div key={idx} style={{...styles.listItem, animationDelay: `${idx * 0.1}s`}} className="slide-up">
+                  <div key={idx} className="slide-up hover-success-border" style={{...styles.listItem, animationDelay: `${idx * 0.1}s`}}>
                     <div style={styles.checkIcon}>✓</div>
                     <p style={styles.listText}>{check}</p>
                   </div>
@@ -61,6 +61,15 @@ const TargetAudienceSection = () => {
         </div>
 
       </div>
+      <style>{`
+        .hover-success-border {
+          transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+        .hover-success-border:hover {
+          border-color: var(--success-color) !important;
+          transform: translateX(4px);
+        }
+      `}</style>
     </section>
   );
 };
@@ -147,11 +156,19 @@ const styles = {
     display: 'flex',
     alignItems: 'flex-start',
     gap: '0.75rem',
-    opacity: 0.7,
+    opacity: 0.65,
   },
   crossIcon: {
     color: '#EF4444',
     fontWeight: 'bold',
+    backgroundColor: 'rgba(239, 68, 68, 0.15)',
+    width: '28px',
+    height: '28px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: '50%',
+    flexShrink: 0,
     marginTop: '2px',
   },
   notForText: {
@@ -159,6 +176,7 @@ const styles = {
     fontSize: '0.9375rem',
     margin: 0,
     lineHeight: 1.5,
+    textDecoration: 'line-through',
   },
   imageColumn: {
     position: 'relative',
