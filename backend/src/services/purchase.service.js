@@ -44,11 +44,14 @@ const seedInitialProduct = async () => {
       title: 'Digital Ebook Premium',
       description: 'The complete guide to digital success.',
       price: currentPrice,
-      filePath: 'ebook.pdf'
+      filePath: 'Stop Being Awkward.pdf'
     });
   } else {
-    // Sync price if it changed in .env
-    await Product.updateOne({ productId: 'ebook-001' }, { $set: { price: currentPrice } });
+    // Sync price if it changed in .env and ensure correct filePath
+    await Product.updateOne(
+      { productId: 'ebook-001' }, 
+      { $set: { price: currentPrice, filePath: 'Stop Being Awkward.pdf' } }
+    );
   }
 };
 
