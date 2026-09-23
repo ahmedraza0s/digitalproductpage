@@ -45,6 +45,14 @@ const CheckoutModal = ({ isOpen, onClose }) => {
 
             if (verifyResult.success) {
               setSuccessData(verifyResult);
+              
+              // Track purchase event with Meta Pixel
+              if (window.fbq) {
+                window.fbq('track', 'Purchase', {
+                  currency: orderData.currency || 'INR',
+                  value: orderData.amount ? orderData.amount / 100 : 99
+                });
+              }
             } else {
               setError('Payment verification failed.');
             }
