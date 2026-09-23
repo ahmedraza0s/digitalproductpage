@@ -139,7 +139,7 @@ const CheckoutModal = ({ isOpen, onClose }) => {
             <p style={styles.text}>Thank you for your purchase. Your ebook is ready.</p>
             <p style={styles.text}>We've also sent a backup link to <strong>{formData.email}</strong>.</p>
             
-            <a href={successData.downloadLink} style={styles.downloadBtn} target="_blank" rel="noopener noreferrer">
+            <a href={successData.downloadLink} style={styles.downloadBtn} download>
               Download Ebook Now
             </a>
           </div>

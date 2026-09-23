@@ -45,7 +45,8 @@ const downloadEbook = async (req, res, next) => {
     purchase.lastDownloadAt = new Date();
     await purchase.save();
 
-    res.setHeader('Content-Type', 'application/pdf');
+    // Force download on all devices (including iOS Safari) instead of opening inline
+    res.setHeader('Content-Type', 'application/octet-stream');
     res.setHeader('Content-Disposition', `attachment; filename="${purchase.productName.replace(/[^a-zA-Z0-9]/g, '_')}.pdf"`);
     
     const fileStream = fs.createReadStream(absolutePath);
