@@ -26,6 +26,23 @@ const CheckoutModal = ({ isOpen, onClose }) => {
       });
 
       // 2. Initialize Razorpay
+      const checkStatusWithRetry = async (orderId, retries = 3) => {
+        for (let i = 0; i < retries; i++) {
+          try {
+            const statusRes = await api.checkPaymentStatus(orderId);
+            if (statusRes.status === 'paid' && statusRes.success) {
+              return statusRes;
+            }
+          } catch (e) {
+            // Ignore error and continue retrying
+          }
+          if (i < retries - 1) {
+            await new Promise(res => setTimeout(res, 2000));
+          }
+        }
+        return null;
+      };
+
       const options = {
         key: import.meta.env.RAZORPAY_KEY_ID || orderData.keyId,
         amount: orderData.amount,
@@ -71,15 +88,28 @@ const CheckoutModal = ({ isOpen, onClose }) => {
           color: '#7c3aed'
         },
         modal: {
-          ondismiss: function () {
+          ondismiss: async function () {
+            setLoading(true);
+            const statusRes = await checkStatusWithRetry(orderData.orderId, 2);
+            if (statusRes) {
+              setSuccessData(statusRes);
+            }
             setLoading(false);
           }
         }
       };
 
       const rzp = new window.Razorpay(options);
-      rzp.on('payment.failed', function (response) {
-        setError(response.error.description || 'Payment failed.');
+      rzp.on('payment.failed', async function (response) {
+        setLoading(true);
+        const statusRes = await checkStatusWithRetry(orderData.orderId, 3);
+        if (statusRes) {
+          setSuccessData(statusRes);
+          setLoading(false);
+          return;
+        }
+        
+        setError(response.error.description || 'Payment failed. If amount was deducted, check your email in a few minutes.');
         setLoading(false);
       });
       rzp.open();

@@ -31,4 +31,9 @@ router.post(
   paymentController.verifyPayment
 );
 
+router.get(
+  '/status/:orderId',
+  paymentController.checkStatus
+);
+
 module.exports = router;

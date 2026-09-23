@@ -56,7 +56,16 @@ const verifyPayment = async (req, res, next) => {
     }
 
     if (purchase.paymentStatus === 'paid') {
-      return res.status(200).json({ success: true, referenceId: purchase.razorpayOrderId });
+      const { rawToken, hashedToken } = downloadService.createSecureToken();
+      const expiry = new Date();
+      expiry.setHours(expiry.getHours() + env.TOKEN_EXPIRY_HOURS);
+      
+      purchase.accessTokenHash = hashedToken;
+      purchase.tokenExpiry = expiry;
+      await purchase.save();
+      
+      const downloadLink = `${env.BASE_URL}/api/download/${rawToken}`;
+      return res.status(200).json({ success: true, referenceId: purchase.razorpayOrderId, downloadLink });
     }
 
     const { rawToken, hashedToken } = downloadService.createSecureToken();
@@ -86,7 +95,40 @@ const verifyPayment = async (req, res, next) => {
   }
 };
 
+const checkStatus = async (req, res, next) => {
+  try {
+    const { orderId } = req.params;
+    
+    if (!orderId) {
+      return res.status(400).json({ error: 'Order ID is required' });
+    }
+
+    const purchase = await purchaseService.getPurchaseByOrderId(orderId);
+    if (!purchase) {
+      return res.status(404).json({ error: 'Order not found' });
+    }
+
+    if (purchase.paymentStatus === 'paid') {
+      const { rawToken, hashedToken } = downloadService.createSecureToken();
+      const expiry = new Date();
+      expiry.setHours(expiry.getHours() + env.TOKEN_EXPIRY_HOURS);
+      
+      purchase.accessTokenHash = hashedToken;
+      purchase.tokenExpiry = expiry;
+      await purchase.save();
+      
+      const downloadLink = `${env.BASE_URL}/api/download/${rawToken}`;
+      return res.status(200).json({ status: 'paid', success: true, downloadLink });
+    }
+
+    res.status(200).json({ status: purchase.paymentStatus, success: false });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createOrder,
-  verifyPayment
+  verifyPayment,
+  checkStatus
 };

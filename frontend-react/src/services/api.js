@@ -51,6 +51,12 @@ export const api = {
     });
   },
 
+  checkPaymentStatus(orderId) {
+    return this.request(`/payment/status/${orderId}`, {
+      method: 'GET'
+    });
+  },
+
   verifyReference(referenceId) {
     return this.request('/access/verify-reference', {
       method: 'POST',
