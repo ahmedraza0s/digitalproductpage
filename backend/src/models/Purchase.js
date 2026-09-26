@@ -38,7 +38,14 @@ const purchaseSchema = new mongoose.Schema({
   
   ipAddress: { type: String },
   userAgent: { type: String },
-  notes: { type: String }
+  notes: { type: String },
+  
+  metaTracking: {
+    fbp: { type: String },
+    fbc: { type: String },
+    userAgent: { type: String },
+    clientIp: { type: String }
+  }
 }, { timestamps: true });
 
 // Compound index for dashboard queries

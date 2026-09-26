@@ -2,6 +2,7 @@ const purchaseService = require('../services/purchase.service');
 const downloadService = require('../services/download.service');
 const paymentService = require('../services/payment.service');
 const emailService = require('../services/email.service');
+const metaService = require('../services/meta.service');
 const { verifyWebhookSignature } = require('../utils/crypto');
 const { isAlreadyPaid } = require('../utils/idempotency');
 const env = require('../config/env');
@@ -49,6 +50,10 @@ const handleRazorpayWebhook = async (req, res, next) => {
         webhookVerified: true,
         webhookReceivedAt: new Date()
       });
+
+      // Send to Meta CAPI
+      const updatedPurchase = await purchaseService.getPurchaseByOrderId(orderId);
+      metaService.sendPurchaseEvent(updatedPurchase);
 
       if (!purchase.emailSent) {
         try {

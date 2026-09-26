@@ -2,12 +2,13 @@ const paymentService = require('../services/payment.service');
 const purchaseService = require('../services/purchase.service');
 const downloadService = require('../services/download.service');
 const emailService = require('../services/email.service');
+const metaService = require('../services/meta.service');
 const logger = require('../utils/logger');
 const env = require('../config/env');
 
 const createOrder = async (req, res, next) => {
   try {
-    const { productId, name, email, phone } = req.body;
+    const { productId, name, email, phone, fbp, fbc } = req.body;
 
     const product = await purchaseService.getProductById(productId);
     if (!product) {
@@ -27,7 +28,13 @@ const createOrder = async (req, res, next) => {
       currency: product.currency,
       razorpayOrderId: order.id,
       ipAddress: req.ip,
-      userAgent: req.get('User-Agent')
+      userAgent: req.get('User-Agent'),
+      metaTracking: {
+        fbp,
+        fbc,
+        userAgent: req.get('User-Agent'),
+        clientIp: req.ip
+      }
     });
 
     res.status(200).json({
@@ -78,6 +85,10 @@ const verifyPayment = async (req, res, next) => {
       accessTokenHash: hashedToken,
       tokenExpiry: expiry
     });
+
+    // Send to Meta CAPI
+    const updatedPurchase = await purchaseService.getPurchaseByOrderId(razorpayOrderId);
+    metaService.sendPurchaseEvent(updatedPurchase);
 
     try {
       await emailService.sendPurchaseEmail(purchase.customerEmail, purchase.productName, rawToken);

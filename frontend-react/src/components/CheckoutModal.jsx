@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import { api, config } from '../services/api';
 
+const getCookie = (name) => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+  return undefined;
+};
+
 const CheckoutModal = ({ isOpen, onClose }) => {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
   const [loading, setLoading] = useState(false);
@@ -22,7 +29,9 @@ const CheckoutModal = ({ isOpen, onClose }) => {
       // 1. Create order on backend
       const orderData = await api.createOrder({
         productId: config.PRODUCT_ID,
-        ...formData
+        ...formData,
+        fbp: getCookie('_fbp'),
+        fbc: getCookie('_fbc')
       });
 
       // 2. Initialize Razorpay
