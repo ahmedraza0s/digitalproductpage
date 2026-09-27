@@ -77,6 +77,8 @@ const CheckoutModal = ({ isOpen, onClose }) => {
                 window.fbq('track', 'Purchase', {
                   currency: orderData.currency || 'INR',
                   value: orderData.amount ? orderData.amount / 100 : 99
+                }, {
+                  eventID: orderData.orderId
                 });
               }
             } else {
