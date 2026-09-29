@@ -24,11 +24,11 @@ const HeroSection = ({ openCheckout }) => {
 
           <h1 style={styles.headline}>
             <span className="gradient-text">SHARPER</span><br />
-            Command Attention & Radiate Confidence
+            Become the Best Version of Yourself.
           </h1>
 
           <p style={isMobile ? { ...styles.subheadline, margin: '0 auto' } : styles.subheadline}>
-            Stop blending in. The ultimate 90-day blueprint to build sharp style, clear skin, and the magnetic presence that naturally attracts.
+            A practical guide to improving your <strong>looks, grooming, style, physique, and confidence</strong>.
           </p>
 
           <div style={isMobile ? { ...styles.socialProof, justifyContent: 'center' } : styles.socialProof}>
