@@ -3,7 +3,6 @@ import Navbar from '../components/Navbar';
 import HeroSection from '../components/GlowUpHeroSection';
 import ProblemSection from '../components/GlowUpProblemSection';
 import SolutionSection from '../components/GlowUpSolutionSection';
-import NinetyDaySystem from '../components/NinetyDaySystem';
 import TableOfContents from '../components/GlowUpTableOfContents';
 import TestimonialsSection from '../components/GlowUpTestimonialsSection';
 import TargetAudienceSection from '../components/GlowUpTargetAudienceSection';
@@ -28,7 +27,6 @@ const GlowUpLandingPage = () => {
         <HeroSection openCheckout={openCheckout} />
         <ProblemSection />
         <SolutionSection />
-        <NinetyDaySystem openCheckout={openCheckout} />
         <TableOfContents openCheckout={openCheckout} />
         <TestimonialsSection />
         <TargetAudienceSection />
