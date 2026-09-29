@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import HeroSection from '../components/GlowUpHeroSection';
 import ProblemSection from '../components/GlowUpProblemSection';
+import GlowUpImageBanner from '../components/GlowUpImageBanner';
 import SolutionSection from '../components/GlowUpSolutionSection';
 import TableOfContents from '../components/GlowUpTableOfContents';
 import TestimonialsSection from '../components/GlowUpTestimonialsSection';
@@ -26,6 +27,7 @@ const GlowUpLandingPage = () => {
       <main>
         <HeroSection openCheckout={openCheckout} />
         <ProblemSection />
+        <GlowUpImageBanner />
         <SolutionSection />
         <TableOfContents openCheckout={openCheckout} />
         <TestimonialsSection />
