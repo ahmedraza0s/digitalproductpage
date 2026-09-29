@@ -1,5 +1,5 @@
 import React from 'react';
-import heroBookMockup from '../assets/images/hero_book_mockup.jpg';
+import heroBookMockup from '../assets/images/awkward_book_cover.jpg';
 
 const features = [
   {
