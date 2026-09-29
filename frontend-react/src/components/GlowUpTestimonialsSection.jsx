@@ -1,0 +1,186 @@
+import React from 'react';
+
+const testimonials = [
+  {
+    quote: "I finally stopped buying random skincare products. The 90-day structure made it much easier to actually follow.",
+    name: "Rahul",
+    tag: "Age 22",
+    initials: "R",
+    color: "#8B5CF6" // Violet
+  },
+  {
+    quote: "The clothing and posture sections were surprisingly useful. Simple stuff, but I wasn't doing any of it.",
+    name: "Arjun",
+    tag: "Age 24",
+    initials: "A",
+    color: "#F59E0B" // Amber
+  },
+  {
+    quote: "I liked that it doesn't promise overnight transformation. It actually tells you what to do first.",
+    name: "Karan",
+    tag: "Age 21",
+    initials: "K",
+    color: "#10B981" // Green
+  }
+];
+
+const TestimonialsSection = () => {
+  return (
+    <section style={styles.section} className="section-padding">
+      <div className="container">
+        <div style={styles.header}>
+          <div className="tag-badge" style={{ marginBottom: '1rem', boxShadow: '0 0 20px rgba(139,92,246,0.2)' }}>
+            <span>⭐</span> Early readers are saying...
+          </div>
+          <h2 style={styles.title}>
+            Don't Just Take <span className="gradient-text">Our Word For It</span>
+          </h2>
+        </div>
+
+        <div style={styles.sliderContainer}>
+          <div style={styles.grid}>
+            {testimonials.map((t, idx) => (
+              <div key={idx} className="slide-up testimonial-card hover-testimonial-card" style={{...styles.card, animationDelay: `${idx * 0.2}s`}}>
+                <div style={styles.stars}>⭐⭐⭐⭐⭐</div>
+                <p style={styles.quote}>"{t.quote}"</p>
+                
+                <div style={styles.author}>
+                  <div style={{ ...styles.avatar, backgroundColor: t.color }}>
+                    {t.initials}
+                  </div>
+                  <div>
+                    <div style={styles.name}>{t.name}</div>
+                    <div style={styles.tag}>{t.tag}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      
+      {/* Media query for mobile slider */}
+      <style>{`
+        @media (max-width: 768px) {
+          .testimonial-card {
+            min-width: 85vw !important;
+            scroll-snap-align: center;
+          }
+        }
+        
+        /* Hide scrollbar for a cleaner look but keep functionality */
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .hide-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .hover-testimonial-card {
+          transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-testimonial-card:hover {
+          border-color: rgba(139, 92, 246, 0.4) !important;
+          transform: translateY(-2px);
+          box-shadow: 0 10px 30px -10px rgba(139, 92, 246, 0.2);
+        }
+      `}</style>
+    </section>
+  );
+};
+
+const styles = {
+  section: {
+    backgroundColor: 'var(--bg-color)',
+    position: 'relative',
+    overflow: 'hidden',
+  },
+  header: {
+    textAlign: 'center',
+    marginBottom: '4rem',
+  },
+  title: {
+    fontSize: 'clamp(2rem, 4vw, 3rem)',
+  },
+  sliderContainer: {
+    margin: '0 -1.5rem', /* Negative margin to allow full-width scroll on mobile */
+    padding: '0 1.5rem',
+  },
+  grid: {
+    display: 'flex',
+    gap: '2rem',
+    overflowX: 'auto',
+    scrollSnapType: 'x mandatory',
+    paddingBottom: '2rem', /* Space for scrollbar or shadow */
+  },
+  card: {
+    backgroundColor: 'rgba(28, 28, 58, 0.5)',
+    backdropFilter: 'blur(10px)',
+    border: '1px solid var(--border-color)',
+    borderRadius: '1rem',
+    padding: '2rem',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1.5rem',
+    transition: 'var(--transition-smooth)',
+    flex: '1 0 calc(33.333% - 1.34rem)',
+    minWidth: '300px',
+  },
+  stars: {
+    fontSize: '1.25rem',
+    letterSpacing: '2px',
+  },
+  quote: {
+    fontSize: '1.125rem',
+    color: '#E8E4FF',
+    fontStyle: 'italic',
+    lineHeight: 1.6,
+    flexGrow: 1,
+  },
+  author: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '1rem',
+    marginTop: '1rem',
+  },
+  avatar: {
+    width: '48px',
+    height: '48px',
+    borderRadius: '50%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white',
+    fontWeight: '700',
+    fontSize: '1.125rem',
+  },
+  name: {
+    fontWeight: '600',
+    color: 'white',
+  },
+  tag: {
+    fontSize: '0.875rem',
+    color: 'var(--text-secondary)',
+  }
+};
+
+// Ensure the class is added cleanly
+const OriginalTestimonialsSection = TestimonialsSection;
+export default function Wrapper() {
+  const original = OriginalTestimonialsSection();
+  
+  // Inject the class directly into the grid div
+  const newGrid = React.cloneElement(
+    original.props.children[0].props.children[1].props.children, 
+    { className: 'hide-scrollbar' }
+  );
+  
+  const newContainerChildren = [
+    original.props.children[0].props.children[0],
+    React.cloneElement(original.props.children[0].props.children[1], {}, newGrid)
+  ];
+  
+  const newContainer = React.cloneElement(original.props.children[0], {}, newContainerChildren);
+  
+  return React.cloneElement(original, {}, [newContainer, original.props.children[1]]);
+}

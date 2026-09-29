@@ -1,5 +1,6 @@
 let currentFilters = {
   status: 'all',
+  book: 'all',
   search: '',
   dateFrom: '',
   dateTo: '',
@@ -48,6 +49,7 @@ function bindEvents() {
 
   document.getElementById('apply-filters-btn').addEventListener('click', () => {
     currentFilters.status = document.getElementById('filter-status').value;
+    currentFilters.book = document.getElementById('filter-book').value;
     currentFilters.search = document.getElementById('filter-search').value;
     currentFilters.dateFrom = document.getElementById('filter-date-from').value;
     currentFilters.dateTo = document.getElementById('filter-date-to').value;

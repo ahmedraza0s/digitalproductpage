@@ -52,6 +52,20 @@ const getDashboardStats = async () => {
     ? ((stats.totalPaid / stats.totalInitiated) * 100).toFixed(1) + '%' 
     : '0%';
 
+  const perBookStats = await Purchase.aggregate([
+    {
+      $match: { paymentStatus: 'paid' }
+    },
+    {
+      $group: {
+        _id: '$productId',
+        bookName: { $first: '$productName' },
+        revenue: { $sum: '$amount' },
+        count: { $sum: 1 }
+      }
+    }
+  ]);
+
   return {
     totalRevenue: stats.totalRevenue / 100, // convert paise to rupees
     totalPaidPurchases: stats.totalPaid,
@@ -60,7 +74,12 @@ const getDashboardStats = async () => {
     totalDownloads: stats.totalDownloads,
     todayRevenue: todayStats.todayRevenue / 100,
     todayPurchases: todayStats.todayPurchases,
-    conversionRate
+    conversionRate,
+    perBookStats: perBookStats.map(b => ({
+      bookName: b.bookName,
+      revenue: b.revenue / 100,
+      count: b.count
+    }))
   };
 };
 

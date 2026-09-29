@@ -93,11 +93,12 @@ img {
 .text-secondary { color: var(--text-secondary); }
 
 .gradient-text {
-  background: linear-gradient(90deg, #A78BFA, #8B5CF6, #06b6d4);
+  background: linear-gradient(90deg, #FCD34D, #F59E0B, #D97706);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   display: inline-block;
+  text-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
 }
 
 .section-padding {

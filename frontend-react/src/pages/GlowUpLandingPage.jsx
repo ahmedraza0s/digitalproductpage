@@ -1,46 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
-import HeroSection from '../components/HeroSection';
-import ProblemSection from '../components/ProblemSection';
-import SolutionSection from '../components/SolutionSection';
-import StrongMessageSection from '../components/StrongMessageSection';
-import TableOfContents from '../components/TableOfContents';
-import MidPageCTA from '../components/MidPageCTA';
-import TargetAudienceSection from '../components/TargetAudienceSection';
-import TestimonialsSection from '../components/TestimonialsSection';
-import OfferAndFAQSection from '../components/OfferAndFAQSection';
-import StickyBuyBar from '../components/StickyBuyBar';
+import HeroSection from '../components/GlowUpHeroSection';
+import ProblemSection from '../components/GlowUpProblemSection';
+import SolutionSection from '../components/GlowUpSolutionSection';
+import NinetyDaySystem from '../components/NinetyDaySystem';
+import TableOfContents from '../components/GlowUpTableOfContents';
+import TestimonialsSection from '../components/GlowUpTestimonialsSection';
+import TargetAudienceSection from '../components/GlowUpTargetAudienceSection';
+import OfferAndFAQSection from '../components/GlowUpOfferAndFAQSection';
+import StickyBuyBar from '../components/GlowUpStickyBuyBar';
 import CheckoutModal from '../components/CheckoutModal';
-import { BOOK_PRICE } from '../config';
+import { GLOW_UP_BOOK_PRICE } from '../config';
 
-const LandingPage = () => {
+const GlowUpLandingPage = () => {
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const openCheckout = () => setIsCheckoutOpen(true);
   const closeCheckout = () => setIsCheckoutOpen(false);
 
   useEffect(() => {
-    document.title = "Stop Being Awkward - Digital Ebook";
+    document.title = "90-Day Men's Glow Up - Transformation Guide";
   }, []);
 
   return (
     <div style={styles.page}>
-      <Navbar openCheckout={openCheckout} price={BOOK_PRICE} />
+      <Navbar openCheckout={openCheckout} title="90-Day Men's Glow Up" price={GLOW_UP_BOOK_PRICE} />
       <main>
         <HeroSection openCheckout={openCheckout} />
         <ProblemSection />
         <SolutionSection />
-        <StrongMessageSection openCheckout={openCheckout} />
+        <NinetyDaySystem openCheckout={openCheckout} />
         <TableOfContents openCheckout={openCheckout} />
-        <MidPageCTA openCheckout={openCheckout} />
-        <TargetAudienceSection />
         <TestimonialsSection />
+        <TargetAudienceSection />
         <OfferAndFAQSection openCheckout={openCheckout} />
       </main>
       
       <footer style={styles.footer}>
         <div className="container">
           <div style={styles.footerContent}>
-            <div style={styles.brand}>Stop Being Awkward</div>
+            <div style={styles.brand}>SHARPER</div>
             <p style={styles.footerText}>
               &copy; {new Date().getFullYear()} All rights reserved. <br/>
               Results may vary based on individual effort and application of the material.
@@ -56,7 +54,14 @@ const LandingPage = () => {
       </footer>
 
       <StickyBuyBar openCheckout={openCheckout} />
-      <CheckoutModal isOpen={isCheckoutOpen} onClose={closeCheckout} />
+      
+      {/* 🆕 Using product ebook-002 and reading new price env variable */}
+      <CheckoutModal 
+        isOpen={isCheckoutOpen} 
+        onClose={closeCheckout} 
+        productId="ebook-002" 
+        price={import.meta.env.VITE_GLOW_UP_BOOK_PRICE}
+      />
     </div>
   );
 };
@@ -106,4 +111,4 @@ const styles = {
   }
 };
 
-export default LandingPage;
+export default GlowUpLandingPage;

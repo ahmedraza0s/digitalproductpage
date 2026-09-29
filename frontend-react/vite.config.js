@@ -5,5 +5,5 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   envDir: '../backend',
-  envPrefix: ['VITE_', 'BOOK_', 'RAZORPAY_']
+  envPrefix: ['VITE_', 'BOOK_', 'RAZORPAY_', 'GLOW_UP_']
 })

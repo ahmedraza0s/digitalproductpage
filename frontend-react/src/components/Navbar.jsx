@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { BOOK_PRICE } from '../config';
 import logo from '../assets/images/logo.jpg';
 import { useWindowSize } from '../hooks/useWindowSize';
 
-const Navbar = ({ openCheckout }) => {
+const Navbar = ({ openCheckout, title = "Stop Being Awkward", price = "25" }) => {
   const { width } = useWindowSize();
   const isMobile = width < 768;
   const [scrolled, setScrolled] = useState(false);
@@ -20,8 +19,8 @@ const Navbar = ({ openCheckout }) => {
     <nav style={{...styles.nav, ...(scrolled ? styles.navScrolled : {})}}>
       <div className="container" style={styles.container}>
         <div style={styles.logoContainer}>
-          <img src={logo} alt="Stop Being Awkward Logo" style={styles.logo} />
-          <span style={styles.logoText}>Stop Being Awkward</span>
+          <img src={logo} alt={`${title} Logo`} style={styles.logo} />
+          <span style={styles.logoText}>{title}</span>
         </div>
         
         <div style={isMobile ? { ...styles.links, display: 'none' } : styles.links}>
@@ -31,7 +30,7 @@ const Navbar = ({ openCheckout }) => {
         </div>
 
         <button className="btn btn-primary pulse" style={styles.ctaButton} onClick={openCheckout}>
-          Get for ₹{BOOK_PRICE}
+          Get for ₹{price}
         </button>
       </div>
     </nav>

@@ -2,7 +2,7 @@ async function renderTable(filters) {
   const tbody = document.getElementById('purchases-table-body');
   if (!tbody) return;
 
-  tbody.innerHTML = '<tr><td colspan="7" class="text-center">Loading...</td></tr>';
+  tbody.innerHTML = '<tr><td colspan="8" class="text-center">Loading...</td></tr>';
 
   try {
     // Build query string
@@ -14,7 +14,7 @@ async function renderTable(filters) {
     const response = await adminApi.request(`/admin/purchases?${params.toString()}`);
     
     if (response.data.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="7" class="text-center" style="color: var(--admin-text-muted);">No purchases found matching filters.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="8" class="text-center" style="color: var(--admin-text-muted);">No purchases found matching filters.</td></tr>';
       updatePagination(response.pagination);
       return;
     }
@@ -44,6 +44,7 @@ async function renderTable(filters) {
           <div style="font-size:12px;"><a href="mailto:${p.customerEmail}">${p.customerEmail}</a></div>
           ${p.customerPhone ? `<div style="font-size:11px;color:var(--admin-text-muted);">${p.customerPhone}</div>` : ''}
         </td>
+        <td style="font-size:12px; max-width:120px;">${p.productName || '-'}</td>
         <td>${formatCurrency(p.amount)}</td>
         <td>${getStatusBadge(p.paymentStatus)}</td>
         <td>
@@ -61,7 +62,7 @@ async function renderTable(filters) {
     updatePagination(response.pagination);
 
   } catch (error) {
-    tbody.innerHTML = `<tr><td colspan="7" class="text-center" style="color: var(--admin-error);">Error loading data.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="8" class="text-center" style="color: var(--admin-error);">Error loading data.</td></tr>`;
   }
 }
 

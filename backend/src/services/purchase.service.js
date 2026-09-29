@@ -53,6 +53,23 @@ const seedInitialProduct = async () => {
       { $set: { price: currentPrice, filePath: 'Stop Being Awkward.pdf' } }
     );
   }
+
+  const glowUpPrice = parseInt(process.env.GLOW_UP_BOOK_PRICE || '99') * 100;
+  const glowUpExists = await Product.findOne({ productId: 'ebook-002' });
+  if (!glowUpExists) {
+    await Product.create({
+      productId: 'ebook-002',
+      title: 'Glow Up for Men — Looks Maxing',
+      description: 'The complete guide to male glow up and looks maxing.',
+      price: glowUpPrice,
+      filePath: 'Sharper Mens Glow Up Guide.pdf'
+    });
+  } else {
+    await Product.updateOne(
+      { productId: 'ebook-002' },
+      { $set: { price: glowUpPrice, filePath: 'Sharper Mens Glow Up Guide.pdf' } }
+    );
+  }
 };
 
 module.exports = {

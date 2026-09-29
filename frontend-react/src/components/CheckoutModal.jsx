@@ -8,7 +8,7 @@ const getCookie = (name) => {
   return undefined;
 };
 
-const CheckoutModal = ({ isOpen, onClose }) => {
+const CheckoutModal = ({ isOpen, onClose, productId = 'ebook-001', price = import.meta.env.VITE_BOOK_PRICE }) => {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -28,7 +28,7 @@ const CheckoutModal = ({ isOpen, onClose }) => {
     try {
       // 1. Create order on backend
       const orderData = await api.createOrder({
-        productId: config.PRODUCT_ID,
+        productId: productId,
         ...formData,
         fbp: getCookie('_fbp'),
         fbc: getCookie('_fbc')
@@ -193,8 +193,9 @@ const CheckoutModal = ({ isOpen, onClose }) => {
                   name="phone" 
                   value={formData.phone} 
                   onChange={handleInputChange} 
+                  required 
                   style={styles.input}
-                  placeholder="+91 98765 43210"
+                  placeholder="+1 (555) 000-0000"
                 />
               </div>
               <button 
@@ -202,7 +203,7 @@ const CheckoutModal = ({ isOpen, onClose }) => {
                 style={{...styles.submitBtn, opacity: loading ? 0.7 : 1}} 
                 disabled={loading}
               >
-                {loading ? 'Processing...' : 'Pay Securely'}
+                {loading ? 'Processing...' : 'Get the Ebook Now'}
               </button>
             </form>
           </div>

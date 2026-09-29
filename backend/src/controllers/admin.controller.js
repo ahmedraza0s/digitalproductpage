@@ -71,11 +71,15 @@ const getStats = async (req, res, next) => {
 };
 
 const buildPurchaseQuery = (req) => {
-  const { status, search, dateFrom, dateTo } = req.query;
+  const { status, search, dateFrom, dateTo, book } = req.query;
   const query = {};
 
   if (status && status !== 'all') {
     query.paymentStatus = status;
+  }
+
+  if (book && book !== 'all') {
+    query.productName = { $regex: book, $options: 'i' };
   }
 
   if (search) {
@@ -180,6 +184,7 @@ const exportPurchases = async (req, res, next) => {
       { label: 'Name', value: 'customerName' },
       { label: 'Email', value: 'customerEmail' },
       { label: 'Phone', value: 'customerPhone' },
+      { label: 'Book', value: 'productName' },
       { label: 'Amount', value: row => row.amount / 100 },
       { label: 'Status', value: 'paymentStatus' },
       { label: 'Method', value: 'paymentMethod' },

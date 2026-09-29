@@ -33,6 +33,20 @@ async function renderStats() {
         <div class="stat-value">${stats.totalDownloads}</div>
       </div>
     `;
+
+    if (stats.perBookStats && stats.perBookStats.length > 0) {
+      const bookCards = stats.perBookStats.map(b => `
+        <div class="stat-card">
+          <div class="stat-title">${b.bookName}</div>
+          <div class="stat-value" style="font-size:18px;">${formatCurrency(b.revenue)}</div>
+          <div style="font-size:12px; color:var(--admin-text-muted);">${b.count} sales</div>
+        </div>
+      `).join('');
+      container.innerHTML += `
+        <div class="stats-section-label" style="width: 100%; margin-top: 1rem; font-weight: bold; grid-column: 1 / -1;">Per-Book Breakdown</div>
+        ${bookCards}
+      `;
+    }
   } catch (error) {
     console.error('Failed to load stats', error);
   }
