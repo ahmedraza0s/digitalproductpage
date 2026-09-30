@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
+import ScrollToTop from './components/ScrollToTop';
 import LandingPage from './pages/LandingPage';
 import HomePage from './pages/HomePage';
 import GlowUpLandingPage from './pages/GlowUpLandingPage';
@@ -18,6 +19,7 @@ function AdminRedirect() {
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/awkward" element={<LandingPage />} />

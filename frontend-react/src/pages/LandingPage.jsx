@@ -19,6 +19,7 @@ const LandingPage = () => {
   const closeCheckout = () => setIsCheckoutOpen(false);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     document.title = "Stop Being Awkward - Digital Ebook";
   }, []);
 

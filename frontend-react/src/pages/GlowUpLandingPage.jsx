@@ -18,6 +18,7 @@ const GlowUpLandingPage = () => {
   const closeCheckout = () => setIsCheckoutOpen(false);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     document.title = "90-Day Men's Glow Up - Transformation Guide";
   }, []);
 
