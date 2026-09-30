@@ -81,7 +81,7 @@ const HomePage = () => {
         .bg-glow {
           position: absolute;
           border-radius: 50%;
-          filter: blur(120px);
+          /* filter: blur(120px); removed due to massive Safari performance issues */
           z-index: 0;
           opacity: 0.4;
           pointer-events: none;
@@ -111,6 +111,7 @@ const HomePage = () => {
         .home-header {
           padding: 1.5rem 0;
           border-bottom: 1px solid rgba(255,255,255,0.05);
+          -webkit-backdrop-filter: blur(10px);
           backdrop-filter: blur(10px);
         }
 
@@ -181,6 +182,7 @@ const HomePage = () => {
           color: inherit;
           transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
           position: relative;
+          -webkit-backdrop-filter: blur(10px);
           backdrop-filter: blur(10px);
         }
 
