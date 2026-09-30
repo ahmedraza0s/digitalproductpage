@@ -71,7 +71,7 @@ const CheckoutModal = ({ isOpen, onClose, productId = 'ebook-001', price = impor
 
             if (verifyResult.success) {
               setSuccessData(verifyResult);
-              
+
               // Track purchase event with Meta Pixel
               if (window.fbq) {
                 window.fbq('track', 'Purchase', {
@@ -110,6 +110,7 @@ const CheckoutModal = ({ isOpen, onClose, productId = 'ebook-001', price = impor
         }
       };
 
+
       const rzp = new window.Razorpay(options);
       rzp.on('payment.failed', async function (response) {
         setLoading(true);
@@ -119,7 +120,7 @@ const CheckoutModal = ({ isOpen, onClose, productId = 'ebook-001', price = impor
           setLoading(false);
           return;
         }
-        
+
         setError(response.error.description || 'Payment failed. If amount was deducted, check your email in a few minutes.');
         setLoading(false);
       });
@@ -142,14 +143,14 @@ const CheckoutModal = ({ isOpen, onClose, productId = 'ebook-001', price = impor
     <div style={styles.overlay}>
       <div style={styles.modal}>
         <button onClick={resetAndClose} style={styles.closeBtn}>×</button>
-        
+
         {successData ? (
           <div style={styles.successContainer}>
             <div style={styles.successIcon}>✓</div>
             <h2 style={styles.title}>Payment Successful!</h2>
             <p style={styles.text}>Thank you for your purchase. Your ebook is ready.</p>
             <p style={styles.text}>We've also sent a backup link to <strong>{formData.email}</strong>.</p>
-            
+
             <a href={successData.downloadLink} style={styles.downloadBtn} download>
               Download Ebook Now
             </a>
@@ -158,49 +159,49 @@ const CheckoutModal = ({ isOpen, onClose, productId = 'ebook-001', price = impor
           <div>
             <h2 style={styles.title}>Secure Checkout</h2>
             <p style={styles.text}>Enter your details to receive your digital download.</p>
-            
+
             {error && <div style={styles.error}>{error}</div>}
-            
+
             <form onSubmit={handleCheckout} style={styles.form}>
               <div style={styles.formGroup}>
                 <label style={styles.label}>Full Name</label>
-                <input 
-                  type="text" 
-                  name="name" 
-                  value={formData.name} 
-                  onChange={handleInputChange} 
-                  required 
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  required
                   style={styles.input}
                   placeholder="John Doe"
                 />
               </div>
               <div style={styles.formGroup}>
                 <label style={styles.label}>Email Address</label>
-                <input 
-                  type="email" 
-                  name="email" 
-                  value={formData.email} 
-                  onChange={handleInputChange} 
-                  required 
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
                   style={styles.input}
                   placeholder="john@example.com"
                 />
               </div>
               <div style={styles.formGroup}>
                 <label style={styles.label}>Phone Number</label>
-                <input 
-                  type="tel" 
-                  name="phone" 
-                  value={formData.phone} 
-                  onChange={handleInputChange} 
-                  required 
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  required
                   style={styles.input}
-                  placeholder="+1 (555) 000-0000"
+                  placeholder="+91 98765 43210"
                 />
               </div>
-              <button 
-                type="submit" 
-                style={{...styles.submitBtn, opacity: loading ? 0.7 : 1}} 
+              <button
+                type="submit"
+                style={{ ...styles.submitBtn, opacity: loading ? 0.7 : 1 }}
                 disabled={loading}
               >
                 {loading ? 'Processing...' : 'Get the Ebook Now'}
