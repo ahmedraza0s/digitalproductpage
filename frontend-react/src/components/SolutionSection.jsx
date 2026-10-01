@@ -69,13 +69,13 @@ const SolutionSection = () => {
           </p>
         </div>
 
-        <div style={styles.layout}>
+        <div className="solution-layout">
           <div className="slide-up book-mockup-wrapper" style={styles.imageWrapper}>
             <img src={heroBookMockup} alt="Stop Being Awkward Book Cover" style={styles.bookImage} className="book-image" />
             <div style={styles.imageGlow}></div>
           </div>
 
-          <div style={styles.grid}>
+          <div className="solution-grid">
             {features.map((feature, idx) => (
               <div key={idx} className="slide-up hover-card-border" style={{ ...styles.card, animationDelay: `${idx * 0.1}s` }}>
                 <div style={styles.cardHeader}>
@@ -90,19 +90,54 @@ const SolutionSection = () => {
         </div>
       </div>
 
-      {/* Add global style for hover tilt if not using external css framework */}
       <style>{`
-        .book-image {
+        .solution-layout {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 3rem;
+        }
+        .solution-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 1rem;
+          width: 100%;
+        }
+        .solution-layout .book-image {
           width: 100%;
           max-width: 250px;
         }
-        @media (min-width: 992px) {
-          .book-image {
-            max-width: 380px;
+        
+        @media (min-width: 640px) {
+          .solution-grid {
+            grid-template-columns: repeat(2, 1fr);
           }
         }
+        
+        @media (min-width: 992px) {
+          .solution-layout {
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 4rem;
+          }
+          .solution-layout .book-mockup-wrapper {
+            position: sticky;
+            top: 8rem;
+            flex: 0 0 35%;
+            display: flex;
+            justify-content: center;
+          }
+          .solution-grid {
+            flex: 1;
+            grid-template-columns: repeat(2, 1fr);
+          }
+          .solution-layout .book-image {
+            max-width: 320px;
+          }
+        }
+        
         @media (hover: hover) {
-          .book-mockup-wrapper:hover .book-image {
+          .solution-layout .book-mockup-wrapper:hover .book-image {
             transform: rotate(0deg) scale(1.02) !important;
           }
         }
@@ -124,29 +159,24 @@ const styles = {
   },
   header: {
     textAlign: 'center',
-    marginBottom: '5rem',
+    marginBottom: '3rem',
   },
   title: {
-    fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
-    marginBottom: '1.5rem',
+    fontSize: 'clamp(2rem, 5vw, 3rem)',
+    marginBottom: '1rem',
     lineHeight: 1.2,
   },
   subtitle: {
-    fontSize: '1.25rem',
+    fontSize: '1.125rem',
     color: 'var(--text-secondary)',
     maxWidth: '600px',
     margin: '0 auto',
   },
-  layout: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: '4rem',
-  },
   imageWrapper: {
     position: 'relative',
     width: '100%',
-    maxWidth: '400px',
+    display: 'flex',
+    justifyContent: 'center',
   },
   bookImage: {
     height: 'auto',
@@ -171,21 +201,15 @@ const styles = {
     zIndex: 1,
     borderRadius: '50%',
   },
-  grid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-    gap: '1.5rem',
-    width: '100%',
-  },
   card: {
     backgroundColor: 'var(--surface-color)',
     border: '1px solid var(--border-color)',
     borderRadius: '1rem',
-    padding: '2rem',
+    padding: '1.25rem',
     transition: 'var(--transition-smooth)',
     display: 'flex',
     flexDirection: 'column',
-    gap: '1rem',
+    gap: '0.75rem',
     cursor: 'default',
   },
   cardHeader: {
@@ -194,25 +218,25 @@ const styles = {
     alignItems: 'center',
   },
   icon: {
-    fontSize: '2rem',
+    fontSize: '1.5rem',
   },
   featureNum: {
-    fontSize: '0.875rem',
+    fontSize: '0.75rem',
     fontWeight: '700',
     color: 'var(--text-trust)',
     backgroundColor: 'rgba(139, 92, 246, 0.15)',
-    padding: '0.25rem 0.75rem',
+    padding: '0.25rem 0.5rem',
     borderRadius: '9999px',
   },
   featureTitle: {
-    fontSize: '1.25rem',
+    fontSize: '1.125rem',
     color: 'white',
     margin: 0,
   },
   featureDesc: {
-    fontSize: '0.9375rem',
+    fontSize: '0.875rem',
     color: 'var(--text-secondary)',
-    lineHeight: 1.6,
+    lineHeight: 1.5,
     margin: 0,
   }
 };

@@ -21,9 +21,9 @@ const TableOfContents = ({ openCheckout }) => {
           <h2 style={styles.title}>Inside the <span className="gradient-text">45 Pages</span></h2>
         </div>
         
-        <div style={styles.grid}>
+        <div className="toc-grid">
           {tocData.map((item, idx) => (
-            <div key={idx} className="slide-up" style={{...styles.card, animationDelay: `${idx * 0.1}s`}}>
+            <div key={idx} className="slide-up toc-card" style={{...styles.card, animationDelay: `${idx * 0.1}s`}}>
               <div style={styles.cardHeader}>
                 <div style={styles.chapterNum}>Chapter {idx + 1}</div>
               </div>
@@ -39,6 +39,34 @@ const TableOfContents = ({ openCheckout }) => {
           </button>
         </div>
       </div>
+
+      <style>{`
+        .toc-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 1rem;
+        }
+        
+        @media (min-width: 768px) {
+          .toc-grid {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+          }
+        }
+        
+        @media (min-width: 992px) {
+          .toc-grid {
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+          }
+        }
+        
+        .toc-card:hover {
+          border-color: rgba(139, 92, 246, 0.4) !important;
+          box-shadow: 0 10px 30px -10px rgba(139, 92, 246, 0.2);
+          transform: translateY(-2px);
+        }
+      `}</style>
     </section>
   );
 };
@@ -51,74 +79,57 @@ const styles = {
   },
   header: {
     textAlign: 'center',
-    marginBottom: '4rem',
+    marginBottom: '3rem',
   },
   title: {
-    fontSize: 'clamp(2.5rem, 4vw, 3.5rem)',
-  },
-  grid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-    gap: '1.5rem',
+    fontSize: 'clamp(2rem, 4vw, 3rem)',
   },
   card: {
     backgroundColor: 'var(--surface-color)',
     border: '1px solid var(--border-color)',
     borderRadius: '1rem',
-    padding: '2rem',
+    padding: '1.25rem',
     transition: 'var(--transition-smooth)',
     display: 'flex',
     flexDirection: 'column',
-    gap: '1rem',
+    gap: '0.75rem',
   },
   cardHeader: {
-    marginBottom: '0.5rem',
+    marginBottom: '0.25rem',
   },
   chapterNum: {
     display: 'inline-block',
     backgroundColor: 'rgba(139, 92, 246, 0.15)',
     color: 'var(--accent-primary)',
-    padding: '0.25rem 0.75rem',
+    padding: '0.25rem 0.6rem',
     borderRadius: '9999px',
-    fontSize: '0.75rem',
+    fontSize: '0.7rem',
     fontWeight: '700',
     textTransform: 'uppercase',
     letterSpacing: '0.05em',
   },
   topicTitle: {
-    fontSize: '1.25rem',
+    fontSize: '1.125rem',
     color: 'white',
     margin: 0,
   },
   topicDesc: {
-    fontSize: '0.9375rem',
+    fontSize: '0.875rem',
     color: 'var(--text-secondary)',
-    lineHeight: 1.6,
+    lineHeight: 1.5,
     margin: 0,
     flexGrow: 1,
   },
   bottomCta: {
-    marginTop: '4rem',
+    marginTop: '3rem',
     display: 'flex',
     justifyContent: 'center',
   }
 };
 
-// Add hover styles using style tag
-const hoverStyles = `
-  .slide-up:hover {
-    border-color: rgba(139, 92, 246, 0.4);
-    box-shadow: 0 10px 30px -10px rgba(139, 92, 246, 0.2);
-    transform: translateY(-2px);
-  }
-`;
-
-export default function WithHoverStyles() {
+export default function WithHoverStyles(props) {
   return (
-    <>
-      <style>{hoverStyles}</style>
-      <TableOfContents />
-    </>
+    <TableOfContents {...props} />
   );
 }
 

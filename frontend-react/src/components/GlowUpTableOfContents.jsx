@@ -20,17 +20,21 @@ const TableOfContents = () => {
   return (
     <section style={styles.section} className="section-padding" id="what-inside">
       <div className="container">
-        <div style={isMobile ? { ...styles.grid, gridTemplateColumns: '1fr' } : styles.grid}>
+        <div style={isMobile ? { ...styles.grid, gridTemplateColumns: '1fr', gap: '3rem' } : styles.grid}>
           
           <div className="slide-up" style={styles.contentColumn}>
             <div className="tag-badge" style={{ marginBottom: '1rem' }}>What You'll Get</div>
-            <h2 style={styles.title}>Inside the <span className="gradient-text">Guide</span></h2>
+            <h2 style={{ ...styles.title, marginBottom: isMobile ? '1.5rem' : styles.title.marginBottom }}>Inside the <span className="gradient-text">Guide</span></h2>
             
-            <div style={styles.checklist}>
+            <div style={isMobile ? { ...styles.checklist, gridTemplateColumns: '1fr', gap: '0.75rem' } : styles.checklist}>
               {checklist.map((item, idx) => (
-                <div key={idx} style={{...styles.checkItem, animationDelay: `${idx * 0.1}s`}} className="slide-up">
+                <div key={idx} style={{
+                  ...styles.checkItem, 
+                  animationDelay: `${idx * 0.1}s`,
+                  padding: isMobile ? '0.625rem 1rem' : styles.checkItem.padding
+                }} className="slide-up">
                   <div style={styles.checkIcon}>✓</div>
-                  <span style={styles.checkText}>{item}</span>
+                  <span style={{ ...styles.checkText, fontSize: isMobile ? '0.9375rem' : styles.checkText.fontSize }}>{item}</span>
                 </div>
               ))}
             </div>
@@ -58,7 +62,7 @@ const styles = {
   grid: {
     display: 'grid',
     gridTemplateColumns: '1fr 1fr',
-    gap: '4rem',
+    gap: '3rem',
     alignItems: 'center',
   },
   contentColumn: {
@@ -67,19 +71,19 @@ const styles = {
   },
   title: {
     fontSize: 'clamp(2.5rem, 4vw, 3.5rem)',
-    marginBottom: '2.5rem',
+    marginBottom: '1.75rem',
   },
   checklist: {
     display: 'grid',
-    gridTemplateColumns: '1fr',
-    gap: '1.25rem',
+    gridTemplateColumns: '1fr 1fr',
+    gap: '1rem',
   },
   checkItem: {
     display: 'flex',
     alignItems: 'center',
     gap: '1rem',
     backgroundColor: 'var(--surface-color)',
-    padding: '1rem 1.5rem',
+    padding: '0.75rem 1.25rem',
     borderRadius: '0.75rem',
     border: '1px solid var(--border-color)',
   },
@@ -89,7 +93,7 @@ const styles = {
     fontSize: '1.25rem',
   },
   checkText: {
-    fontSize: '1.125rem',
+    fontSize: '1rem',
     color: 'var(--text-primary)',
   },
   imageColumn: {
