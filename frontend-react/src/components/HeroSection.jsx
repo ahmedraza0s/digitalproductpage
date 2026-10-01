@@ -6,16 +6,50 @@ import { useWindowSize } from '../hooks/useWindowSize';
 const HeroSection = ({ openCheckout }) => {
   const { width } = useWindowSize();
   const isMobile = width <= 992;
+
+  const bookContent = (
+    <div className="fade-in" style={styles.imageColumn}>
+      <div style={styles.imageWrapper}>
+        <img src={heroBookMockup} alt="Stop Being Awkward Book" style={styles.bookImage} />
+        <div style={styles.imageGlow}></div>
+      </div>
+    </div>
+  );
+
+  const offerBoxContent = (
+    <div style={isMobile ? { ...styles.offerBox, margin: '0 auto 2rem auto' } : styles.offerBox}>
+      <div style={isMobile ? { ...styles.priceContainer, justifyContent: 'center' } : styles.priceContainer}>
+        <span style={styles.oldPrice}>₹1,000</span>
+        <span style={styles.newPrice}>₹{BOOK_PRICE}</span>
+        <span style={styles.discountBadge}>90% OFF</span>
+      </div>
+
+      <button className="btn btn-primary pulse" style={styles.ctaButton} onClick={openCheckout}>
+        GET THE BOOK FOR ₹{BOOK_PRICE} &rarr;
+      </button>
+
+      <div style={{ marginTop: '1rem', textAlign: isMobile ? 'center' : 'left' }}>
+        <a href="#what-inside" style={styles.secondaryLink}>
+          See what's inside &darr;
+        </a>
+      </div>
+    </div>
+  );
+
   return (
     <section style={styles.heroSection} className="section-padding">
       {/* Background with mesh gradient feel */}
       <div style={styles.backgroundGlow}></div>
       <div style={styles.backgroundGlowAmber}></div>
 
-      <div className="container" style={isMobile ? { ...styles.grid, gridTemplateColumns: '1fr', textAlign: 'center' } : styles.grid}>
-        
+      <div className="container" style={isMobile ? { ...styles.grid, gridTemplateColumns: '1fr', textAlign: 'center', gap: '2rem' } : styles.grid}>
+
         {/* Left Content */}
         <div className="fade-in" style={isMobile ? { ...styles.textContent, alignItems: 'center', textAlign: 'center' } : styles.textContent}>
+
+          {isMobile && bookContent}
+          {isMobile && offerBoxContent}
+
           <div style={styles.badge}>
             <span style={styles.badgeIcon}>📖</span>
             <span style={styles.badgeText}>45-Page Practical Digital Book</span>
@@ -39,32 +73,11 @@ const HeroSection = ({ openCheckout }) => {
             <span style={styles.proofItem}>🇮🇳 Trusted across India</span>
           </div>
 
-          <div style={isMobile ? { ...styles.offerBox, margin: '2rem auto 0 auto' } : styles.offerBox}>
-            <div style={isMobile ? { ...styles.priceContainer, justifyContent: 'center' } : styles.priceContainer}>
-              <span style={styles.oldPrice}>₹1,000</span>
-              <span style={styles.newPrice}>₹{BOOK_PRICE}</span>
-              <span style={styles.discountBadge}>90% OFF</span>
-            </div>
-            
-            <button className="btn btn-primary pulse" style={styles.ctaButton} onClick={openCheckout}>
-              GET THE BOOK FOR ₹{BOOK_PRICE} &rarr;
-            </button>
-            
-            <div style={{ marginTop: '1rem' }}>
-              <a href="#what-inside" style={styles.secondaryLink}>
-                See what's inside &darr;
-              </a>
-            </div>
-          </div>
+          {!isMobile && offerBoxContent}
         </div>
 
         {/* Right Content - 3D Book */}
-        <div className="fade-in" style={styles.imageColumn}>
-          <div style={styles.imageWrapper}>
-            <img src={heroBookMockup} alt="Stop Being Awkward Book" style={styles.bookImage} />
-            <div style={styles.imageGlow}></div>
-          </div>
-        </div>
+        {!isMobile && bookContent}
 
       </div>
     </section>
@@ -222,8 +235,6 @@ const styles = {
     height: 'auto',
     position: 'relative',
     zIndex: 2,
-    borderRadius: '16px',
-    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
   },
   imageGlow: {
     position: 'absolute',

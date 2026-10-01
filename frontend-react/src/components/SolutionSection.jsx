@@ -59,7 +59,7 @@ const SolutionSection = () => {
         <div style={styles.header}>
           <div className="tag-badge" style={{ marginBottom: '1rem' }}>The Solution</div>
           <h2 style={styles.title}>
-            Master The Art of <br/>
+            Master The Art of <br />
             <span className="gradient-text" style={{ textDecoration: 'underline', textDecorationColor: 'var(--accent-primary)', textUnderlineOffset: '8px' }}>
               Natural Conversation
             </span>
@@ -74,10 +74,10 @@ const SolutionSection = () => {
             <img src={heroBookMockup} alt="Stop Being Awkward Book Cover" style={styles.bookImage} className="hover-tilt" />
             <div style={styles.imageGlow}></div>
           </div>
-          
+
           <div style={styles.grid}>
             {features.map((feature, idx) => (
-              <div key={idx} className="slide-up hover-card-border" style={{...styles.card, animationDelay: `${idx * 0.1}s`}}>
+              <div key={idx} className="slide-up hover-card-border" style={{ ...styles.card, animationDelay: `${idx * 0.1}s` }}>
                 <div style={styles.cardHeader}>
                   <span style={styles.icon}>{feature.icon}</span>
                   <span style={styles.featureNum}>{feature.num}</span>
@@ -89,7 +89,7 @@ const SolutionSection = () => {
           </div>
         </div>
       </div>
-      
+
       {/* Add global style for hover tilt if not using external css framework */}
       <style>{`
         .hover-tilt {
@@ -144,8 +144,6 @@ const styles = {
     width: '100%',
     position: 'relative',
     zIndex: 2,
-    borderRadius: '16px',
-    boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
   },
   imageGlow: {
     position: 'absolute',

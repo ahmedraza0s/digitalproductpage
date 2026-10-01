@@ -6,12 +6,49 @@ import { useWindowSize } from '../hooks/useWindowSize';
 const HeroSection = ({ openCheckout }) => {
   const { width } = useWindowSize();
   const isMobile = width <= 992;
+
+  const bookContent = (
+    <div className="fade-in" style={styles.imageColumn}>
+      <div style={styles.showcaseContainer}>
+        <BookMockup />
+        <div style={styles.staticChips}>
+           <span style={styles.chip}>✦ Skincare Protocol</span>
+           <span style={styles.chip}>✦ Posture & Style</span>
+        </div>
+      </div>
+    </div>
+  );
+
+  const offerBoxContent = (
+    <div style={isMobile ? { ...styles.offerBox, margin: '0 auto 2rem auto' } : styles.offerBox}>
+      <div style={isMobile ? { ...styles.priceContainer, justifyContent: 'center' } : styles.priceContainer}>
+        <span style={styles.oldPrice}>₹499</span>
+        <span style={styles.newPrice}>₹{GLOW_UP_BOOK_PRICE}</span>
+        <span style={styles.discountBadge}>80% OFF</span>
+      </div>
+      
+      <button className="btn btn-primary pulse" style={styles.ctaButton} onClick={openCheckout}>
+        GET SHARPER &mdash; ₹{GLOW_UP_BOOK_PRICE} &rarr;
+      </button>
+      
+      <div style={{ marginTop: '1rem', textAlign: 'center' }}>
+        <span style={styles.secondaryText}>
+          Instant Digital Access &bull; One-Time Payment
+        </span>
+      </div>
+    </div>
+  );
+
   return (
     <section style={styles.heroSection} className="section-padding">
-      <div className="container" style={isMobile ? { ...styles.grid, gridTemplateColumns: '1fr', textAlign: 'center' } : styles.grid}>
+      <div className="container" style={isMobile ? { ...styles.grid, gridTemplateColumns: '1fr', textAlign: 'center', gap: '2rem' } : styles.grid}>
         
         {/* Left Content */}
         <div className="fade-in" style={isMobile ? { ...styles.textContent, alignItems: 'center', textAlign: 'center' } : styles.textContent}>
+          
+          {isMobile && bookContent}
+          {isMobile && offerBoxContent}
+
           <div style={styles.badge}>
             <span style={styles.badgeIcon}>📖</span>
             <span style={styles.badgeText}>30-Day Digital Guide</span>
@@ -34,35 +71,11 @@ const HeroSection = ({ openCheckout }) => {
             <span style={styles.proofItem}>✅ Research-backed</span>
           </div>
 
-          <div style={isMobile ? { ...styles.offerBox, margin: '2rem auto 0 auto' } : styles.offerBox}>
-            <div style={isMobile ? { ...styles.priceContainer, justifyContent: 'center' } : styles.priceContainer}>
-              <span style={styles.oldPrice}>₹499</span>
-              <span style={styles.newPrice}>₹{GLOW_UP_BOOK_PRICE}</span>
-              <span style={styles.discountBadge}>80% OFF</span>
-            </div>
-            
-            <button className="btn btn-primary pulse" style={styles.ctaButton} onClick={openCheckout}>
-              GET SHARPER &mdash; ₹{GLOW_UP_BOOK_PRICE} &rarr;
-            </button>
-            
-            <div style={{ marginTop: '1rem', textAlign: 'center' }}>
-              <span style={styles.secondaryText}>
-                Instant Digital Access &bull; One-Time Payment
-              </span>
-            </div>
-          </div>
+          {!isMobile && offerBoxContent}
         </div>
 
         {/* Right Content - 3D Book & Previews */}
-        <div className="fade-in" style={styles.imageColumn}>
-          <div style={styles.showcaseContainer}>
-            <BookMockup />
-            <div style={styles.staticChips}>
-               <span style={styles.chip}>✦ Skincare Protocol</span>
-               <span style={styles.chip}>✦ Posture & Style</span>
-            </div>
-          </div>
-        </div>
+        {!isMobile && bookContent}
 
       </div>
     </section>
