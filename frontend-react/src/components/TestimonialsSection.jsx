@@ -38,7 +38,7 @@ const TestimonialsSection = () => {
         </div>
 
         <div style={styles.sliderContainer}>
-          <div style={styles.grid}>
+          <div style={styles.grid} className="hide-scrollbar">
             {testimonials.map((t, idx) => (
               <div key={idx} className="slide-up testimonial-card hover-testimonial-card" style={{...styles.card, animationDelay: `${idx * 0.2}s`}}>
                 <div style={styles.stars}>⭐⭐⭐⭐⭐</div>
@@ -164,35 +164,5 @@ const styles = {
   }
 };
 
-// Apply hide-scrollbar class programmatically to the grid
-if (typeof window !== 'undefined') {
-  const applyClasses = () => {
-    const el = document.querySelector('.hide-scrollbar-target');
-    if(el) el.classList.add('hide-scrollbar');
-  };
-  
-  // This is a bit hacky for React styles. 
-  // We'll just apply the class directly in the JSX instead.
-}
 
-// Ensure the class is added cleanly
-const OriginalTestimonialsSection = TestimonialsSection;
-export default function Wrapper() {
-  const original = OriginalTestimonialsSection();
-  
-  // Inject the class directly into the grid div
-  const newGrid = React.cloneElement(
-    original.props.children[0].props.children[1].props.children, 
-    { className: 'hide-scrollbar' }
-  );
-  
-  const newContainerChildren = [
-    original.props.children[0].props.children[0],
-    React.cloneElement(original.props.children[0].props.children[1], {}, newGrid)
-  ];
-  
-  const newContainer = React.cloneElement(original.props.children[0], {}, newContainerChildren);
-  
-  return React.cloneElement(original, {}, [newContainer, original.props.children[1]]);
-}
-
+export default TestimonialsSection;
