@@ -5,6 +5,7 @@ import ProblemSection from '../components/GlowUpProblemSection';
 import GlowUpImageBanner from '../components/GlowUpImageBanner';
 import SolutionSection from '../components/GlowUpSolutionSection';
 import TableOfContents from '../components/GlowUpTableOfContents';
+import TimelineSection from '../components/GlowUpTimelineSection';
 import TestimonialsSection from '../components/GlowUpTestimonialsSection';
 import TargetAudienceSection from '../components/GlowUpTargetAudienceSection';
 import OfferAndFAQSection from '../components/GlowUpOfferAndFAQSection';
@@ -30,19 +31,24 @@ const GlowUpLandingPage = () => {
         <ProblemSection />
         <GlowUpImageBanner />
         <SolutionSection />
+        <TimelineSection />
         <TableOfContents openCheckout={openCheckout} />
         <TestimonialsSection />
         <TargetAudienceSection />
         <OfferAndFAQSection openCheckout={openCheckout} />
       </main>
-      
+
       <footer style={styles.footer}>
         <div className="container">
           <div style={styles.footerContent}>
             <div style={styles.brand}>SHARPER</div>
             <p style={styles.footerText}>
-              &copy; {new Date().getFullYear()} All rights reserved. <br/>
+              &copy; {new Date().getFullYear()} All rights reserved. <br />
               Results may vary based on individual effort and application of the material.
+            </p>
+            <p style={styles.disclaimer}>
+              📋 Educational content only not medical advice.
+              For medical conditions, consult a qualified professional.
             </p>
             <div style={styles.footerLinks}>
               <a href="/terms" style={styles.link}>Terms</a>
@@ -55,12 +61,12 @@ const GlowUpLandingPage = () => {
       </footer>
 
       <StickyBuyBar openCheckout={openCheckout} />
-      
+
       {/* 🆕 Using product ebook-002 and reading new price env variable */}
-      <CheckoutModal 
-        isOpen={isCheckoutOpen} 
-        onClose={closeCheckout} 
-        productId="ebook-002" 
+      <CheckoutModal
+        isOpen={isCheckoutOpen}
+        onClose={closeCheckout}
+        productId="ebook-002"
         price={import.meta.env.VITE_GLOW_UP_BOOK_PRICE}
       />
     </div>
@@ -109,6 +115,17 @@ const styles = {
     textDecoration: 'none',
     fontSize: '0.875rem',
     transition: 'color 0.2s',
+  },
+  disclaimer: {
+    fontSize: '0.875rem',
+    color: 'var(--text-secondary)',
+    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    padding: '0.75rem 1rem',
+    borderRadius: '0.5rem',
+    border: '1px solid rgba(255, 255, 255, 0.05)',
+    display: 'inline-block',
+    margin: '0',
+    lineHeight: 1.5,
   }
 };
 

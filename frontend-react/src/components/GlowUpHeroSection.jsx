@@ -18,12 +18,12 @@ const HeroSection = ({ openCheckout }) => {
           </div>
 
           <h1 style={styles.headline}>
-            <span className="gradient-text">SHARPER</span><br />
-            Become the Best Version of Yourself.
+            Look <span className="gradient-text">Sharper</span><br />
+            in 30 Days.
           </h1>
 
           <p style={isMobile ? { ...styles.subheadline, margin: '0 auto' } : styles.subheadline}>
-            A practical guide to improving your <strong>looks, grooming, style, physique, and confidence</strong>.
+            Without buying 20 products. Become the best version of yourself with one simple 30-day system.
           </p>
 
           <div style={isMobile ? { ...styles.socialProof, justifyContent: 'center' } : styles.socialProof}>
@@ -36,9 +36,9 @@ const HeroSection = ({ openCheckout }) => {
 
           <div style={isMobile ? { ...styles.offerBox, margin: '2rem auto 0 auto' } : styles.offerBox}>
             <div style={isMobile ? { ...styles.priceContainer, justifyContent: 'center' } : styles.priceContainer}>
-              <span style={styles.oldPrice}>₹1,000</span>
+              <span style={styles.oldPrice}>₹499</span>
               <span style={styles.newPrice}>₹{GLOW_UP_BOOK_PRICE}</span>
-              <span style={styles.discountBadge}>90% OFF</span>
+              <span style={styles.discountBadge}>80% OFF</span>
             </div>
             
             <button className="btn btn-primary pulse" style={styles.ctaButton} onClick={openCheckout}>

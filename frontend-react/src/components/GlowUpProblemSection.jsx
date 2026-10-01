@@ -27,6 +27,10 @@ const ProblemSection = () => {
           ))}
         </div>
 
+        <div style={styles.calloutLine}>
+          If you nodded at 2 or more of these — this is for you.
+        </div>
+
         <div className="slide-up" style={{...styles.bottomHighlight, animationDelay: '0.6s'}}>
           <div style={styles.highlightIcon}>🎯</div>
           <div>
@@ -111,6 +115,17 @@ const styles = {
     color: 'white',
     lineHeight: 1.3,
     margin: 0,
+  },
+  calloutLine: {
+    textAlign: 'center',
+    fontSize: '1.25rem',
+    fontWeight: '600',
+    color: 'var(--accent-primary)',
+    margin: '0 0 3rem 0',
+    padding: '1rem',
+    borderLeft: '3px solid var(--accent-primary)',
+    backgroundColor: 'rgba(139, 92, 246, 0.06)',
+    borderRadius: '0.5rem',
   }
 };
 

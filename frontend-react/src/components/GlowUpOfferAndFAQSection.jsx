@@ -54,7 +54,7 @@ const OfferAndFAQSection = ({ openCheckout }) => {
                 <div style={styles.valueStackItem}>
                   <div style={styles.valueCheck}>✅</div>
                   <div style={styles.valueText}>SHARPER Guide (PDF)</div>
-                  <div style={styles.valuePrice}>Value: ₹1,000</div>
+                  <div style={styles.valuePrice}>Value: ₹499</div>
                 </div>
                 <div style={styles.valueStackItem}>
                   <div style={styles.valueCheck}>✅</div>
@@ -75,7 +75,7 @@ const OfferAndFAQSection = ({ openCheckout }) => {
               
               <div style={styles.valueStackTotalRow}>
                 <span style={styles.totalValueLabel}>Total Value:</span>
-                <span style={styles.totalValuePrice}>₹1,498</span>
+                <span style={styles.totalValuePrice}>₹997</span>
               </div>
               <div style={styles.valueStackTodayRow}>
                 <span style={styles.todayPriceLabel}>Today's Price:</span>
@@ -124,6 +124,12 @@ const OfferAndFAQSection = ({ openCheckout }) => {
               </div>
             ))}
           </div>
+        </div>
+
+        <div style={{ marginTop: '2rem', textAlign: 'center' }}>
+          <p style={styles.disclaimer}>
+            📋 This guide is for educational purposes only and does not constitute medical advice.
+          </p>
         </div>
 
         {/* Final CTA Block */}
@@ -379,6 +385,17 @@ const styles = {
     fontSize: '0.875rem',
     color: 'var(--text-trust)',
     margin: 0,
+  },
+  disclaimer: {
+    fontSize: '0.875rem',
+    color: 'var(--text-secondary)',
+    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    padding: '1rem',
+    borderRadius: '0.5rem',
+    border: '1px solid rgba(255, 255, 255, 0.05)',
+    display: 'inline-block',
+    margin: '0 auto',
+    lineHeight: 1.5,
   }
 };
 

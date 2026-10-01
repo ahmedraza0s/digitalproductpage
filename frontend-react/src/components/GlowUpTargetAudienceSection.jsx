@@ -181,7 +181,6 @@ const styles = {
     fontSize: '0.9375rem',
     margin: 0,
     lineHeight: 1.5,
-    textDecoration: 'line-through',
   },
   imageColumn: {
     position: 'relative',
