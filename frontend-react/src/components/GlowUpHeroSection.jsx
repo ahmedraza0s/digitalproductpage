@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { GLOW_UP_BOOK_PRICE } from '../config';
 import BookMockup from './BookMockup';
-import PreviewPage from './PreviewPage';
 import { useWindowSize } from '../hooks/useWindowSize';
 
 const HeroSection = ({ openCheckout }) => {
@@ -9,10 +8,6 @@ const HeroSection = ({ openCheckout }) => {
   const isMobile = width <= 992;
   return (
     <section style={styles.heroSection} className="section-padding">
-      {/* Background with mesh gradient feel */}
-      <div style={styles.backgroundGlow}></div>
-      <div style={styles.backgroundGlowAmber}></div>
-
       <div className="container" style={isMobile ? { ...styles.grid, gridTemplateColumns: '1fr', textAlign: 'center' } : styles.grid}>
         
         {/* Left Content */}
@@ -60,38 +55,11 @@ const HeroSection = ({ openCheckout }) => {
 
         {/* Right Content - 3D Book & Previews */}
         <div className="fade-in" style={styles.imageColumn}>
-          <div style={styles.imageGlow}></div>
-          
           <div style={styles.showcaseContainer}>
-            {/* Left Preview Page */}
-            <div style={styles.previewLeft}>
-              <PreviewPage 
-                title="Skincare Protocol" 
-                items={[
-                  "The 3-step morning routine.",
-                  "Ingredients that actually work.",
-                  "How to eliminate acne scars."
-                ]}
-                delay={0}
-              />
-            </div>
-            
-            {/* Center Main Book */}
-            <div style={styles.mainBook}>
-              <BookMockup />
-            </div>
-
-            {/* Right Preview Page */}
-            <div style={styles.previewRight}>
-              <PreviewPage 
-                title="Posture & Style" 
-                items={[
-                  "Fixing anterior pelvic tilt.",
-                  "Color theory for your skin tone.",
-                  "Building a lean silhouette."
-                ]}
-                delay={3}
-              />
+            <BookMockup />
+            <div style={styles.staticChips}>
+               <span style={styles.chip}>✦ Skincare Protocol</span>
+               <span style={styles.chip}>✦ Posture & Style</span>
             </div>
           </div>
         </div>
@@ -111,26 +79,7 @@ const styles = {
     paddingTop: '8rem',
     paddingBottom: '4rem',
     backgroundColor: 'var(--bg-color)',
-  },
-  backgroundGlow: {
-    position: 'absolute',
-    top: '20%',
-    right: '-10%',
-    width: '600px',
-    height: '600px',
-    background: 'radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(10,10,20,0) 70%)',
-    zIndex: 0,
-    pointerEvents: 'none',
-  },
-  backgroundGlowAmber: {
-    position: 'absolute',
-    bottom: '10%',
-    left: '-10%',
-    width: '500px',
-    height: '500px',
-    background: 'radial-gradient(circle, rgba(245,158,11,0.1) 0%, rgba(10,10,20,0) 70%)',
-    zIndex: 0,
-    pointerEvents: 'none',
+    background: 'radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, rgba(10,10,20,0) 50%), radial-gradient(circle at 10% 90%, rgba(245,158,11,0.08) 0%, rgba(10,10,20,0) 40%), var(--bg-color)',
   },
   grid: {
     display: 'grid',
@@ -243,50 +192,31 @@ const styles = {
   showcaseContainer: {
     position: 'relative',
     width: '100%',
-    height: '450px',
     display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    gap: '2rem',
     zIndex: 2,
   },
-  mainBook: {
-    position: 'relative',
-    zIndex: 5,
+  staticChips: {
+    display: 'flex',
+    gap: '1rem',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    marginTop: '1rem',
   },
-  previewLeft: {
-    position: 'absolute',
-    left: '-10%',
-    top: '15%',
-    zIndex: 3,
-    transform: 'scale(0.85)',
-    opacity: 0.9,
-    '@media (maxWidth: 992px)': {
-      display: 'none',
-    }
-  },
-  previewRight: {
-    position: 'absolute',
-    right: '-10%',
-    bottom: '5%',
-    zIndex: 4,
-    transform: 'scale(0.9)',
-    opacity: 0.95,
-    '@media (maxWidth: 992px)': {
-      display: 'none',
-    }
-  },
-  imageGlow: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '80%',
-    height: '80%',
-    background: 'var(--accent-glow)',
-    filter: 'blur(80px)',
-    zIndex: 1,
-    borderRadius: '50%',
+  chip: {
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    border: '1px solid rgba(255, 255, 255, 0.1)',
+    color: '#D1D5DB',
+    padding: '0.5rem 1rem',
+    borderRadius: '8px',
+    fontSize: '0.875rem',
+    fontWeight: '500',
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
   }
 };
 
 export default HeroSection;
+
