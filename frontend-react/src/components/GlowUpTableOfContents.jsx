@@ -9,7 +9,7 @@ const checklist = [
   "8-piece wardrobe essentials",
   "Fragrance rules & hygiene",
   "Posture exercises (8-min daily)",
-  "90-day tracker checklist",
+  "30-day tracker checklist",
   "Research & sources included"
 ];
 

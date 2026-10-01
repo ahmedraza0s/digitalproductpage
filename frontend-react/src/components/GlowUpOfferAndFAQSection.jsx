@@ -20,7 +20,7 @@ const faqs = [
   },
   {
     q: "How long until I see results?",
-    a: "Different areas take different amounts of time. The guide's 90 days are for building the system. Skincare and posture show quicker results, while hair loss treatments can take substantially longer to evaluate."
+    a: "Different areas take different amounts of time. The guide's 30 days are for building the system. Skincare and posture show quicker results, while hair loss treatments can take substantially longer to evaluate."
   },
   {
     q: "Is the payment safe?",
@@ -44,7 +44,7 @@ const OfferAndFAQSection = ({ openCheckout }) => {
           <div style={styles.offerCardGlow}></div>
           <div style={styles.offerCard}>
             
-            <h2 style={styles.offerTitle}>Your 90-Day Glow-Up Starts Now.</h2>
+            <h2 style={styles.offerTitle}>Your 30-Day Glow-Up Starts Now.</h2>
             <p style={styles.offerSubtitle}>Get the complete <strong>SHARPER</strong> system today.</p>
             
             {/* Value Stack */}
@@ -58,7 +58,7 @@ const OfferAndFAQSection = ({ openCheckout }) => {
                 </div>
                 <div style={styles.valueStackItem}>
                   <div style={styles.valueCheck}>✅</div>
-                  <div style={styles.valueText}>90-Day Action Checklist</div>
+                  <div style={styles.valueText}>30-Day Action Checklist</div>
                   <div style={styles.valuePrice}>Value: ₹299</div>
                 </div>
                 <div style={styles.valueStackItem}>
@@ -131,7 +131,7 @@ const OfferAndFAQSection = ({ openCheckout }) => {
           <h2 style={styles.finalCtaTitle}>You don't need another glow-up video.</h2>
           <h3 style={styles.finalCtaSubtitle}>You need a plan you can actually follow.</h3>
           <p style={styles.finalCtaText}>
-            Start your 90 days today.
+            Start your 30 days today.
           </p>
           <button className="btn btn-primary pulse" style={styles.finalCtaButton} onClick={openCheckout}>
             GET SHARPER &mdash; ₹{GLOW_UP_BOOK_PRICE} &rarr;

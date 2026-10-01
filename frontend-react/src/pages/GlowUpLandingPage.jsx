@@ -19,12 +19,12 @@ const GlowUpLandingPage = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "90-Day Men's Glow Up - Transformation Guide";
+    document.title = "30-Day Men's Glow Up - Transformation Guide";
   }, []);
 
   return (
     <div style={styles.page}>
-      <Navbar openCheckout={openCheckout} title="90-Day Men's Glow Up" price={GLOW_UP_BOOK_PRICE} />
+      <Navbar openCheckout={openCheckout} title="30-Day Men's Glow Up" price={GLOW_UP_BOOK_PRICE} />
       <main>
         <HeroSection openCheckout={openCheckout} />
         <ProblemSection />

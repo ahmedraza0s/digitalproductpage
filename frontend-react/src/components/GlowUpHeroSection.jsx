@@ -19,7 +19,7 @@ const HeroSection = ({ openCheckout }) => {
         <div className="fade-in" style={isMobile ? { ...styles.textContent, alignItems: 'center', textAlign: 'center' } : styles.textContent}>
           <div style={styles.badge}>
             <span style={styles.badgeIcon}>📖</span>
-            <span style={styles.badgeText}>90-Day Digital Guide</span>
+            <span style={styles.badgeText}>30-Day Digital Guide</span>
           </div>
 
           <h1 style={styles.headline}>

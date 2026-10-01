@@ -42,7 +42,7 @@ const StickyBuyBar = ({ openCheckout }) => {
           {!isMobile ? (
             <div style={styles.titleGroup}>
               <span style={styles.title}>SHARPER</span>
-              <span style={styles.subtitle}>90-Day Guide</span>
+              <span style={styles.subtitle}>30-Day Guide</span>
             </div>
           ) : (
             <div style={styles.titleGroup}>

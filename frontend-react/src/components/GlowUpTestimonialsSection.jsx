@@ -2,7 +2,7 @@ import React from 'react';
 
 const testimonials = [
   {
-    quote: "I finally stopped buying random skincare products. The 90-day structure made it much easier to actually follow.",
+    quote: "I finally stopped buying random skincare products. The 30-day structure made it much easier to actually follow.",
     name: "Rahul",
     tag: "Age 22",
     initials: "R",

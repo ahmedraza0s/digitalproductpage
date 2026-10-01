@@ -3,19 +3,19 @@ import { useWindowSize } from '../hooks/useWindowSize';
 
 const phases = [
   {
-    day: "DAY 1–30",
+    day: "DAY 1–10",
     title: "SUBTRACT",
     color: "#EF4444", // Red
     desc: "Remove bad habits + establish basics"
   },
   {
-    day: "DAY 31–60",
+    day: "DAY 11–20",
     title: "ADD",
     color: "#F59E0B", // Amber
     desc: "Introduce upgrades"
   },
   {
-    day: "DAY 61–90",
+    day: "DAY 21–30",
     title: "REFINE",
     color: "#10B981", // Green
     desc: "Compare progress + fix weak areas"
@@ -31,7 +31,7 @@ const NinetyDaySystem = ({ openCheckout }) => {
       <div className="container">
         <div style={styles.header}>
           <div className="tag-badge" style={{ marginBottom: '1rem' }}>The Roadmap</div>
-          <h2 style={styles.title}>The <span className="gradient-text">90-Day</span> System</h2>
+          <h2 style={styles.title}>The <span className="gradient-text">30-Day</span> System</h2>
           <p style={styles.subtitle}>
             A structured plan so you always know exactly what to focus on.
           </p>

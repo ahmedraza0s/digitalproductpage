@@ -5,7 +5,7 @@ const previews = [
   { label: "Hair", title: "HAIR LOSS OPTIONS", text: "Minoxidil: Increases blood flow\nFinasteride: Blocks DHT\nKetoconazole: Reduces scalp DHT" },
   { label: "Style", title: "PROPORTIONS", text: "Rule of thirds: Avoid splitting the body in half. Wear pants at your natural waist or layer a shorter jacket over a longer shirt to create a 1/3 to 2/3 ratio." },
   { label: "Posture", title: "DAILY ROUTINE", text: "Wall Angels (3x10)\nChin Tucks (3x10)\nThoracic Extensions (2x15)" },
-  { label: "90-Day Plan", title: "PHASE 1: SUBTRACT", text: "Week 1: Stop buying new products.\nWeek 2: Clear out expired items.\nWeek 3: Establish baseline routine." }
+  { label: "30-Day Plan", title: "PHASE 1: SUBTRACT", text: "Week 1: Stop buying new products.\nWeek 2: Clear out expired items.\nWeek 3: Establish baseline routine." }
 ];
 
 const BookPreviewSection = () => {
