@@ -1,5 +1,5 @@
 import React from 'react';
-import heroBookMockup from '../assets/images/awkward_book_cover.jpg';
+import heroBookMockup from '../assets/images/new_awkward_cover.jpg';
 
 const features = [
   {
@@ -70,8 +70,8 @@ const SolutionSection = () => {
         </div>
 
         <div style={styles.layout}>
-          <div className="slide-up" style={styles.imageWrapper}>
-            <img src={heroBookMockup} alt="Stop Being Awkward Book Cover" style={styles.bookImage} className="hover-tilt" />
+          <div className="slide-up book-mockup-wrapper" style={styles.imageWrapper}>
+            <img src={heroBookMockup} alt="Stop Being Awkward Book Cover" style={styles.bookImage} className="book-image" />
             <div style={styles.imageGlow}></div>
           </div>
 
@@ -92,11 +92,19 @@ const SolutionSection = () => {
 
       {/* Add global style for hover tilt if not using external css framework */}
       <style>{`
-        .hover-tilt {
-          transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        .book-image {
+          width: 100%;
+          max-width: 250px;
         }
-        .hover-tilt:hover {
-          transform: perspective(1000px) rotateY(-5deg) rotateX(5deg) scale(1.02);
+        @media (min-width: 992px) {
+          .book-image {
+            max-width: 380px;
+          }
+        }
+        @media (hover: hover) {
+          .book-mockup-wrapper:hover .book-image {
+            transform: rotate(0deg) scale(1.02) !important;
+          }
         }
         .hover-card-border:hover {
           border-color: rgba(139, 92, 246, 0.4) !important;
@@ -141,7 +149,12 @@ const styles = {
     maxWidth: '400px',
   },
   bookImage: {
-    width: '100%',
+    height: 'auto',
+    borderRadius: '4px 12px 12px 4px',
+    border: '1px solid rgba(255, 255, 255, 0.05)',
+    boxShadow: '-10px 15px 30px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255,255,255,0.05)',
+    transform: 'rotate(2deg)',
+    transition: 'transform 0.3s ease',
     position: 'relative',
     zIndex: 2,
   },

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BOOK_PRICE } from '../config';
-import heroBookMockup from '../assets/images/awkward_book_cover.jpg';
+import heroBookMockup from '../assets/images/new_awkward_cover.jpg';
 import { useWindowSize } from '../hooks/useWindowSize';
 
 const HeroSection = ({ openCheckout }) => {
@@ -9,8 +9,8 @@ const HeroSection = ({ openCheckout }) => {
 
   const bookContent = (
     <div className="fade-in" style={styles.imageColumn}>
-      <div style={styles.imageWrapper}>
-        <img src={heroBookMockup} alt="Stop Being Awkward Book" style={styles.bookImage} />
+      <div className="book-mockup-wrapper" style={styles.imageWrapper}>
+        <img src={heroBookMockup} alt="Stop Being Awkward Book" style={styles.bookImage} className="book-image" />
         <div style={styles.imageGlow}></div>
       </div>
     </div>
@@ -80,6 +80,23 @@ const HeroSection = ({ openCheckout }) => {
         {!isMobile && bookContent}
 
       </div>
+
+      <style>{`
+        .book-image {
+          width: 100%;
+          max-width: 250px;
+        }
+        @media (min-width: 992px) {
+          .book-image {
+            max-width: 380px;
+          }
+        }
+        @media (hover: hover) {
+          .book-mockup-wrapper:hover .book-image {
+            transform: rotate(0deg) scale(1.02) !important;
+          }
+        }
+      `}</style>
     </section>
   );
 };
@@ -231,8 +248,12 @@ const styles = {
     animation: 'float 6s ease-in-out infinite',
   },
   bookImage: {
-    width: '100%',
     height: 'auto',
+    borderRadius: '4px 12px 12px 4px',
+    border: '1px solid rgba(255, 255, 255, 0.05)',
+    boxShadow: '-10px 15px 30px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255,255,255,0.05)',
+    transform: 'rotate(2deg)',
+    transition: 'transform 0.3s ease',
     position: 'relative',
     zIndex: 2,
   },
