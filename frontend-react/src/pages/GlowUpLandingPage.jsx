@@ -30,7 +30,7 @@ const GlowUpLandingPage = () => {
         <HeroSection openCheckout={openCheckout} />
         <ProblemSection />
         <GlowUpImageBanner />
-        <SolutionSection />
+        <SolutionSection openCheckout={openCheckout} />
         <TimelineSection />
         <TableOfContents openCheckout={openCheckout} />
         <TestimonialsSection />

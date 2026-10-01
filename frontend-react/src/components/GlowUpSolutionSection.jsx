@@ -1,4 +1,6 @@
 import React from 'react';
+import bannerPC from '../assets/images/pc_view_image.png';
+import bannerMobile from '../assets/images/phone_view_image.png';
 
 const categories = [
   {
@@ -33,7 +35,7 @@ const categories = [
   }
 ];
 
-const SolutionSection = () => {
+const SolutionSection = ({ openCheckout }) => {
   return (
     <section style={styles.section} className="section-padding">
       <div className="container">
@@ -67,6 +69,20 @@ const SolutionSection = () => {
               </div>
             ))}
           </div>
+        </div>
+
+        <div 
+          style={{ ...styles.bannerContainer, cursor: 'pointer' }} 
+          onClick={openCheckout}
+        >
+          <picture>
+            <source media="(max-width: 768px)" srcSet={bannerMobile} />
+            <img 
+              src={bannerPC} 
+              alt="Glow-up transformation" 
+              style={styles.bannerImage}
+            />
+          </picture>
         </div>
       </div>
       
@@ -171,13 +187,26 @@ const styles = {
     color: 'var(--text-secondary)',
     lineHeight: 1.6,
     margin: 0,
+  },
+  bannerContainer: {
+    width: '100%',
+    marginTop: '4rem',
+    borderRadius: '1rem',
+    overflow: 'hidden',
+    boxShadow: '0 20px 40px -10px rgba(0,0,0,0.3)',
+  },
+  bannerImage: {
+    width: '100%',
+    height: 'auto',
+    display: 'block',
+    objectFit: 'cover',
   }
 };
 
 // Wrapper for clean style injection
 const OriginalSolutionSection = SolutionSection;
-export default function Wrapper() {
-  const original = OriginalSolutionSection();
+export default function Wrapper({ openCheckout }) {
+  const original = OriginalSolutionSection({ openCheckout });
   const newGrid = React.cloneElement(
     original.props.children[0].props.children[1].props.children, 
     { className: 'cat-grid' }
@@ -185,8 +214,9 @@ export default function Wrapper() {
   
   const newContainerChildren = [
     original.props.children[0].props.children[0],
-    React.cloneElement(original.props.children[0].props.children[1], {}, newGrid)
-  ];
+    React.cloneElement(original.props.children[0].props.children[1], {}, newGrid),
+    original.props.children[0].props.children[2]
+  ].filter(Boolean);
   
   const newContainer = React.cloneElement(original.props.children[0], {}, newContainerChildren);
   
