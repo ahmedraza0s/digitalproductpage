@@ -4,7 +4,7 @@ import { BOOK_PRICE, GLOW_UP_BOOK_PRICE } from '../config';
 
 // Import images
 import awkwardBookCover from '../assets/images/awkward_book_cover.jpg';
-import glowupBookCover from '../assets/images/glowup_book_cover.png';
+import glowupBookCover from '../assets/images/30_day_mens_glow_up.png';
 
 const HomePage = () => {
   return (

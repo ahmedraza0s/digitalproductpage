@@ -1,5 +1,5 @@
 import React from 'react';
-import bookCoverImg from '../assets/images/glowup_book_cover.png';
+import bookCoverImg from '../assets/images/30_day_mens_glow_up.png';
 
 const BookMockup = ({ style, className }) => {
   return (
