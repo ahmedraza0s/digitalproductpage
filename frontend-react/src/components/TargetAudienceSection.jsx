@@ -58,7 +58,7 @@ const TargetAudienceSection = () => {
           {/* Image */}
           <div className="slide-up" style={styles.imageColumn}>
             <div style={isMobile ? { ...styles.imageWrapper, minHeight: '400px' } : styles.imageWrapper}>
-              <img src={socialCollege} alt="Social setting" style={styles.image} />
+              <img src={socialCollege} alt="Social setting" style={styles.image} loading="lazy" />
               <div style={styles.imageOverlay}></div>
             </div>
           </div>

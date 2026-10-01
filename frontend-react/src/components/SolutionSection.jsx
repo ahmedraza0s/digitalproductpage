@@ -71,7 +71,7 @@ const SolutionSection = () => {
 
         <div className="solution-layout">
           <div className="slide-up book-mockup-wrapper" style={styles.imageWrapper}>
-            <img src={heroBookMockup} alt="Stop Being Awkward Book Cover" style={styles.bookImage} className="book-image" />
+            <img src={heroBookMockup} alt="Stop Being Awkward Book Cover" style={styles.bookImage} className="book-image" loading="lazy" />
             <div style={styles.imageGlow}></div>
           </div>
 

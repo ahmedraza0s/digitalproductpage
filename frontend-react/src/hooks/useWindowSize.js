@@ -7,17 +7,24 @@ export function useWindowSize() {
   });
 
   useEffect(() => {
+    let timeoutId;
     function handleResize() {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        setWindowSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      }, 150);
     }
     
     window.addEventListener('resize', handleResize);
-    handleResize();
+    handleResize(); // Initial call
     
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   return windowSize;

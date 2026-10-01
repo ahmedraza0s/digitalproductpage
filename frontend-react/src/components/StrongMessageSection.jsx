@@ -12,7 +12,7 @@ const StrongMessageSection = ({ openCheckout }) => {
         
         <div style={isTablet ? { ...styles.grid, gridTemplateColumns: '1fr' } : styles.grid}>
           <div className="slide-up" style={styles.imageColumn}>
-            <img src={confidentChat} alt="Confident Conversation" style={styles.image} />
+            <img src={confidentChat} alt="Confident Conversation" style={styles.image} loading="lazy" />
             <div style={isTablet ? { ...styles.imageOverlay, background: 'linear-gradient(to top, rgba(28, 28, 58, 0.8), rgba(28, 28, 58, 0.2))' } : styles.imageOverlay}></div>
           </div>
 
