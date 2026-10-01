@@ -50,7 +50,7 @@ const SolutionSection = ({ openCheckout }) => {
         </div>
 
         <div style={styles.sliderContainer}>
-          <div style={styles.grid}>
+          <div style={styles.grid} className="cat-grid">
             {categories.map((cat, idx) => (
               <div 
                 key={idx} 
@@ -203,22 +203,4 @@ const styles = {
   }
 };
 
-// Wrapper for clean style injection
-const OriginalSolutionSection = SolutionSection;
-export default function Wrapper({ openCheckout }) {
-  const original = OriginalSolutionSection({ openCheckout });
-  const newGrid = React.cloneElement(
-    original.props.children[0].props.children[1].props.children, 
-    { className: 'cat-grid' }
-  );
-  
-  const newContainerChildren = [
-    original.props.children[0].props.children[0],
-    React.cloneElement(original.props.children[0].props.children[1], {}, newGrid),
-    original.props.children[0].props.children[2]
-  ].filter(Boolean);
-  
-  const newContainer = React.cloneElement(original.props.children[0], {}, newContainerChildren);
-  
-  return React.cloneElement(original, {}, [newContainer, original.props.children[1]]);
-}
+export default SolutionSection;

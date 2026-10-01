@@ -10,8 +10,14 @@ const HeroSection = ({ openCheckout }) => {
   const bookContent = (
     <div className="fade-in" style={styles.imageColumn}>
       <div className="book-mockup-wrapper" style={styles.imageWrapper}>
-        <img src={heroBookMockup} alt="Stop Being Awkward Book" style={styles.bookImage} className="book-image" />
-        <div style={styles.imageGlow}></div>
+        <img
+          src={heroBookMockup}
+          alt="Stop Being Awkward Book"
+          style={styles.bookImage}
+          className="book-image"
+          fetchpriority="high"
+          decoding="async"
+        />
       </div>
     </div>
   );
@@ -251,23 +257,12 @@ const styles = {
     height: 'auto',
     borderRadius: '4px 12px 12px 4px',
     border: '1px solid rgba(255, 255, 255, 0.05)',
-    boxShadow: '-10px 15px 30px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255,255,255,0.05)',
+    boxShadow: '-10px 15px 30px rgba(0, 0, 0, 0.6), 0 0 60px rgba(139, 92, 246, 0.25), 0 0 0 1px rgba(255,255,255,0.05)',
     transform: 'rotate(2deg)',
     transition: 'transform 0.3s ease',
     position: 'relative',
     zIndex: 2,
-  },
-  imageGlow: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '80%',
-    height: '80%',
-    background: 'var(--accent-glow)',
-    filter: 'blur(80px)',
-    zIndex: 1,
-    borderRadius: '50%',
+    willChange: 'transform',
   }
 };
 

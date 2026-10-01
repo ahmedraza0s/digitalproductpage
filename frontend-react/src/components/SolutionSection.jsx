@@ -72,7 +72,6 @@ const SolutionSection = () => {
         <div className="solution-layout">
           <div className="slide-up book-mockup-wrapper" style={styles.imageWrapper}>
             <img src={heroBookMockup} alt="Stop Being Awkward Book Cover" style={styles.bookImage} className="book-image" loading="lazy" />
-            <div style={styles.imageGlow}></div>
           </div>
 
           <div className="solution-grid">
@@ -182,24 +181,12 @@ const styles = {
     height: 'auto',
     borderRadius: '4px 12px 12px 4px',
     border: '1px solid rgba(255, 255, 255, 0.05)',
-    boxShadow: '-10px 15px 30px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255,255,255,0.05)',
+    boxShadow: '-10px 15px 30px rgba(0, 0, 0, 0.6), 0 0 60px rgba(139, 92, 246, 0.2), 0 0 0 1px rgba(255,255,255,0.05)',
     transform: 'rotate(2deg)',
     transition: 'transform 0.3s ease',
     position: 'relative',
     zIndex: 2,
-  },
-  imageGlow: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'var(--accent-primary)',
-    filter: 'blur(100px)',
-    opacity: 0.15,
-    zIndex: 1,
-    borderRadius: '50%',
+    willChange: 'transform',
   },
   card: {
     backgroundColor: 'var(--surface-color)',

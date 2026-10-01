@@ -17,7 +17,7 @@ const BookPreviewSection = () => {
         </div>
 
         <div style={styles.sliderContainer}>
-          <div style={styles.grid}>
+          <div style={styles.grid} className="preview-grid">
             {previews.map((preview, idx) => (
               <div key={idx} className="slide-up preview-card" style={{...styles.card, animationDelay: `${idx * 0.1}s`}}>
                 <div style={styles.pageMockup}>
@@ -160,21 +160,4 @@ const styles = {
   }
 };
 
-// Wrapper for clean style injection
-const OriginalBookPreviewSection = BookPreviewSection;
-export default function Wrapper() {
-  const original = OriginalBookPreviewSection();
-  const newGrid = React.cloneElement(
-    original.props.children[0].props.children[1].props.children, 
-    { className: 'preview-grid' }
-  );
-  
-  const newContainerChildren = [
-    original.props.children[0].props.children[0],
-    React.cloneElement(original.props.children[0].props.children[1], {}, newGrid)
-  ];
-  
-  const newContainer = React.cloneElement(original.props.children[0], {}, newContainerChildren);
-  
-  return React.cloneElement(original, {}, [newContainer, original.props.children[1]]);
-}
+export default BookPreviewSection;
