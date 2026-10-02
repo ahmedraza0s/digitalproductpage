@@ -104,6 +104,15 @@ const CheckoutModal = ({ isOpen, onClose, productId = 'ebook-001', price = impor
             const statusRes = await checkStatusWithRetry(orderData.orderId, 2);
             if (statusRes) {
               setSuccessData(statusRes);
+              // Fire browser pixel here too — this path skips the normal handler
+              if (window.fbq) {
+                window.fbq('track', 'Purchase', {
+                  currency: orderData.currency || 'INR',
+                  value: orderData.amount ? orderData.amount / 100 : 99
+                }, {
+                  eventID: orderData.orderId  // same key as CAPI — Meta deduplicates
+                });
+              }
             }
             setLoading(false);
           }
