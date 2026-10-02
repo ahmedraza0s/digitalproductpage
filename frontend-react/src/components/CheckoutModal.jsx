@@ -152,7 +152,13 @@ const CheckoutModal = ({ isOpen, onClose, productId = 'ebook-001', price = impor
             <p style={styles.text}>We've also sent a download link to <strong>{formData.email}</strong>.</p>
 
             {successData.downloadLink ? (
-              <a href={successData.downloadLink} style={styles.downloadBtn} download>
+              <a
+                href={successData.downloadLink}
+                style={styles.downloadBtn}
+                download
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Download Ebook Now
               </a>
             ) : (
