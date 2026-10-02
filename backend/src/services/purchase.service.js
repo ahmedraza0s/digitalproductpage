@@ -10,10 +10,12 @@ const getPurchaseByOrderId = async (razorpayOrderId) => {
 };
 
 const getPaidPurchaseByEmail = async (email) => {
-  return await Purchase.findOne({ 
+  // .sort() has no effect on .findOne() in Mongoose — use .find().sort().limit(1) instead
+  const results = await Purchase.find({ 
     customerEmail: email.toLowerCase(),
     paymentStatus: 'paid'
-  }).populate('productId').sort({ purchaseDate: -1 });
+  }).populate('productId').sort({ purchaseDate: -1 }).limit(1);
+  return results[0] || null;
 };
 
 const updatePurchaseToPaid = async (purchaseId, updateData) => {

@@ -3,6 +3,7 @@ const downloadService = require('../services/download.service');
 const paymentService = require('../services/payment.service');
 const emailService = require('../services/email.service');
 const metaService = require('../services/meta.service');
+const Purchase = require('../models/Purchase');
 const { verifyWebhookSignature } = require('../utils/crypto');
 const { isAlreadyPaid } = require('../utils/idempotency');
 const env = require('../config/env');
@@ -56,14 +57,16 @@ const handleRazorpayWebhook = async (req, res, next) => {
       metaService.sendPurchaseEvent(updatedPurchase);
 
       if (!purchase.emailSent) {
-        try {
-          await emailService.sendPurchaseEmail(purchase.customerEmail, purchase.productName, rawToken);
-          purchase.emailSent = true;
-          purchase.emailSentAt = new Date();
-          await purchase.save();
-        } catch (emailError) {
-          logger.error('Failed to send purchase email during webhook:', emailError);
-        }
+        emailService.sendPurchaseEmail(purchase.customerEmail, purchase.productName, rawToken)
+          .then(() => {
+            // Use findByIdAndUpdate to avoid saving a stale document over the paid record
+            return Purchase.findByIdAndUpdate(purchase._id, {
+              $set: { emailSent: true, emailSentAt: new Date() }
+            });
+          })
+          .catch(emailError => {
+            logger.error('Failed to send purchase email during webhook:', emailError);
+          });
       }
     }
 

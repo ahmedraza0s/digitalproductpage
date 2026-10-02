@@ -3,6 +3,7 @@ const fs = require('fs');
 const Purchase = require('../models/Purchase');
 const { hashToken } = require('../utils/crypto');
 const env = require('../config/env');
+const logger = require('../utils/logger');
 
 const PRIVATE_DIR = path.resolve(__dirname, '../../private/ebooks');
 
@@ -50,6 +51,15 @@ const downloadEbook = async (req, res, next) => {
     res.setHeader('Content-Disposition', `attachment; filename="${purchase.productName.replace(/[^a-zA-Z0-9]/g, '_')}.pdf"`);
     
     const fileStream = fs.createReadStream(absolutePath);
+
+    // Handle broken pipe (user closes browser mid-download) gracefully
+    fileStream.on('error', (streamErr) => {
+      logger.error('File stream error during download:', streamErr.message);
+      if (!res.headersSent) {
+        res.status(500).json({ error: 'Download interrupted' });
+      }
+    });
+
     fileStream.pipe(res);
   } catch (error) {
     next(error);

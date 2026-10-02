@@ -149,11 +149,17 @@ const CheckoutModal = ({ isOpen, onClose, productId = 'ebook-001', price = impor
             <div style={styles.successIcon}>✓</div>
             <h2 style={styles.title}>Payment Successful!</h2>
             <p style={styles.text}>Thank you for your purchase. Your ebook is ready.</p>
-            <p style={styles.text}>We've also sent a backup link to <strong>{formData.email}</strong>.</p>
+            <p style={styles.text}>We've also sent a download link to <strong>{formData.email}</strong>.</p>
 
-            <a href={successData.downloadLink} style={styles.downloadBtn} download>
-              Download Ebook Now
-            </a>
+            {successData.downloadLink ? (
+              <a href={successData.downloadLink} style={styles.downloadBtn} download>
+                Download Ebook Now
+              </a>
+            ) : (
+              <div style={styles.emailFallback}>
+                ✉️ Your download link has been sent to your email. Please check your inbox (and spam folder).
+              </div>
+            )}
           </div>
         ) : (
           <div>
@@ -333,6 +339,17 @@ const styles = {
     fontWeight: 'bold',
     marginTop: '1rem',
     width: '100%',
+    textAlign: 'center',
+  },
+  emailFallback: {
+    marginTop: '1rem',
+    padding: '1rem',
+    backgroundColor: 'rgba(16, 185, 129, 0.08)',
+    border: '1px solid rgba(16, 185, 129, 0.25)',
+    borderRadius: '8px',
+    color: '#10b981',
+    fontSize: '0.95rem',
+    lineHeight: 1.5,
     textAlign: 'center',
   }
 };

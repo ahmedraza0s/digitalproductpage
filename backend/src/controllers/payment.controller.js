@@ -3,6 +3,7 @@ const purchaseService = require('../services/purchase.service');
 const downloadService = require('../services/download.service');
 const emailService = require('../services/email.service');
 const metaService = require('../services/meta.service');
+const Purchase = require('../models/Purchase');
 const logger = require('../utils/logger');
 const env = require('../config/env');
 
@@ -86,18 +87,24 @@ const verifyPayment = async (req, res, next) => {
       tokenExpiry: expiry
     });
 
-    // Send to Meta CAPI
-    const updatedPurchase = await purchaseService.getPurchaseByOrderId(razorpayOrderId);
-    metaService.sendPurchaseEvent(updatedPurchase);
+    // Send to Meta CAPI (fire-and-forget, do not block response)
+    purchaseService.getPurchaseByOrderId(razorpayOrderId)
+      .then(updatedPurchase => metaService.sendPurchaseEvent(updatedPurchase))
+      .catch(err => logger.error('Meta CAPI error:', err));
 
-    try {
-      await emailService.sendPurchaseEmail(purchase.customerEmail, purchase.productName, rawToken);
-      purchase.emailSent = true;
-      purchase.emailSentAt = new Date();
-      await purchase.save();
-    } catch (emailError) {
-      logger.error('Failed to send purchase email during verification:', emailError);
-    }
+    // Send email fire-and-forget — do NOT await before responding to user.
+    // Awaiting SMTP before sending the response was causing the browser to
+    // time out whenever Hostinger SMTP was slow, making users think payment failed.
+    emailService.sendPurchaseEmail(purchase.customerEmail, purchase.productName, rawToken)
+      .then(() => {
+        // Use findByIdAndUpdate to avoid saving a stale document over the paid record
+        return Purchase.findByIdAndUpdate(purchase._id, {
+          $set: { emailSent: true, emailSentAt: new Date() }
+        });
+      })
+      .catch(emailError => {
+        logger.error('Failed to send purchase email during verification:', emailError);
+      });
 
     const downloadLink = `${env.BASE_URL}/api/download/${rawToken}`;
     res.status(200).json({ success: true, referenceId: purchase.razorpayOrderId, downloadLink });
@@ -124,12 +131,29 @@ const checkStatus = async (req, res, next) => {
       const expiry = new Date();
       expiry.setHours(expiry.getHours() + env.TOKEN_EXPIRY_HOURS);
       
-      purchase.accessTokenHash = hashedToken;
-      purchase.tokenExpiry = expiry;
-      await purchase.save();
-      
-      const downloadLink = `${env.BASE_URL}/api/download/${rawToken}`;
-      return res.status(200).json({ status: 'paid', success: true, downloadLink });
+      // Only generate a new token if none exists or the existing one has expired.
+      // Overwriting unconditionally would invalidate the email link already sent.
+      const tokenIsStillValid = purchase.accessTokenHash && 
+        purchase.tokenExpiry && 
+        purchase.tokenExpiry > new Date();
+
+      if (!tokenIsStillValid) {
+        purchase.accessTokenHash = hashedToken;
+        purchase.tokenExpiry = expiry;
+        await purchase.save();
+      }
+
+      const activeToken = tokenIsStillValid ? null : rawToken;
+
+      // If token is still valid we can't return it (we don't store raw tokens).
+      // Return a fresh one only when we actually generated one above.
+      if (activeToken) {
+        const downloadLink = `${env.BASE_URL}/api/download/${activeToken}`;
+        return res.status(200).json({ status: 'paid', success: true, downloadLink });
+      }
+
+      // Token exists but is valid — tell frontend it's paid; user can use the email link.
+      return res.status(200).json({ status: 'paid', success: true, downloadLink: null });
     }
 
     res.status(200).json({ status: purchase.paymentStatus, success: false });
@@ -137,6 +161,7 @@ const checkStatus = async (req, res, next) => {
     next(error);
   }
 };
+
 
 module.exports = {
   createOrder,

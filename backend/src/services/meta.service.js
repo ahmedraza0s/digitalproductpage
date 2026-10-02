@@ -10,6 +10,8 @@ const hashData = (val) => {
 
 const sendPurchaseEvent = async (purchase) => {
   try {
+    // Note: VITE_META_PIXEL_ID is the literal key name in backend/.env
+    // (Node.js reads it as-is; the VITE_ prefix here is NOT a Vite build-time thing)
     const pixelId = process.env.VITE_META_PIXEL_ID;
     const accessToken = process.env.META_CAPI_ACCESS_TOKEN;
 
@@ -25,7 +27,7 @@ const sendPurchaseEvent = async (purchase) => {
           event_time: Math.floor(Date.now() / 1000),
           action_source: 'website',
           event_id: purchase.razorpayOrderId, // Deduplication key
-          event_source_url: process.env.BASE_URL,
+          event_source_url: env.BASE_URL,
           user_data: {
             em: hashData(purchase.customerEmail),
             ph: hashData(purchase.customerPhone),
