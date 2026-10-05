@@ -17,9 +17,9 @@ const SCProblemSection = () => {
       <div className="container" style={isMobile ? { padding: '0 10px' } : {}}>
         <div style={isMobile ? { ...styles.card, padding: '1.5rem 1rem' } : styles.card}>
           <img 
-            src="/images/does-this-sound-like-you.jpg" 
+            src="/images/does-this-sound-like-you-new.png" 
             alt="Does this sound like you?" 
-            style={styles.image} 
+            style={isMobile ? styles.image : { ...styles.image, maxWidth: '500px' }} 
           />
           
           <div style={styles.callout}>
