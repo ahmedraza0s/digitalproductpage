@@ -1,4 +1,5 @@
 import React from 'react';
+import bookCover from '../../assets/social_confidence_cover_new.jpg';
 
 const SCOfferSection = ({ openBookCheckout }) => {
   return (
@@ -9,6 +10,10 @@ const SCOfferSection = ({ openBookCheckout }) => {
 
         <div style={styles.grid}>
           
+          <div style={styles.imageContainer}>
+            <img src={bookCover} alt="The Social Confidence Blueprint" style={styles.bookImage} />
+          </div>
+
           <div style={styles.cardPrimary}>
             <div style={styles.cardHeader}>
               <h3 style={styles.cardTitlePrimary}>The Social Confidence Plan</h3>
@@ -65,12 +70,27 @@ const styles = {
   },
   grid: {
     display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'center',
-    maxWidth: '500px',
+    gap: '4rem',
+    maxWidth: '900px',
     margin: '0 auto',
+    flexWrap: 'wrap',
   },
-
+  imageContainer: {
+    flex: '1 1 300px',
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  bookImage: {
+    width: '100%',
+    maxWidth: '350px',
+    borderRadius: '12px',
+    boxShadow: '0 25px 50px rgba(0,0,0,0.5)',
+  },
   cardPrimary: {
+    flex: '1 1 400px',
     backgroundColor: '#111120',
     border: '2px solid #10B981',
     borderRadius: '16px',
