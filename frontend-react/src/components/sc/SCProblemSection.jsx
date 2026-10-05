@@ -1,7 +1,10 @@
 import React, { useEffect, useRef } from 'react';
+import { useWindowSize } from '../../hooks/useWindowSize';
 
 const SCProblemSection = () => {
   const listRef = useRef(null);
+  const { width } = useWindowSize();
+  const isMobile = width <= 992;
 
   useEffect(() => {
     // Component mounts
@@ -11,8 +14,8 @@ const SCProblemSection = () => {
 
   return (
     <section style={styles.section} className="section-padding">
-      <div className="container">
-        <div style={styles.card}>
+      <div className="container" style={isMobile ? { padding: '0 10px' } : {}}>
+        <div style={isMobile ? { ...styles.card, padding: '1.5rem 1rem' } : styles.card}>
           <img 
             src="/images/does-this-sound-like-you.jpg" 
             alt="Does this sound like you?" 
