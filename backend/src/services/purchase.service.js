@@ -82,12 +82,12 @@ const seedInitialProduct = async () => {
       title: 'The Social Confidence Plan',
       description: 'Calm, practical steps for people who overthink conversations. Includes a 30-day practice plan.',
       price: scPrice,
-      filePath: 'The Social Confidence Plan.pdf'
+      filePath: 'Quietly_Confident.pdf'
     });
   } else {
     await Product.updateOne(
       { productId: 'ebook-003' },
-      { $set: { price: scPrice, filePath: 'The Social Confidence Plan.pdf' } }
+      { $set: { price: scPrice, filePath: 'Quietly_Confident.pdf' } }
     );
   }
 
@@ -100,12 +100,12 @@ const seedInitialProduct = async () => {
       title: 'The Social Confidence Plan + Practice Pack',
       description: 'Book + Printable 30-day tracker, scripts cheat sheet, and pocket card.',
       price: scBundlePrice,
-      filePath: 'The Social Confidence Plan.pdf'
+      filePath: 'Quietly_Confident.pdf'
     });
   } else {
     await Product.updateOne(
       { productId: 'ebook-003-bundle' },
-      { $set: { price: scBundlePrice, filePath: 'The Social Confidence Plan.pdf' } }
+      { $set: { price: scBundlePrice, filePath: 'Quietly_Confident.pdf' } }
     );
   }
 };
