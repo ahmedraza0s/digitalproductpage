@@ -64,7 +64,7 @@ const SCFAQSection = () => {
               <div 
                 style={{
                   ...styles.answerContainer,
-                  maxHeight: openIndex === index ? '200px' : '0',
+                  maxHeight: openIndex === index ? '1000px' : '0',
                   paddingTop: openIndex === index ? '1rem' : '0',
                 }}
               >
