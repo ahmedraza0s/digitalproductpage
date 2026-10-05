@@ -55,9 +55,11 @@ const SCHeroSection = ({ openCheckout }) => {
               Calm, practical steps for people who overthink conversations. Includes a 30-day practice plan.
             </p>
             
-            <p style={isMobile ? { ...styles.description, margin: '0 auto' } : styles.description}>
-              A short PDF guide based on the research behind CBT for social anxiety. Written in plain language, with small exercises you can do the same day.
-            </p>
+            {!isMobile && (
+              <p style={styles.description}>
+                A short PDF guide based on the research behind CBT for social anxiety. Written in plain language, with small exercises you can do the same day.
+              </p>
+            )}
 
             {!isMobile && offerBoxContent}
           </div>

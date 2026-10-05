@@ -4,53 +4,20 @@ const SCProblemSection = () => {
   const listRef = useRef(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const items = entry.target.querySelectorAll('.list-item');
-            items.forEach((item, index) => {
-              setTimeout(() => {
-                item.style.opacity = '1';
-                item.style.transform = 'translateY(0)';
-              }, index * 150);
-            });
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    if (listRef.current) {
-      observer.observe(listRef.current);
-    }
-
-    return () => observer.disconnect();
+    // Component mounts
   }, []);
 
-  const items = [
-    { icon: '💭', text: 'You replay a conversation for two days because of one thing you said' },
-    { icon: '🔄', text: 'You rehearse your next sentence and miss what the other person just said' },
-    { icon: '😶', text: 'Small talk makes your mind go blank' },
-    { icon: '🙈', text: 'You say yes when you want to say no' },
-    { icon: '🕊️', text: "You don't want to become the loudest person in the room. You just want to feel calm around people." }
-  ];
+
 
   return (
     <section style={styles.section} className="section-padding">
       <div className="container">
         <div style={styles.card}>
-          <h2 style={styles.title}>Does This Sound Like You?</h2>
-          
-          <ul ref={listRef} style={styles.list}>
-            {items.map((item, index) => (
-              <li key={index} className="list-item" style={styles.listItem}>
-                <span style={styles.icon}>{item.icon}</span>
-                <span style={styles.text}>{item.text}</span>
-              </li>
-            ))}
-          </ul>
+          <img 
+            src="/images/does-this-sound-like-you.jpg" 
+            alt="Does this sound like you?" 
+            style={styles.image} 
+          />
           
           <div style={styles.callout}>
             <p style={styles.calloutText}>
@@ -76,37 +43,12 @@ const styles = {
     border: '1px solid rgba(99, 102, 241, 0.2)',
     boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5)',
   },
-  title: {
-    textAlign: 'center',
-    fontSize: '2rem',
-    color: '#F1F0FF',
-    marginBottom: '2.5rem',
-  },
-  list: {
-    listStyle: 'none',
-    padding: 0,
-    margin: 0,
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '1.5rem',
-  },
-  listItem: {
-    display: 'flex',
-    alignItems: 'flex-start',
-    gap: '1rem',
-    opacity: 0,
-    transform: 'translateY(20px)',
-    transition: 'all 0.5s ease-out',
-  },
-  icon: {
-    fontSize: '1.5rem',
-    flexShrink: 0,
-    marginTop: '0.125rem',
-  },
-  text: {
-    fontSize: '1.125rem',
-    color: '#C8C0FF',
-    lineHeight: '1.6',
+  image: {
+    width: '100%',
+    height: 'auto',
+    borderRadius: '8px',
+    display: 'block',
+    margin: '0 auto',
   },
   callout: {
     marginTop: '3rem',
