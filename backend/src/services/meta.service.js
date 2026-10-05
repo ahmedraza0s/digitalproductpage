@@ -40,7 +40,10 @@ const sendPurchaseEvent = async (purchase) => {
           },
           custom_data: {
             currency: purchase.currency || 'INR',
-            value: (purchase.amount / 100).toFixed(2) // Assuming amount is in lowest denomination (paise/cents)
+            value: (purchase.amount / 100).toFixed(2), // Assuming amount is in lowest denomination (paise/cents)
+            content_name: purchase.productName,
+            content_ids: [purchase.productId?.productId || purchase.productId],
+            content_type: 'product'
           }
         }
       ]

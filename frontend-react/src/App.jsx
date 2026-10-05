@@ -5,6 +5,7 @@ import ScrollToTop from './components/ScrollToTop';
 const LandingPage = lazy(() => import('./pages/LandingPage'));
 const HomePage = lazy(() => import('./pages/HomePage'));
 const GlowUpLandingPage = lazy(() => import('./pages/GlowUpLandingPage'));
+const SocialConfidencePage = lazy(() => import('./pages/SocialConfidencePage'));
 const AccessPage = lazy(() => import('./pages/AccessPage'));
 const PrivacyPage = lazy(() => import('./pages/PrivacyPage'));
 const TermsPage = lazy(() => import('./pages/TermsPage'));
@@ -26,6 +27,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/awkward" element={<LandingPage />} />
           <Route path="/glow-up" element={<GlowUpLandingPage />} />
+          <Route path="/social-confidence" element={<SocialConfidencePage />} />
           <Route path="/access" element={<AccessPage />} />
           <Route path="/access.html" element={<AccessPage />} />
           <Route path="/privacy.html" element={<PrivacyPage />} />

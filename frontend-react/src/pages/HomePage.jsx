@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BOOK_PRICE, GLOW_UP_BOOK_PRICE } from '../config';
+import { BOOK_PRICE, GLOW_UP_BOOK_PRICE, SOCIAL_CONFIDENCE_BOOK_PRICE } from '../config';
 
 // Import images
 import awkwardBookCover from '../assets/images/new_awkward_cover.jpg';
 import glowupBookCover from '../assets/images/30_day_mens_glow_up.png';
+import socialConfidenceCover from '../assets/social_confidence_cover_new.jpg';
 
 const HomePage = () => {
   return (
@@ -52,6 +53,22 @@ const HomePage = () => {
                 <p className="card-desc">The complete guide to physical and mental transformation for men.</p>
                 <div className="card-footer">
                   <span className="price">₹{GLOW_UP_BOOK_PRICE}</span>
+                  <span className="btn-primary">View Guide →</span>
+                </div>
+              </div>
+            </Link>
+
+            {/* Social Confidence Book Card */}
+            <Link to="/social-confidence" className="book-card group">
+              <div className="card-image-wrapper">
+                <img src={socialConfidenceCover} alt="The Social Confidence Plan Book Cover" className="book-cover" />
+                <div className="card-image-overlay"></div>
+              </div>
+              <div className="card-content">
+                <h2 className="card-title">The Social Confidence Plan</h2>
+                <p className="card-desc">Calm, practical steps for people who overthink conversations. Includes a 30-day practice plan.</p>
+                <div className="card-footer">
+                  <span className="price">₹{SOCIAL_CONFIDENCE_BOOK_PRICE}</span>
                   <span className="btn-primary">View Guide →</span>
                 </div>
               </div>

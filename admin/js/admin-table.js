@@ -44,7 +44,9 @@ async function renderTable(filters) {
           <div style="font-size:12px;"><a href="mailto:${p.customerEmail}">${p.customerEmail}</a></div>
           ${p.customerPhone ? `<div style="font-size:11px;color:var(--admin-text-muted);">${p.customerPhone}</div>` : ''}
         </td>
-        <td style="font-size:12px; max-width:120px;">${p.productName || '-'}</td>
+        <td>
+          <span style="display: inline-block; background: #6366f1; color: #fff; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 12px; white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis; vertical-align: middle;" title="${p.productName || '-'}">${p.productName || '-'}</span>
+        </td>
         <td>${formatCurrency(p.amount)}</td>
         <td>${getStatusBadge(p.paymentStatus)}</td>
         <td>

@@ -42,7 +42,9 @@ const createOrder = async (req, res, next) => {
       orderId: order.id,
       amount: order.amount,
       currency: order.currency,
-      keyId: env.RAZORPAY_KEY_ID
+      keyId: env.RAZORPAY_KEY_ID,
+      productName: product.title,
+      productId: product.productId
     });
   } catch (error) {
     next(error);

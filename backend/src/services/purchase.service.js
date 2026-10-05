@@ -72,6 +72,42 @@ const seedInitialProduct = async () => {
       { $set: { price: glowUpPrice, filePath: 'Sharper Mens Glow Up Guide.pdf' } }
     );
   }
+
+  // ebook-003: The Social Confidence Plan (book only)
+  const scPrice = parseInt(process.env.SOCIAL_CONFIDENCE_BOOK_PRICE || '99') * 100;
+  const scExists = await Product.findOne({ productId: 'ebook-003' });
+  if (!scExists) {
+    await Product.create({
+      productId: 'ebook-003',
+      title: 'The Social Confidence Plan',
+      description: 'Calm, practical steps for people who overthink conversations. Includes a 30-day practice plan.',
+      price: scPrice,
+      filePath: 'The Social Confidence Plan.pdf'
+    });
+  } else {
+    await Product.updateOne(
+      { productId: 'ebook-003' },
+      { $set: { price: scPrice, filePath: 'The Social Confidence Plan.pdf' } }
+    );
+  }
+
+  // ebook-003-bundle: The Social Confidence Plan + Practice Pack
+  const scBundlePrice = parseInt(process.env.SOCIAL_CONFIDENCE_BUNDLE_PRICE || '149') * 100;
+  const scBundleExists = await Product.findOne({ productId: 'ebook-003-bundle' });
+  if (!scBundleExists) {
+    await Product.create({
+      productId: 'ebook-003-bundle',
+      title: 'The Social Confidence Plan + Practice Pack',
+      description: 'Book + Printable 30-day tracker, scripts cheat sheet, and pocket card.',
+      price: scBundlePrice,
+      filePath: 'The Social Confidence Plan.pdf'
+    });
+  } else {
+    await Product.updateOne(
+      { productId: 'ebook-003-bundle' },
+      { $set: { price: scBundlePrice, filePath: 'The Social Confidence Plan.pdf' } }
+    );
+  }
 };
 
 module.exports = {

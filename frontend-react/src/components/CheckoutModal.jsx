@@ -56,7 +56,7 @@ const CheckoutModal = ({ isOpen, onClose, productId = 'ebook-001', price = impor
         key: import.meta.env.RAZORPAY_KEY_ID || orderData.keyId,
         amount: orderData.amount,
         currency: orderData.currency,
-        name: 'Stop Being Awkward Ebook',
+        name: orderData.productName || 'Western Fexx Ebook',
         description: 'Purchase Ebook',
         order_id: orderData.orderId,
         handler: async function (response) {
@@ -76,7 +76,10 @@ const CheckoutModal = ({ isOpen, onClose, productId = 'ebook-001', price = impor
               if (window.fbq) {
                 window.fbq('track', 'Purchase', {
                   currency: orderData.currency || 'INR',
-                  value: orderData.amount ? orderData.amount / 100 : 99
+                  value: orderData.amount ? orderData.amount / 100 : 99,
+                  content_name: orderData.productName || 'Ebook',
+                  content_ids: [orderData.productId || productId],
+                  content_type: 'product'
                 }, {
                   eventID: orderData.orderId
                 });
@@ -108,7 +111,10 @@ const CheckoutModal = ({ isOpen, onClose, productId = 'ebook-001', price = impor
               if (window.fbq) {
                 window.fbq('track', 'Purchase', {
                   currency: orderData.currency || 'INR',
-                  value: orderData.amount ? orderData.amount / 100 : 99
+                  value: orderData.amount ? orderData.amount / 100 : 99,
+                  content_name: orderData.productName || 'Ebook',
+                  content_ids: [orderData.productId || productId],
+                  content_type: 'product'
                 }, {
                   eventID: orderData.orderId  // same key as CAPI — Meta deduplicates
                 });
