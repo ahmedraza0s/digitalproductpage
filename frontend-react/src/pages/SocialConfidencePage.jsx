@@ -4,9 +4,7 @@ import SCHeroSection from '../components/sc/SCHeroSection';
 import SCProblemSection from '../components/sc/SCProblemSection';
 import SCAboutSection from '../components/sc/SCAboutSection';
 import SCWhatYouLearnSection from '../components/sc/SCWhatYouLearnSection';
-import SCStoryPreviewSection from '../components/sc/SCStoryPreviewSection';
 import SCTableOfContentsSection from '../components/sc/SCTableOfContentsSection';
-import SCHonestNoteSection from '../components/sc/SCHonestNoteSection';
 import SCOfferSection from '../components/sc/SCOfferSection';
 import SCFAQSection from '../components/sc/SCFAQSection';
 import SCStickyBuyBar from '../components/sc/SCStickyBuyBar';
@@ -43,9 +41,7 @@ const SocialConfidencePage = () => {
         <SCProblemSection />
         <SCAboutSection />
         <SCWhatYouLearnSection openCheckout={openBookCheckout} />
-        <SCStoryPreviewSection />
         <SCTableOfContentsSection />
-        <SCHonestNoteSection />
         <SCOfferSection openBookCheckout={openBookCheckout} />
         <SCFAQSection />
       </main>
