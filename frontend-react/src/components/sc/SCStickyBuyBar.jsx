@@ -25,65 +25,104 @@ const SCStickyBuyBar = ({ openBookCheckout, isCheckoutOpen }) => {
   }, [isCheckoutOpen]);
 
   return (
-    <div style={{
-      ...styles.bar,
-      transform: isVisible ? 'translateY(0)' : 'translateY(100%)',
-    }}>
-      <div className="container" style={styles.container}>
-        <div style={styles.info}>
-          <span style={styles.title} className="responsive-hide">The Social Confidence Plan</span>
-          <span style={styles.price}>₹99</span>
+    <>
+      <style>{`
+        .sc-sticky-bar {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          background-color: rgba(10, 10, 20, 0.95);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          border-top: 1px solid rgba(139, 92, 246, 0.2);
+          padding: 1rem 0;
+          z-index: 900;
+          transition: transform 0.3s ease-in-out;
+          box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+        }
+        .sc-sticky-container {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .sc-sticky-info {
+          display: flex;
+          align-items: center;
+          gap: 1.5rem;
+        }
+        .sc-sticky-title {
+          color: #F1F0FF;
+          font-size: 1.125rem;
+          font-weight: 600;
+        }
+        .sc-sticky-price-wrapper {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+        .sc-sticky-old-price {
+          text-decoration: line-through;
+          color: #9B9BD0;
+          font-size: 1rem;
+          font-weight: 500;
+        }
+        .sc-sticky-price {
+          color: #10B981;
+          font-size: 1.5rem;
+          font-weight: 800;
+          font-family: var(--font-family);
+          line-height: 1;
+        }
+        .sc-sticky-btn {
+          padding: 0.75rem 2rem;
+          font-size: 1.125rem;
+        }
+        
+        @media (max-width: 768px) {
+          .sc-sticky-bar {
+            padding: 0.75rem 0;
+            background-color: rgba(10, 10, 20, 0.98);
+          }
+          .sc-sticky-container {
+            justify-content: center;
+            gap: 1.5rem;
+          }
+          .sc-sticky-title {
+            display: none;
+          }
+          .sc-sticky-price {
+            font-size: 1.75rem;
+          }
+          .sc-sticky-old-price {
+            font-size: 1.125rem;
+          }
+          .sc-sticky-btn {
+            padding: 0.75rem 1.5rem;
+            width: 100%;
+            max-width: 220px;
+          }
+        }
+      `}</style>
+      <div
+        className="sc-sticky-bar"
+        style={{ transform: isVisible ? 'translateY(0)' : 'translateY(100%)' }}
+      >
+        <div className="container sc-sticky-container">
+          <div className="sc-sticky-info">
+            <span className="sc-sticky-title">The Social Confidence Plan</span>
+            <div className="sc-sticky-price-wrapper">
+              <span className="sc-sticky-old-price">₹199</span>
+              <span className="sc-sticky-price">₹99</span>
+            </div>
+          </div>
+          <button onClick={openBookCheckout} className="btn btn-primary pulse sc-sticky-btn">
+            Get it Now
+          </button>
         </div>
-        <button onClick={openBookCheckout} style={styles.button} className="btn">
-          Get it Now
-        </button>
       </div>
-    </div>
+    </>
   );
-};
-
-const styles = {
-  bar: {
-    position: 'fixed',
-    bottom: 0,
-    left: 0,
-    width: '100%',
-    backgroundColor: 'rgba(9, 9, 15, 0.95)',
-    backdropFilter: 'blur(10px)',
-    borderTop: '1px solid rgba(99, 102, 241, 0.2)',
-    padding: '1rem 0',
-    zIndex: 900,
-    transition: 'transform 0.3s ease-in-out',
-    boxShadow: '0 -10px 30px rgba(0, 0, 0, 0.5)',
-  },
-  container: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  info: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '1rem',
-  },
-  title: {
-    color: '#F1F0FF',
-    fontSize: '1.125rem',
-    fontWeight: '600',
-  },
-  price: {
-    color: '#10B981', // Emerald
-    fontSize: '1.25rem',
-    fontWeight: '700',
-  },
-  button: {
-    backgroundColor: '#10B981',
-    color: 'white',
-    border: 'none',
-    padding: '0.75rem 2rem',
-    fontSize: '1rem',
-    fontWeight: 'bold',
-  }
 };
 
 export default SCStickyBuyBar;
