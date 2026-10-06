@@ -30,12 +30,12 @@ const SocialConfidencePage = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "The Social Confidence Plan — 30-Day Practice Guide";
+    document.title = "The Social Confidence Blueprint — 30-Day Practice Guide";
   }, []);
 
   return (
     <div style={styles.page}>
-      <Navbar openCheckout={openBookCheckout} title="The Social Confidence Plan" price={SOCIAL_CONFIDENCE_BOOK_PRICE} />
+      <Navbar openCheckout={openBookCheckout} title="The Social Confidence Blueprint" price={SOCIAL_CONFIDENCE_BOOK_PRICE} />
       <main>
         <SCHeroSection openCheckout={openBookCheckout} />
         <SCProblemSection />

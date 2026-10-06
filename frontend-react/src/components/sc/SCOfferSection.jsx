@@ -16,7 +16,7 @@ const SCOfferSection = ({ openBookCheckout }) => {
 
           <div style={styles.cardPrimary}>
             <div style={styles.cardHeader}>
-              <h3 style={styles.cardTitlePrimary}>The Social Confidence Plan</h3>
+              <h3 style={styles.cardTitlePrimary}>The Social Confidence Blueprint</h3>
               <p style={styles.cardDesc}>The core 30-day practice plan.</p>
             </div>
             
@@ -27,7 +27,7 @@ const SCOfferSection = ({ openBookCheckout }) => {
 
             <ul style={styles.featureList}>
               <li style={styles.featureItem}>
-                <span style={styles.checkPrimary}>✔</span> The Social Confidence Plan (PDF)
+                <span style={styles.checkPrimary}>✔</span> The Social Confidence Blueprint (PDF)
               </li>
               <li style={styles.featureItem}>
                 <span style={styles.checkPrimary}>✔</span> A short exercise at the end of every chapter

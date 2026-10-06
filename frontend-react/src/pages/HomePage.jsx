@@ -61,11 +61,11 @@ const HomePage = () => {
             {/* Social Confidence Book Card */}
             <Link to="/social-confidence" className="book-card group">
               <div className="card-image-wrapper">
-                <img src={socialConfidenceCover} alt="The Social Confidence Plan Book Cover" className="book-cover" />
+                <img src={socialConfidenceCover} alt="The Social Confidence Blueprint Book Cover" className="book-cover" />
                 <div className="card-image-overlay"></div>
               </div>
               <div className="card-content">
-                <h2 className="card-title">The Social Confidence Plan</h2>
+                <h2 className="card-title">The Social Confidence Blueprint</h2>
                 <p className="card-desc">Calm, practical steps for people who overthink conversations. Includes a 30-day practice plan.</p>
                 <div className="card-footer">
                   <span className="price">₹{SOCIAL_CONFIDENCE_BOOK_PRICE}</span>

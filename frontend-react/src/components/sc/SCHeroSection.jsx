@@ -9,7 +9,7 @@ const SCHeroSection = ({ openCheckout }) => {
     <div style={isMobile ? { ...styles.imageWrapper, margin: '0 auto', maxWidth: '300px' } : styles.imageWrapper} className="fade-in">
       <img 
         src={bookCover} 
-        alt="The Social Confidence Plan Ebook Cover" 
+        alt="The Social Confidence Blueprint Ebook Cover" 
         style={styles.image}
       />
     </div>
@@ -49,7 +49,7 @@ const SCHeroSection = ({ openCheckout }) => {
             </div>
             
             <h1 style={isMobile ? { ...styles.title, fontSize: 'clamp(2rem, 8vw, 2.5rem)' } : styles.title}>
-              The Social Confidence Plan
+              The Social Confidence Blueprint
             </h1>
             <p style={styles.subtitle}>
               Calm, practical steps for people who overthink conversations. Includes a 30-day practice plan.

@@ -110,7 +110,7 @@ const SCStickyBuyBar = ({ openBookCheckout, isCheckoutOpen }) => {
       >
         <div className="container sc-sticky-container">
           <div className="sc-sticky-info">
-            <span className="sc-sticky-title">The Social Confidence Plan</span>
+            <span className="sc-sticky-title">The Social Confidence Blueprint</span>
             <div className="sc-sticky-price-wrapper">
               <span className="sc-sticky-old-price">₹199</span>
               <span className="sc-sticky-price">₹99</span>
