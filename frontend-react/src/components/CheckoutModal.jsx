@@ -35,7 +35,7 @@ const CheckoutModal = ({ isOpen, onClose, productId = 'ebook-001', price = impor
       });
 
       // 2. Initialize Razorpay
-      const checkStatusWithRetry = async (orderId, retries = 3) => {
+      const checkStatusWithRetry = async (orderId, retries = 5) => {
         for (let i = 0; i < retries; i++) {
           try {
             const statusRes = await api.checkPaymentStatus(orderId);
@@ -46,7 +46,8 @@ const CheckoutModal = ({ isOpen, onClose, productId = 'ebook-001', price = impor
             // Ignore error and continue retrying
           }
           if (i < retries - 1) {
-            await new Promise(res => setTimeout(res, 2000));
+            // Wait longer on each retry (2s, 3s, 4s, 5s) to handle slow networks
+            await new Promise(res => setTimeout(res, 2000 + i * 1000));
           }
         }
         return null;

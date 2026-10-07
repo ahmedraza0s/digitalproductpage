@@ -39,24 +39,39 @@ const handleRazorpayWebhook = async (req, res, next) => {
         return res.status(404).send('Order not found');
       }
 
-      const { rawToken, hashedToken } = downloadService.createSecureToken();
-      const expiry = new Date();
-      expiry.setHours(expiry.getHours() + env.TOKEN_EXPIRY_HOURS);
+      // Only generate a token in the webhook if verifyPayment hasn't already set one.
+      // Both paths fire in the normal payment flow; whichever runs second must not
+      // overwrite the token that was already emailed to the customer.
+      const tokenAlreadySet = purchase.accessTokenHash &&
+        purchase.tokenExpiry &&
+        purchase.tokenExpiry > new Date();
 
-      await purchaseService.updatePurchaseToPaid(purchase._id, {
+      let rawToken;
+      const updateData = {
         razorpayPaymentId: paymentId,
         paymentMethod: method,
-        accessTokenHash: hashedToken,
-        tokenExpiry: expiry,
         webhookVerified: true,
         webhookReceivedAt: new Date()
-      });
+      };
+
+      if (!tokenAlreadySet) {
+        const { rawToken: newRawToken, hashedToken } = downloadService.createSecureToken();
+        rawToken = newRawToken;
+        const expiry = new Date();
+        expiry.setHours(expiry.getHours() + env.TOKEN_EXPIRY_HOURS);
+        updateData.accessTokenHash = hashedToken;
+        updateData.tokenExpiry = expiry;
+      }
+
+      await purchaseService.updatePurchaseToPaid(purchase._id, updateData);
 
       // Send to Meta CAPI
       const updatedPurchase = await purchaseService.getPurchaseByOrderId(orderId);
       metaService.sendPurchaseEvent(updatedPurchase);
 
-      if (!purchase.emailSent) {
+      // Only send the email from the webhook if verifyPayment hasn't sent it already,
+      // AND we have a raw token to put in it (i.e. we generated a fresh one above).
+      if (!purchase.emailSent && rawToken) {
         emailService.sendPurchaseEmail(purchase.customerEmail, purchase.productName, rawToken)
           .then(() => {
             // Use findByIdAndUpdate to avoid saving a stale document over the paid record

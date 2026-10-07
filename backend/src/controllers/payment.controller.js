@@ -66,16 +66,33 @@ const verifyPayment = async (req, res, next) => {
     }
 
     if (purchase.paymentStatus === 'paid') {
-      const { rawToken, hashedToken } = downloadService.createSecureToken();
-      const expiry = new Date();
-      expiry.setHours(expiry.getHours() + env.TOKEN_EXPIRY_HOURS);
-      
-      purchase.accessTokenHash = hashedToken;
-      purchase.tokenExpiry = expiry;
-      await purchase.save();
-      
-      const downloadLink = `${env.BASE_URL}/api/download/${rawToken}`;
-      return res.status(200).json({ success: true, referenceId: purchase.razorpayOrderId, downloadLink });
+      // Only generate a new token if none exists or the existing one has expired.
+      // Unconditionally overwriting would invalidate the email link already sent.
+      const tokenIsStillValid = purchase.accessTokenHash &&
+        purchase.tokenExpiry &&
+        purchase.tokenExpiry > new Date();
+
+      if (!tokenIsStillValid) {
+        const { rawToken, hashedToken } = downloadService.createSecureToken();
+        const expiry = new Date();
+        expiry.setHours(expiry.getHours() + env.TOKEN_EXPIRY_HOURS);
+
+        purchase.accessTokenHash = hashedToken;
+        purchase.tokenExpiry = expiry;
+        await purchase.save();
+
+        const downloadLink = `${env.BASE_URL}/api/download/${rawToken}`;
+        return res.status(200).json({ success: true, referenceId: purchase.razorpayOrderId, downloadLink });
+      }
+
+      // Token is still valid — we can't return the raw token (it's never stored).
+      // Tell the frontend payment succeeded; user should use their email link.
+      return res.status(200).json({
+        success: true,
+        referenceId: purchase.razorpayOrderId,
+        downloadLink: null,
+        message: 'Payment verified. Please check your email for the download link.'
+      });
     }
 
     const { rawToken, hashedToken } = downloadService.createSecureToken();
@@ -129,10 +146,6 @@ const checkStatus = async (req, res, next) => {
     }
 
     if (purchase.paymentStatus === 'paid') {
-      const { rawToken, hashedToken } = downloadService.createSecureToken();
-      const expiry = new Date();
-      expiry.setHours(expiry.getHours() + env.TOKEN_EXPIRY_HOURS);
-      
       // Only generate a new token if none exists or the existing one has expired.
       // Overwriting unconditionally would invalidate the email link already sent.
       const tokenIsStillValid = purchase.accessTokenHash && 
@@ -140,22 +153,27 @@ const checkStatus = async (req, res, next) => {
         purchase.tokenExpiry > new Date();
 
       if (!tokenIsStillValid) {
+        // Generate token only when actually needed — avoids wasted crypto on every poll
+        const { rawToken, hashedToken } = downloadService.createSecureToken();
+        const expiry = new Date();
+        expiry.setHours(expiry.getHours() + env.TOKEN_EXPIRY_HOURS);
+
         purchase.accessTokenHash = hashedToken;
         purchase.tokenExpiry = expiry;
         await purchase.save();
-      }
 
-      const activeToken = tokenIsStillValid ? null : rawToken;
-
-      // If token is still valid we can't return it (we don't store raw tokens).
-      // Return a fresh one only when we actually generated one above.
-      if (activeToken) {
-        const downloadLink = `${env.BASE_URL}/api/download/${activeToken}`;
+        const downloadLink = `${env.BASE_URL}/api/download/${rawToken}`;
         return res.status(200).json({ status: 'paid', success: true, downloadLink });
       }
 
-      // Token exists but is valid — tell frontend it's paid; user can use the email link.
-      return res.status(200).json({ status: 'paid', success: true, downloadLink: null });
+      // Token exists and is valid — we can't return the raw token (never stored).
+      // Tell frontend it's paid; user should check their email.
+      return res.status(200).json({
+        status: 'paid',
+        success: true,
+        downloadLink: null,
+        message: 'Your purchase is confirmed. Please check your email for the download link.'
+      });
     }
 
     res.status(200).json({ status: purchase.paymentStatus, success: false });

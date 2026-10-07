@@ -214,6 +214,19 @@ const generateLink = async (req, res, next) => {
       return res.status(400).json({ error: 'Purchase not paid' });
     }
 
+    // Warn admin if overwriting a still-valid token (the old link will break).
+    // Always allow the admin to force-regenerate by passing ?force=true.
+    const tokenIsStillValid = purchase.accessTokenHash &&
+      purchase.tokenExpiry &&
+      purchase.tokenExpiry > new Date();
+
+    if (tokenIsStillValid && req.query.force !== 'true') {
+      return res.status(409).json({
+        error: 'An active download link already exists for this purchase. Generating a new one will invalidate the current link. Add ?force=true to override.',
+        tokenExpiry: purchase.tokenExpiry
+      });
+    }
+
     const { rawToken, hashedToken } = downloadService.createSecureToken();
     const expiry = new Date();
     expiry.setHours(expiry.getHours() + env.TOKEN_EXPIRY_HOURS);
