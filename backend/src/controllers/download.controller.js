@@ -27,6 +27,8 @@ const downloadEbook = async (req, res, next) => {
       return res.status(410).json({ error: 'Download link expired' });
     }
 
+    // Pre-check: use current count to block abusers opening parallel requests.
+    // The actual increment only happens after the stream finishes successfully.
     if (purchase.downloadCount >= env.MAX_DOWNLOADS_PER_PURCHASE) {
       return res.status(429).json({ error: 'Download limit exceeded for this purchase' });
     }
@@ -42,15 +44,20 @@ const downloadEbook = async (req, res, next) => {
       return res.status(404).json({ error: 'File not found on server' });
     }
 
-    purchase.downloadCount += 1;
-    purchase.lastDownloadAt = new Date();
-    await purchase.save();
-
     // Force download on all devices (including iOS Safari) instead of opening inline
     res.setHeader('Content-Type', 'application/octet-stream');
     res.setHeader('Content-Disposition', `attachment; filename="${purchase.productName.replace(/[^a-zA-Z0-9]/g, '_')}.pdf"`);
     
     const fileStream = fs.createReadStream(absolutePath);
+
+    // Only count the download after the stream completes successfully.
+    // This prevents burning a count for broken connections or mid-transfer errors.
+    res.on('finish', () => {
+      Purchase.findByIdAndUpdate(purchase._id, {
+        $inc: { downloadCount: 1 },
+        $set: { lastDownloadAt: new Date() }
+      }).catch(err => logger.error('Failed to update download count:', err));
+    });
 
     // Handle broken pipe (user closes browser mid-download) gracefully
     fileStream.on('error', (streamErr) => {
